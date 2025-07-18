@@ -8,1223 +8,734 @@ export function Day1Session1Content() {
       <div className="prose prose-slate dark:prose-invert max-w-none">
         <div className="mb-8">
           <h1 className="text-3xl font-bold mb-4">
-            React Introduction - Session 1
+            React Native Introduction - Session 1
           </h1>
 
           <div className="bg-blue-50 dark:bg-blue-950 p-6 rounded-lg border border-blue-200 dark:border-blue-800 mb-8">
             <h3 className="text-blue-800 dark:text-blue-200 font-semibold mb-4 mt-0">
-              📅 Session Overview
+              📱 Session Overview
             </h3>
             <ul className="text-blue-700 dark:text-blue-300 space-y-2 mb-0">
               <li>
-                <strong>What is React?</strong> - Understanding the library and
-                its purpose
+                <strong>What is React Native?</strong> - Build real mobile apps using React
               </li>
               <li>
-                <strong>Virtual DOM</strong> - How React makes applications fast
+                <strong>Expo vs React Native CLI</strong> - Choose the right development approach
               </li>
               <li>
-                <strong>Development Setup</strong> - Getting your environment
-                ready with Vite
+                <strong>Development Setup</strong> - Install Node.js, VS Code, and Expo CLI
               </li>
               <li>
-                <strong>JSX Fundamentals</strong> - Writing HTML-like syntax in
-                JavaScript
+                <strong>Create Your First Project</strong> - Using npx create-expo-app
               </li>
               <li>
-                <strong>Your First Component</strong> - Creating reusable UI
-                pieces
+                <strong>Run on Real Device</strong> - Testing with Expo Go app
               </li>
               <li>
-                <strong>Wrap-up & Next Steps</strong> - Preparing for your React
-                journey
+                <strong>Your First Mobile App</strong> - See React Native in action
               </li>
             </ul>
           </div>
         </div>
 
-        <h2>1. What is React?</h2>
+        <h2>1. What is React Native?</h2>
 
-        <h3>The Problem React Solves</h3>
+        <h3>From Web to Mobile</h3>
         <p>
-          Before React, building interactive web applications meant writing lots
-          of complex code to manually update the webpage when data changed.
-          Imagine updating a shopping cart: you&apos;d need to find specific elements
-          in the HTML, change their content, handle edge cases, and ensure
-          everything stayed in sync. This quickly became a maintenance
-          nightmare.
+          React Native is like taking everything you love about React and bringing it to mobile app development. 
+          Instead of building websites, you're building real mobile apps that can be published to the App Store and Google Play.
         </p>
 
-        <div className="my-6 p-4 bg-red-50 dark:bg-red-950 rounded-lg border border-red-200 dark:border-red-800">
-          <h4 className="text-red-800 dark:text-red-200 font-semibold mb-3 mt-0">
-            ❌ Traditional JavaScript (Before React):
+        <div className="my-6 p-4 bg-blue-50 dark:bg-blue-950 rounded-lg border border-blue-200 dark:border-blue-800">
+          <h4 className="text-blue-800 dark:text-blue-200 font-semibold mb-2 mt-0">
+            🏠 Think of it like building houses:
           </h4>
-          <div className="text-red-700 dark:text-red-300 text-sm space-y-1">
-            <p>When user adds item to cart:</p>
-            <ol className="list-decimal list-inside space-y-1 mb-0">
-              <li>Find cart element in DOM</li>
-              <li>Update cart count manually</li>
-              <li>Update total price manually</li>
-              <li>Show/hide empty cart message</li>
-              <li>Update cart icon badge</li>
-              <li>Remember to update all related UI</li>
-            </ol>
-            <p className="font-semibold mt-2">
-              Lots of manual work and easy to break!
-            </p>
-          </div>
-        </div>
-
-        <div className="my-6 p-4 bg-green-50 dark:bg-green-950 rounded-lg border border-green-200 dark:border-green-800">
-          <h4 className="text-green-800 dark:text-green-200 font-semibold mb-3 mt-0">
-            ✅ React Approach:
-          </h4>
-          <div className="text-green-700 dark:text-green-300 text-sm space-y-1">
-            <p>When user adds item to cart:</p>
-            <ol className="list-decimal list-inside space-y-1 mb-0">
-              <li>Update the data</li>
-              <li>React automatically updates all UI</li>
-            </ol>
-            <p className="font-semibold mt-2">Simple and reliable! ✨</p>
-          </div>
-        </div>
-
-        <h3>What is React?</h3>
-        <p>
-          React is a JavaScript library for building user interfaces. Created by
-          Facebook in 2013, React introduces a component-based approach where
-          you build your interface from small, reusable pieces called
-          components.
-        </p>
-
-        <div className="my-6 p-4 bg-blue-50 dark:bg-blue-950 rounded-lg border-l-4 border-blue-400">
-          <h4 className="text-blue-800 dark:text-blue-200 font-semibold mb-2 text-sm sm:text-base">
-            🔑 Key Facts:
-          </h4>
-          <ul className="text-blue-700 dark:text-blue-300 text-xs sm:text-sm space-y-1">
+          <ul className="text-blue-700 dark:text-blue-300 text-sm space-y-1 mb-0">
             <li>
-              <strong>Declarative</strong> - You describe what the UI should
-              look like, React handles how to make it happen
+              <strong>React (Web)</strong> - Building websites is like constructing web storefronts
             </li>
             <li>
-              <strong>Component-Based</strong> - Build encapsulated components
-              that manage their own state
+              <strong>React Native</strong> - Building mobile apps is like constructing actual houses people live in
             </li>
             <li>
-              <strong>Learn Once, Write Anywhere</strong> - Use React for web,
-              mobile (React Native), and even desktop apps
+              <strong>Same Skills</strong> - You use the same construction knowledge (React), just different materials
             </li>
           </ul>
         </div>
 
-        <h3>Why React Became Popular</h3>
+        <h3>Real Native Apps, Not Web Apps</h3>
+        <p>
+          React Native doesn't create "websites wrapped in an app." It creates actual native mobile apps 
+          that use the same building blocks as apps written in Swift (iOS) or Kotlin (Android).
+        </p>
 
-        <CodeBlock
-          code={`// ✅ React component - simple and declarative
-function ShoppingCart({ items }) {
-  const total = items.reduce((sum, item) => sum + item.price, 0);
-  
-  return (
-    <div className="cart">
-      <h2>Your Cart ({items.length} items)</h2>
-      {items.length === 0 ? (
-        <p>Your cart is empty</p>
-      ) : (
-        <>
-          {items.map(item => (
-            <div key={item.id}>{item.name} - \${item.price}</div>
-          ))}
-          <div className="total">Total: \${total}</div>
-        </>
-      )}
-    </div>
-  );
-}`}
-          language="jsx"
-          filename="ShoppingCart.jsx"
-          title="React Component"
-        />
-
-        <div className="my-6 p-4 bg-green-50 dark:bg-green-950 rounded-lg border border-green-200 dark:border-green-800">
-          <h4 className="text-green-800 dark:text-green-200 font-semibold mb-3 mt-0">
-            🏆 Why this approach wins:
-          </h4>
-          <ul className="text-green-700 dark:text-green-300 text-sm space-y-1 mb-0">
-            <li>
-              <strong>Predictable</strong> - Same data always produces same UI
-            </li>
-            <li>
-              <strong>Reusable</strong> - ShoppingCart component works anywhere
-              in your app
-            </li>
-            <li>
-              <strong>Maintainable</strong> - Easy to understand and modify
-            </li>
-            <li>
-              <strong>Testable</strong> - Simple to verify component behavior
-            </li>
-          </ul>
+        <div className="grid md:grid-cols-2 gap-4 my-6">
+          <div className="p-4 bg-green-50 dark:bg-green-950 rounded-lg border border-green-200 dark:border-green-800">
+            <h4 className="text-green-800 dark:text-green-200 font-semibold mb-2 mt-0">
+              ✅ React Native Apps:
+            </h4>
+            <ul className="text-green-700 dark:text-green-300 text-sm space-y-1 mb-0">
+              <li>Use real native components</li>
+              <li>Access device camera, GPS, contacts</li>
+              <li>Feel like "real" mobile apps</li>
+              <li>Published to App Store/Google Play</li>
+              <li>Work offline like native apps</li>
+            </ul>
+          </div>
+          <div className="p-4 bg-red-50 dark:bg-red-950 rounded-lg border border-red-200 dark:border-red-800">
+            <h4 className="text-red-800 dark:text-red-200 font-semibold mb-2 mt-0">
+              ❌ Mobile Websites:
+            </h4>
+            <ul className="text-red-700 dark:text-red-300 text-sm space-y-1 mb-0">
+              <li>Run in browser only</li>
+              <li>Limited device access</li>
+              <li>Require internet connection</li>
+              <li>Can't be published to app stores</li>
+              <li>Often feel like websites</li>
+            </ul>
+          </div>
         </div>
 
-        <h3>React in the Real World</h3>
-        <p>Major companies using React:</p>
+        <h3>Apps Built with React Native</h3>
+        <p>You probably use React Native apps every day without knowing it:</p>
         <ul>
           <li>
-            <strong>Facebook/Meta</strong> - Created React and uses it
-            extensively
+            <strong>Facebook & Instagram</strong> - The company that created React Native uses it extensively
           </li>
           <li>
-            <strong>Netflix</strong> - Entire user interface built with React
+            <strong>WhatsApp</strong> - Messaging features built with React Native
           </li>
           <li>
-            <strong>Airbnb</strong> - Web platform and internal tools
+            <strong>Uber Eats</strong> - Food delivery interface you tap every day
           </li>
           <li>
-            <strong>Uber</strong> - Dashboard and rider applications
+            <strong>Discord</strong> - Gaming communication platform
           </li>
           <li>
-            <strong>Instagram</strong> - Web interface (also owned by Meta)
+            <strong>Shopify</strong> - E-commerce management app
           </li>
         </ul>
 
         <div className="my-6 p-4 bg-purple-50 dark:bg-purple-950 rounded-lg border border-purple-200 dark:border-purple-800">
           <h4 className="text-purple-800 dark:text-purple-200 font-semibold mb-3 mt-0">
-            📚 Essential Resources
+            🚀 Why Companies Choose React Native
           </h4>
           <ul className="text-purple-700 dark:text-purple-300 text-sm space-y-1 mb-0">
             <li>
-              <strong>Official Documentation:</strong> https://react.dev
+              <strong>Faster Development</strong> - One codebase for iOS and Android
             </li>
             <li>
-              <strong>Interactive Tutorial:</strong> https://react.dev/learn
+              <strong>Cost Effective</strong> - Don't need separate iOS and Android teams
             </li>
             <li>
-              <strong>React Dev Tools:</strong> Browser extension for debugging
-              React applications
+              <strong>Shared Knowledge</strong> - Web developers can build mobile apps
+            </li>
+            <li>
+              <strong>Live Updates</strong> - Push updates without app store approval
             </li>
           </ul>
-          <p className="text-purple-700 dark:text-purple-300 text-sm mt-2 mb-0">
-            The official docs are exceptionally well-written with interactive
-            examples. Bookmark them - you&apos;ll reference them frequently as you
-            learn.
+        </div>
+
+        <h2>2. Expo vs React Native CLI</h2>
+
+        <h3>Choosing Your Development Path</h3>
+        <p>
+          When starting with React Native, you have two main options. Think of this like choosing 
+          between a fully-equipped kitchen (Expo) vs building your own custom kitchen (React Native CLI).
+        </p>
+
+        <div className="grid md:grid-cols-2 gap-4 my-6">
+          <div className="p-4 bg-blue-50 dark:bg-blue-950 rounded-lg border border-blue-200 dark:border-blue-800">
+            <h4 className="text-blue-800 dark:text-blue-200 font-semibold mb-3 mt-0">
+              🏠 Expo (Recommended for Beginners)
+            </h4>
+            <div className="text-blue-700 dark:text-blue-300 text-sm space-y-2">
+              <p><strong>Like a fully-equipped apartment:</strong></p>
+              <ul className="space-y-1 mb-2">
+                <li>✅ Ready to use immediately</li>
+                <li>✅ No complex setup required</li>
+                <li>✅ Test on real device instantly</li>
+                <li>✅ Easy to publish apps</li>
+                <li>✅ Automatic updates</li>
+              </ul>
+              <p><strong>Perfect for:</strong> Learning, prototypes, most apps</p>
+            </div>
+          </div>
+          <div className="p-4 bg-yellow-50 dark:bg-yellow-950 rounded-lg border border-yellow-200 dark:border-yellow-800">
+            <h4 className="text-yellow-800 dark:text-yellow-200 font-semibold mb-3 mt-0">
+              🔧 React Native CLI (Advanced)
+            </h4>
+            <div className="text-yellow-700 dark:text-yellow-300 text-sm space-y-2">
+              <p><strong>Like building a custom house:</strong></p>
+              <ul className="space-y-1 mb-2">
+                <li>⚠️ Complex setup process</li>
+                <li>⚠️ Need Android Studio/Xcode</li>
+                <li>⚠️ More configuration required</li>
+                <li>✅ Full control over everything</li>
+                <li>✅ Access to all native features</li>
+              </ul>
+              <p><strong>Perfect for:</strong> Complex apps, specific native needs</p>
+            </div>
+          </div>
+        </div>
+
+        <div className="my-6 p-4 bg-green-50 dark:bg-green-950 rounded-lg border border-green-200 dark:border-green-800">
+          <h4 className="text-green-800 dark:text-green-200 font-semibold mb-3 mt-0">
+            🎯 Our Choice: Expo
+          </h4>
+          <p className="text-green-700 dark:text-green-300 text-sm mb-2">
+            We'll use Expo because it's perfect for learning React Native. You can always "eject" 
+            to React Native CLI later if you need advanced features.
+          </p>
+          <p className="text-green-700 dark:text-green-300 text-sm mb-0">
+            <strong>Think of it like learning to drive:</strong> You start with an automatic car (Expo) 
+            before learning manual transmission (React Native CLI).
           </p>
         </div>
 
-        <h2>2. Virtual DOM </h2>
+        <h2>3. Development Setup</h2>
 
-        <h3>Understanding the Problem</h3>
+        <h3>What You'll Need</h3>
         <p>
-          The DOM (Document Object Model) represents your webpage&apos;s structure.
-          When you change something on a webpage, the browser has to:
-        </p>
-        <ol>
-          <li>
-            <strong>Recalculate styles</strong> - Figure out how the change
-            affects appearance
-          </li>
-          <li>
-            <strong>Reflow layout</strong> - Determine if elements need to move
-          </li>
-          <li>
-            <strong>Repaint</strong> - Redraw the affected areas
-          </li>
-        </ol>
-        <p>This process is expensive, especially with frequent updates.</p>
-
-        <div className="grid md:grid-cols-2 gap-4 my-6">
-          <div className="p-4 bg-red-50 dark:bg-red-950 rounded-lg border border-red-200 dark:border-red-800">
-            <h4 className="text-red-800 dark:text-red-200 font-semibold mb-2 mt-0">
-              ❌ Traditional DOM Updates (Slow):
-            </h4>
-            <p className="text-red-700 dark:text-red-300 text-sm mb-0">
-              User clicks button → Update DOM → Browser recalculates everything
-              → Repaint screen
-            </p>
-          </div>
-          <div className="p-4 bg-green-50 dark:bg-green-950 rounded-lg border border-green-200 dark:border-green-800">
-            <h4 className="text-green-800 dark:text-green-200 font-semibold mb-2 mt-0">
-              ✅ React Virtual DOM (Fast):
-            </h4>
-            <p className="text-green-700 dark:text-green-300 text-sm mb-0">
-              User clicks button → Update Virtual DOM → Calculate minimal
-              changes → Update real DOM efficiently
-            </p>
-          </div>
-        </div>
-
-        <h3>What is the Virtual DOM?</h3>
-        <p>
-          The Virtual DOM is a JavaScript representation of the real DOM that
-          React keeps in memory. Think of it as a lightweight &quot;draft&quot; of your
-          webpage that React uses to plan changes efficiently.
+          Setting up React Native with Expo is much simpler than traditional mobile development. 
+          You don't need Android Studio or Xcode to get started!
         </p>
 
-        <CodeBlock
-          code={`// ✅ Virtual DOM is just JavaScript objects
-const virtualElement = {
-  type: 'div',
-  props: {
-    className: 'container',
-    children: [
-      {
-        type: 'h1',
-        props: { children: 'Hello World' }
-      },
-      {
-        type: 'p', 
-        props: { children: 'Welcome to React!' }
-      }
-    ]
-  }
-};`}
-          language="javascript"
-          filename="virtual-dom-example.js"
-          title="Virtual DOM Structure"
-        />
-
-        <h3>How Virtual DOM Works</h3>
-        <div className="my-6 p-4 bg-gray-50 dark:bg-gray-900 rounded-lg border">
-          <h4 className="font-semibold mb-3 mt-0">Virtual DOM Process:</h4>
-          <div className="text-sm font-mono">
-            <div className="mb-2">
-              ┌─────────────┐ ┌─────────────┐ ┌─────────────┐
-            </div>
-            <div className="mb-2">│ State │───▶│ Virtual │───▶│ Real │</div>
-            <div className="mb-2">│ Changes │ │ DOM │ │ DOM │</div>
-            <div className="mb-2">│ │ │ (in memory) │ │ (browser) │</div>
-            <div className="mb-2">
-              └─────────────┘ └─────────────┘ └─────────────┘
-            </div>
-            <div className="mb-2"> │</div>
-            <div className="mb-2"> ┌──────▼──────┐</div>
-            <div className="mb-2"> │ Diffing │ ← React compares old vs new</div>
-            <div className="mb-2"> │ Algorithm │ and finds minimal changes</div>
-            <div> └─────────────┘</div>
-          </div>
-        </div>
-
-        <h3>Real Example: Counter Application</h3>
-
-        <CodeBlock
-          code={`import { useState } from 'react';
-
-function Counter() {
-  const [count, setCount] = useState(0);
-  
-  return (
-    <div className="counter">
-      <h1>Count: {count}</h1>                    {/* This number changes */}
-      <button onClick={() => setCount(count + 1)}>
-        Increment
-      </button>
-      <p>Click the button to increase the count!</p>  {/* This stays the same */}
-    </div>
-  );
-}`}
-          language="jsx"
-          filename="Counter.jsx"
-          title="Virtual DOM Example"
-        />
+        <h4>Step 1: Install Node.js</h4>
+        <p>
+          Node.js is like the engine that powers React Native development. It's the same tool 
+          you'd use for web development.
+        </p>
 
         <div className="my-6 p-4 bg-blue-50 dark:bg-blue-950 rounded-lg border border-blue-200 dark:border-blue-800">
-          <h4 className="text-blue-800 dark:text-blue-200 font-semibold mb-3 mt-0">
-            🔄 What happens when you click the button:
+          <h4 className="text-blue-800 dark:text-blue-200 font-semibold mb-2 mt-0">
+            💻 Installation Steps:
           </h4>
           <ol className="text-blue-700 dark:text-blue-300 text-sm space-y-1 mb-0">
-            <li>
-              <strong>State updates</strong> - count changes from 0 to 1
-            </li>
-            <li>
-              <strong>New Virtual DOM created</strong> - React creates a new
-              virtual representation
-            </li>
-            <li>
-              <strong>Diffing</strong> - React compares old Virtual DOM vs new
-              Virtual DOM
-            </li>
-            <li>
-              <strong>Minimal update</strong> - Only the {`{count}`} text in the
-              &lt;h1&gt; gets updated in the real DOM
-            </li>
-            <li>
-              <strong>Browser repaints</strong> - Only the small text area, not
-              the entire component
-            </li>
+            <li>Visit <strong>nodejs.org</strong></li>
+            <li>Download the <strong>LTS version</strong> (Long Term Support)</li>
+            <li>Run the installer and follow the prompts</li>
+            <li>Restart your computer when finished</li>
           </ol>
         </div>
 
-        <h3>Why This Matters</h3>
-        <p>The Virtual DOM provides several key benefits:</p>
-        <ul>
-          <li>
-            <strong>Performance</strong> - Batching multiple changes and
-            applying them efficiently
-          </li>
-          <li>
-            <strong>Predictability</strong> - Same state always produces the
-            same UI
-          </li>
-          <li>
-            <strong>Developer Experience</strong> - You write simple,
-            declarative code while React handles optimization
-          </li>
-        </ul>
-        <p>
-          You don&apos;t need to think about the Virtual DOM day-to-day, but
-          understanding it helps you appreciate why React feels so smooth and
-          fast compared to manually manipulating the DOM.
-        </p>
+        <h4>Verify Node.js Installation</h4>
+        <p>Open your terminal and check that Node.js installed correctly:</p>
 
-        <h2>3. Development Setup with Vite </h2>
-
-        <h3>Why Vite for React Development?</h3>
-        <p>
-          Vite (pronounced &quot;veet&quot;, French for &quot;fast&quot;) is a modern build tool
-          that has become the preferred choice for React development because:
-        </p>
-        <ul>
-          <li>
-            <strong>Lightning fast startup</strong> - Development server starts
-            in milliseconds
-          </li>
-          <li>
-            <strong>Instant updates</strong> - See changes immediately as you
-            type
-          </li>
-          <li>
-            <strong>Zero configuration</strong> - Works perfectly out of the box
-          </li>
-          <li>
-            <strong>Modern standards</strong> - Built with the latest web
-            technologies
-          </li>
-        </ul>
-
-        <h3>Step-by-Step Setup</h3>
-        <p>
-          Open your terminal and follow along. Don&apos;t worry if you see lots of
-          text scrolling - that&apos;s normal!
-        </p>
-
-        <h4>Step 1: Create Your Code Project</h4>
         <CodeBlock
-          code={`# Create a new React project with Vite
-npm create vite@latest my-first-react-app --template react`}
+          code={`# Check Node.js version (should be 18.x or higher)
+node --version
+
+# Check npm version (comes with Node.js)
+npm --version
+
+# Expected output:
+# v20.10.0
+# 10.2.3`}
           language="bash"
           filename="Terminal"
-          title="Project Creation"
+          title="Verify Installation"
         />
-        <p>
-          <strong>What this command does:</strong>
-        </p>
-        <ul>
-          <li>Downloads the latest Vite</li>
-          <li>Creates a folder called &quot;my-first-react-app&quot;</li>
-          <li>Sets up a complete React development environment</li>
-          <li>Installs all necessary dependencies</li>
-        </ul>
 
-        <h4>Step 2: Navigate to Your Project</h4>
+        <h4>Step 2: Install VS Code (Recommended)</h4>
+        <p>
+          While you can use any code editor, VS Code provides excellent React Native support 
+          with helpful extensions and debugging tools.
+        </p>
+
+        <div className="my-6 p-4 bg-green-50 dark:bg-green-950 rounded-lg border border-green-200 dark:border-green-800">
+          <h4 className="text-green-800 dark:text-green-200 font-semibold mb-2 mt-0">
+            📥 VS Code Setup:
+          </h4>
+          <ol className="text-green-700 dark:text-green-300 text-sm space-y-1 mb-0">
+            <li>Download from <strong>code.visualstudio.com</strong></li>
+            <li>Install the application</li>
+            <li>Open VS Code and install recommended extensions</li>
+          </ol>
+        </div>
+
+        <h4>Essential VS Code Extensions</h4>
+        <p>These extensions will make your React Native development much more enjoyable:</p>
+
         <CodeBlock
-          code={`# Move into your new project folder
-cd my-first-react-app`}
+          code={`// Essential Extensions (install from VS Code marketplace):
+
+1. "React Native Tools" by Microsoft
+   - Debugging and IntelliSense for React Native
+
+2. "ES7+ React/Redux/React-Native snippets" by dsznajder  
+   - Quick code snippets and shortcuts
+
+3. "Prettier - Code formatter" by Prettier
+   - Automatic code formatting
+
+4. "Auto Rename Tag" by Jun Han
+   - Automatically rename paired JSX tags
+
+5. "Bracket Pair Colorizer 2" by CoenraadS
+   - Color-coded matching brackets`}
+          language="javascript"
+          filename="VS Code Extensions"
+          title="Recommended Extensions"
+        />
+
+        <h4>Step 3: Install Expo CLI</h4>
+        <p>
+          Expo CLI is the command-line tool that helps you create, build, and manage 
+          React Native projects. Think of it as your mobile app development assistant.
+        </p>
+
+        <CodeBlock
+          code={`# Install Expo CLI globally (accessible from anywhere)
+npm install -g @expo/cli
+
+# Verify installation
+expo --version
+
+# Expected output: 
+# 49.0.0 (or similar)`}
           language="bash"
           filename="Terminal"
-          title="Navigation"
+          title="Install Expo CLI"
         />
 
-        <h4>Step 3: Install Dependencies</h4>
+        <div className="my-6 p-4 bg-yellow-50 dark:bg-yellow-950 rounded-lg border border-yellow-200 dark:border-yellow-800">
+          <h4 className="text-yellow-800 dark:text-yellow-200 font-semibold mb-2 mt-0">
+            🔐 If you see permission errors:
+          </h4>
+          <div className="text-yellow-700 dark:text-yellow-300 text-sm space-y-1 mb-0">
+            <p><strong>On Mac/Linux:</strong> Use <code>sudo npm install -g @expo/cli</code></p>
+            <p><strong>On Windows:</strong> Run Command Prompt as Administrator</p>
+          </div>
+        </div>
+
+        <h2>4. Create Your First Project</h2>
+
+        <h3>Creating a React Native App</h3>
+        <p>
+          Now for the exciting part! Let's create your first React Native app. 
+          This is like getting the keys to your first apartment - everything you need is ready to go.
+        </p>
+
+        <h4>Step 1: Create Project Directory</h4>
+        <p>First, let's create a workspace for your React Native projects:</p>
+
         <CodeBlock
-          code={`# Download all required packages (this takes 30-60 seconds)
-npm install`}
+          code={`# Create a folder for your React Native projects
+mkdir ReactNativeProjects
+cd ReactNativeProjects
+
+# You're now in your projects folder`}
           language="bash"
           filename="Terminal"
-          title="Installation"
-        />
-        <p>You&apos;ll see output like:</p>
-        <CodeBlock
-          code={`added 200 packages, and audited 201 packages in 45s
-
-found 0 vulnerabilities`}
-          language="bash"
-          filename="Terminal Output"
-          title="Success Message"
+          title="Setup Workspace"
         />
 
-        <h4>Step 4: Start Development Server</h4>
+        <h4>Step 2: Create Your First App</h4>
+        <p>
+          The <code>create-expo-app</code> command creates a complete React Native project 
+          with everything configured and ready to run. We'll use the "blank" template 
+          which gives us a clean starting point perfect for learning.
+        </p>
+
         <CodeBlock
-          code={`# Start the development server
-npm run dev`}
+          code={`# Create a new React Native app with blank template
+npx create-expo-app@latest MyFirstApp --template blank
+
+# This will:
+# - Download the latest Expo CLI and blank template
+# - Install all dependencies 
+# - Set up a clean project structure
+# - Create minimal example files (perfect for learning)`}
           language="bash"
           filename="Terminal"
-          title="Start Server"
+          title="Create App"
         />
-        <p>
-          <strong>Success!</strong> You should see:
-        </p>
+
+        <div className="my-6 p-4 bg-green-50 dark:bg-green-950 rounded-lg border border-green-200 dark:border-green-800">
+          <h4 className="text-green-800 dark:text-green-200 font-semibold mb-3 mt-0">
+            🎯 Why the "blank" template?
+          </h4>
+          <div className="text-green-700 dark:text-green-300 text-sm space-y-2">
+            <p><strong>Perfect for learning because it:</strong></p>
+            <ul className="space-y-1 mb-2">
+              <li>✅ Uses JavaScript (not TypeScript) - easier for beginners</li>
+              <li>✅ Minimal setup - less overwhelming</li>
+              <li>✅ Clean starting point - you understand every line</li>
+              <li>✅ No extra dependencies - faster to set up</li>
+            </ul>
+            <p><strong>Alternative templates:</strong> default (more features), TypeScript (advanced)</p>
+          </div>
+        </div>
+
+        <div className="my-6 p-4 bg-blue-50 dark:bg-blue-950 rounded-lg border border-blue-200 dark:border-blue-800">
+          <h4 className="text-blue-800 dark:text-blue-200 font-semibold mb-2 mt-0">
+            ⏳ What happens during creation:
+          </h4>
+          <ol className="text-blue-700 dark:text-blue-300 text-sm space-y-1 mb-0">
+            <li>Downloads latest Expo CLI and blank template (30-60 seconds)</li>
+            <li>Installs npm packages (1-2 minutes)</li>
+            <li>Sets up minimal project configuration</li>
+            <li>Creates clean example files</li>
+            <li>Prepares development environment</li>
+          </ol>
+        </div>
+
+        <h4>Step 3: Explore Your Project</h4>
+        <p>Let's look at what was created:</p>
+
         <CodeBlock
-          code={`✅ Local:   http://localhost:5173/
-✅ Network: use --host to expose`}
+          code={`# Navigate into your new app
+cd MyFirstApp
+
+# Look at the project structure
+ls -la
+
+# Open in VS Code
+code .`}
           language="bash"
-          filename="Terminal Output"
-          title="Server Running"
+          filename="Terminal"
+          title="Explore Project"
         />
-        <p>
-          Open <code>http://localhost:5173/</code> in your browser - you&apos;ll see
-          your first React app running!
-        </p>
 
         <h3>Understanding Your Project Structure</h3>
-        <p>Your new project contains several important files:</p>
+        <p>Your new React Native app contains several important files and folders:</p>
 
         <CodeBlock
-          code={`my-first-react-app/
-├── public/                  📁 Static files served directly
-│   └── vite.svg            🖼️ Vite logo
-├── src/                    📁 Your React source code
-│   ├── App.css            🎨 Styles for App component
-│   ├── App.jsx            ⚛️ Main App component (start here!)
-│   ├── index.css          🎨 Global styles
-│   └── main.jsx           🚀 Entry point (connects React to browser)
-├── index.html             📄 HTML page that loads your React app
-├── package.json           📋 Project configuration
-└── vite.config.js         ⚙️ Vite settings`}
+          code={`MyFirstApp/
+├── App.js                    📱 Main app component (start here!)
+├── app.json                  ⚙️ App configuration (name, version, etc.)
+├── package.json              📋 Dependencies and scripts
+├── babel.config.js           🔧 JavaScript compiler settings
+├── .expo/                    📁 Expo-specific files (auto-generated)
+├── assets/                   📁 Images, fonts, and other static files
+│   ├── favicon.png          🖼️ App icon for web
+│   ├── icon.png             📱 App icon for mobile
+│   └── splash.png           🎨 Loading screen image
+└── node_modules/            📁 Installed packages (don't touch!)`}
           language="bash"
           filename="Project Structure"
           title="File Organization"
         />
 
-        <div className="my-6 p-4 bg-yellow-50 dark:bg-yellow-950 rounded-lg border border-yellow-200 dark:border-yellow-800">
-          <h4 className="text-yellow-800 dark:text-yellow-200 font-semibold mb-2 mt-0">
-            📁 Files you&apos;ll work with most:
+        <div className="my-6 p-4 bg-green-50 dark:bg-green-950 rounded-lg border border-green-200 dark:border-green-800">
+          <h4 className="text-green-800 dark:text-green-200 font-semibold mb-2 mt-0">
+            📁 Files you'll work with most:
           </h4>
-          <ul className="text-yellow-700 dark:text-yellow-300 text-sm space-y-1 mb-0">
+          <ul className="text-green-700 dark:text-green-300 text-sm space-y-1 mb-0">
             <li>
-              <strong>src/App.jsx</strong> - Your main React component
+              <strong>App.js</strong> - Your main React Native component
             </li>
             <li>
-              <strong>src/App.css</strong> - Styles for your app
+              <strong>assets/</strong> - Images and icons for your app
             </li>
             <li>
-              <strong>src/index.css</strong> - Global styles
+              <strong>app.json</strong> - App settings like name and version
             </li>
           </ul>
         </div>
 
-        <h3>Exploring the Default App</h3>
-        <p>Let&apos;s examine the App.jsx file that Vite created:</p>
+        <h3>Your First Look at App.js</h3>
+        <p>Let's examine the main file that the blank template created for you:</p>
 
         <CodeBlock
-          code={`// ✅ Default App.jsx - let's understand each part
-import { useState } from 'react'          // Import React's state feature
-import reactLogo from './assets/react.svg' // Import React logo
-import viteLogo from '/vite.svg'          // Import Vite logo
-import './App.css'                        // Import component styles
+          code={`import { StatusBar } from 'expo-status-bar';
+import { StyleSheet, Text, View } from 'react-native';
 
-function App() {
-  // Create a counter that starts at 0
-  const [count, setCount] = useState(0)
-  
+export default function App() {
   return (
-    <>
-      {/* Logo section */}
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo || "/placeholder.svg"} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo || "/placeholder.svg"} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      
-      {/* Main heading */}
-      <h1>Vite + React</h1>
-      
-      {/* Interactive counter */}
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      
-      {/* Instructions */}
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
-
-export default App  // Make this component available to other files`}
-          language="jsx"
-          filename="App.jsx"
-          title="Default Vite App"
-        />
-
-        <h3>Your First Modification</h3>
-        <p>Let&apos;s make a simple change to see how React development works:</p>
-        <ol>
-          <li>
-            Find this line in App.jsx:{" "}
-            <code>&lt;h1&gt;Vite + React&lt;/h1&gt;</code>
-          </li>
-          <li>
-            Change it to:{" "}
-            <code>&lt;h1&gt;My First React App! 🎉&lt;/h1&gt;</code>
-          </li>
-          <li>Save the file and watch your browser automatically update!</li>
-        </ol>
-        <p>
-          This instant feedback is called &quot;Hot Module Replacement&quot; (HMR) and
-          makes React development incredibly enjoyable.
-        </p>
-
-        <div className="my-6 p-4 bg-green-50 dark:bg-green-950 rounded-lg border border-green-200 dark:border-green-800">
-          <h4 className="text-green-800 dark:text-green-200 font-semibold mb-3 mt-0">
-            🔄 Development Workflow
-          </h4>
-          <p className="text-green-700 dark:text-green-300 text-sm mb-2">
-            Your typical React development workflow:
-          </p>
-          <ol className="text-green-700 dark:text-green-300 text-sm space-y-1 mb-0">
-            <li>
-              <strong>Keep the dev server running</strong> -{" "}
-              <code>npm run dev</code> in your terminal
-            </li>
-            <li>
-              <strong>Edit files in src/ folder</strong> - Make changes to your
-              React components
-            </li>
-            <li>
-              <strong>Save files</strong> - Browser updates automatically
-            </li>
-            <li>
-              <strong>Check browser console</strong> - Look for any error
-              messages
-            </li>
-            <li>
-              <strong>Repeat</strong> - Continue building your application
-            </li>
-          </ol>
-          <p className="text-green-700 dark:text-green-300 text-sm mt-2 mb-0">
-            <strong>Pro Tip:</strong> Keep your browser&apos;s Developer Tools open
-            (F12) to see helpful error messages and debug information.
-          </p>
-        </div>
-
-        <h2>4. JSX Fundamentals </h2>
-
-        <h3>What Makes JSX Special?</h3>
-        <p>
-          JSX (JavaScript XML) allows you to write HTML-like syntax directly in
-          your JavaScript files. It&apos;s one of React&apos;s most distinctive features
-          and makes building user interfaces much more intuitive.
-        </p>
-
-        <CodeBlock
-          code={`// ✅ JSX - looks like HTML, but it's actually JavaScript
-const element = <h1>Hello, World!</h1>;
-
-// ❌ Without JSX - much more verbose
-const element = React.createElement('h1', null, 'Hello, World!');`}
-          language="jsx"
-          filename="jsx-comparison.jsx"
-          title="JSX vs Plain JavaScript"
-        />
-
-        <p>
-          <strong>Key insight:</strong> JSX is not HTML. It&apos;s a syntax extension
-          that gets transformed into regular JavaScript function calls.
-        </p>
-
-        <h3>JSX Transformation</h3>
-        <p>Behind the scenes, your JSX gets converted to JavaScript:</p>
-
-        <CodeBlock
-          code={`// ✅ What you write (JSX):
-const greeting = (
-  <div className="welcome">
-    <h1>Welcome!</h1>
-    <p>Let's learn React together.</p>
-  </div>
-);
-
-// ✅ What JavaScript sees (after transformation):
-const greeting = React.createElement(
-  'div',
-  { className: 'welcome' },
-  React.createElement('h1', null, 'Welcome!'),
-  React.createElement('p', null, "Let's learn React together.")
-);`}
-          language="jsx"
-          filename="jsx-transformation.jsx"
-          title="JSX Transformation"
-        />
-
-        <h3>The Three Essential JSX Rules</h3>
-        <p>
-          Learning JSX successfully means mastering these three rules. Your code
-          editor will help you follow them, but understanding why they exist
-          will make you a better React developer.
-        </p>
-
-        <h4>Rule 1: Return a Single Root Element</h4>
-        <p>
-          <strong>The Rule:</strong> Your JSX must have exactly one parent
-          element wrapping everything else.
-        </p>
-
-        <CodeBlock
-          code={`// ❌ This won't work:
-function BrokenComponent() {
-  return (
-    <h1>Title</h1>
-    <p>Paragraph</p>  // Error! Multiple root elements
+    <View style={styles.container}>
+      <Text>Open up App.js to start working on your app!</Text>
+      <StatusBar style="auto" />
+    </View>
   );
 }
 
-// ✅ This works - using a div wrapper:
-function WorkingComponent() {
-  return (
-    <div>  {/* Single root element */}
-      <h1>Title</h1>
-      <p>Paragraph</p>
-    </div>
-  );
-}
-
-// ✅ This also works - using React Fragment:
-function BetterComponent() {
-  return (
-    <>  {/* Fragment - no extra HTML element */}
-      <h1>Title</h1>
-      <p>Paragraph</p>
-    </>
-  );
-}`}
-          language="jsx"
-          filename="jsx-rule-1.jsx"
-          title="Single Root Element"
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+});`}
+          language="javascript"
+          filename="App.js"
+          title="Blank Template App.js"
         />
 
         <div className="my-6 p-4 bg-blue-50 dark:bg-blue-950 rounded-lg border border-blue-200 dark:border-blue-800">
           <h4 className="text-blue-800 dark:text-blue-200 font-semibold mb-2 mt-0">
-            💡 When to use each approach:
+            🔍 Key differences from React web:
           </h4>
           <ul className="text-blue-700 dark:text-blue-300 text-sm space-y-1 mb-0">
             <li>
-              Use <code>&lt;div&gt;</code> when you need a container for styling
-              or structure
+              <code>import from 'react-native'</code> instead of React DOM
             </li>
             <li>
-              Use <code>&lt;&gt;</code> (Fragment) when you don&apos;t want extra
-              HTML in your output
+              <code>&lt;View&gt;</code> instead of <code>&lt;div&gt;</code>
+            </li>
+            <li>
+              <code>&lt;Text&gt;</code> instead of <code>&lt;p&gt;</code> or <code>&lt;span&gt;</code>
+            </li>
+            <li>
+              <code>StyleSheet.create()</code> for styling instead of CSS
             </li>
           </ul>
         </div>
 
-        <h4>Rule 2: Close All Tags</h4>
+        <h2>5. Running with Expo Go</h2>
+
+        <h3>The Magic of Expo Go</h3>
         <p>
-          <strong>The Rule:</strong> Every tag must be explicitly closed, even
-          ones that are self-closing in HTML.
+          Expo Go is like having a universal remote control for React Native apps. 
+          Instead of installing each app you're developing, you scan a QR code and your app 
+          appears instantly on your phone.
+        </p>
+
+        <h4>Step 1: Install Expo Go on Your Phone</h4>
+        <div className="grid md:grid-cols-2 gap-4 my-6">
+          <div className="p-4 bg-green-50 dark:bg-green-950 rounded-lg border border-green-200 dark:border-green-800">
+            <h5 className="text-green-800 dark:text-green-200 font-semibold mb-2 mt-0">
+              📱 iPhone Users:
+            </h5>
+            <ol className="text-green-700 dark:text-green-300 text-sm space-y-1 mb-0">
+              <li>Open the App Store</li>
+              <li>Search for "Expo Go"</li>
+              <li>Install the free app</li>
+              <li>Open Expo Go when ready to test</li>
+            </ol>
+          </div>
+          <div className="p-4 bg-blue-50 dark:bg-blue-950 rounded-lg border border-blue-200 dark:border-blue-800">
+            <h5 className="text-blue-800 dark:text-blue-200 font-semibold mb-2 mt-0">
+              🤖 Android Users:
+            </h5>
+            <ol className="text-blue-700 dark:text-blue-300 text-sm space-y-1 mb-0">
+              <li>Open Google Play Store</li>
+              <li>Search for "Expo Go"</li>
+              <li>Install the free app</li>
+              <li>Open Expo Go when ready to test</li>
+            </ol>
+          </div>
+        </div>
+
+        <h4>Step 2: Start Your Development Server</h4>
+        <p>
+          Now let's bring your app to life! Make sure you're in your project directory 
+          and run the development server:
         </p>
 
         <CodeBlock
-          code={`// ❌ HTML style (doesn't work in JSX):
-function BrokenTags() {
-  return (
-    <div>
-      <img src="photo.jpg" alt="Photo">     {/* Missing closing slash */}
-      <input type="text">                   {/* Missing closing slash */}
-      <br>                                  {/* Missing closing slash */}
-    </div>
-  );
-}
+          code={`# Make sure you're in your project folder
+cd MyFirstApp
 
-// ✅ JSX style (properly closed):
-function ProperTags() {
-  return (
-    <div>
-      <img src="photo.jpg" alt="Photo" />  {/* Self-closing with slash */}
-      <input type="text" />                {/* Self-closing with slash */}
-      <br />                               {/* Self-closing with slash */}
-    </div>
-  );
-}`}
-          language="jsx"
-          filename="jsx-rule-2.jsx"
-          title="Close All Tags"
-        />
+# Start the Expo development server
+npx expo start
 
-        <p>
-          <strong>Memory trick:</strong> If a tag doesn&apos;t have content inside
-          it, end it with <code>/&gt;</code>. If it has content, use opening and
-          closing tags like <code>&lt;div&gt;content&lt;/div&gt;</code>.
-        </p>
-
-        <h4>Rule 3: Use camelCase for Attributes</h4>
-        <p>
-          <strong>The Rule:</strong> HTML attributes in JSX must use camelCase
-          naming, and some have different names entirely.
-        </p>
-
-        <CodeBlock
-          code={`// ❌ HTML style (doesn't work in JSX):
-function HTMLStyle() {
-  return (
-    <div>
-      <label for="email">Email:</label>                    {/* Should be htmlFor */}
-      <input 
-        type="email"
-        class="input-field"                               {/* Should be className */}
-        onclick="handleClick()"                           {/* Should be onClick */}
-      />
-    </div>
-  );
-}
-
-// ✅ JSX style (camelCase attributes):
-function JSXStyle() {
-  const handleClick = () => alert('Clicked!');
-  
-  return (
-    <div>
-      <label htmlFor="email">Email:</label>              {/* htmlFor instead of for */}
-      <input 
-        type="email"
-        className="input-field"                          {/* className instead of class */}
-        onClick={handleClick}                            {/* onClick instead of onclick */}
-      />
-    </div>
-  );
-}`}
-          language="jsx"
-          filename="jsx-rule-3.jsx"
-          title="camelCase Attributes"
+# Alternative: use the shortcut
+npm start`}
+          language="bash"
+          filename="Terminal"
+          title="Start Development Server"
         />
 
         <div className="my-6 p-4 bg-yellow-50 dark:bg-yellow-950 rounded-lg border border-yellow-200 dark:border-yellow-800">
           <h4 className="text-yellow-800 dark:text-yellow-200 font-semibold mb-2 mt-0">
-            🔄 Common attribute transformations:
+            🎯 What you'll see:
           </h4>
-          <div className="text-yellow-700 dark:text-yellow-300 text-sm font-mono space-y-1 mb-0">
-            <div>class=&quot;my-class&quot; → className=&quot;my-class&quot;</div>
-            <div>for=&quot;input-id&quot; → htmlFor=&quot;input-id&quot;</div>
-            <div>onclick=&quot;fn()&quot; → onClick=&#123;fn&#125;</div>
-            <div>onchange=&quot;fn()&quot; → onChange=&#123;fn&#125;</div>
-            <div>tabindex=&quot;1&quot; → tabIndex=&#123;1&#125;</div>
-            <div>readonly → readOnly</div>
-            <div>maxlength=&quot;100&quot; → maxLength=&#123;100&#125;</div>
+          <div className="text-yellow-700 dark:text-yellow-300 text-sm space-y-1 mb-0">
+            <p>A QR code will appear in your terminal and a web page will open with:</p>
+            <ul className="mt-2 space-y-1">
+              <li>✅ QR code for mobile testing</li>
+              <li>✅ Development tools and options</li>
+              <li>✅ Real-time logs and updates</li>
+            </ul>
           </div>
         </div>
 
-        <h3>Embedding JavaScript in JSX</h3>
+        <h4>Step 3: Connect Your Phone</h4>
         <p>
-          One of JSX&apos;s most powerful features is the ability to embed JavaScript
-          expressions using curly braces <code>{`{}`}</code>:
+          This is the magic moment! You'll see your React Native app running on your 
+          actual phone within seconds.
         </p>
 
-        <CodeBlock
-          code={`function DynamicContent() {
-  const userName = "Sarah";
-  const currentTime = new Date().toLocaleTimeString();
-  const isLoggedIn = true;
-  
-  return (
-    <div className="dashboard">
-      {/* ✅ Display variables */}
-      <h1>Welcome, {userName}!</h1>
-      <p>Current time: {currentTime}</p>
-      
-      {/* ✅ Conditional rendering */}
-      {isLoggedIn ? (
-        <p>You are logged in ✅</p>
-      ) : (
-        <p>Please log in ❌</p>
-      )}
-      
-      {/* ✅ Dynamic styling */}
-      <div style={{
-        backgroundColor: isLoggedIn ? 'lightgreen' : 'lightcoral',
-        padding: '10px',
-        borderRadius: '5px'
-      }}>
-        Status: {isLoggedIn ? 'Active' : 'Inactive'}
-      </div>
-      
-      {/* ✅ Function calls */}
-      <p>Uppercase name: {userName.toUpperCase()}</p>
-    </div>
-  );
-}`}
-          language="jsx"
-          filename="dynamic-content.jsx"
-          title="JavaScript in JSX"
-        />
+        <div className="grid md:grid-cols-2 gap-4 my-6">
+          <div className="p-4 bg-green-50 dark:bg-green-950 rounded-lg border border-green-200 dark:border-green-800">
+            <h5 className="text-green-800 dark:text-green-200 font-semibold mb-2 mt-0">
+              📱 iPhone Connection:
+            </h5>
+            <ol className="text-green-700 dark:text-green-300 text-sm space-y-1 mb-0">
+              <li>Open Camera app</li>
+              <li>Point at QR code on your computer</li>
+              <li>Tap the notification to open in Expo Go</li>
+              <li>Wait for app to load (10-30 seconds)</li>
+            </ol>
+          </div>
+          <div className="p-4 bg-blue-50 dark:bg-blue-950 rounded-lg border border-blue-200 dark:border-blue-800">
+            <h5 className="text-blue-800 dark:text-blue-200 font-semibold mb-2 mt-0">
+              🤖 Android Connection:
+            </h5>
+            <ol className="text-blue-700 dark:text-blue-300 text-sm space-y-1 mb-0">
+              <li>Open Expo Go app</li>
+              <li>Tap "Scan QR Code"</li>
+              <li>Point camera at QR code</li>
+              <li>Wait for app to load (10-30 seconds)</li>
+            </ol>
+          </div>
+        </div>
 
-        <h3>Practice Exercise: Converting HTML to JSX</h3>
+        <h4>Your First Success! 🎉</h4>
         <p>
-          Let&apos;s practice with a real example. Here&apos;s some HTML for a user
-          profile card:
+          If everything worked correctly, you should see a simple white screen with text 
+          saying "Open up App.js to start working on your app!" on your phone.
         </p>
-
-        <CodeBlock
-          code={`<div class="profile-card">
-  <img src="avatar.jpg" alt="User Avatar" class="avatar">
-  <h2>John Doe</h2>
-  <p class="title">Frontend Developer</p>
-  <div class="contact">
-    <a href="mailto:john@example.com">Email</a>
-    <a href="tel:+1234567890">Phone</a>
-  </div>
-  <button onclick="followUser()" class="follow-btn">Follow</button>
-</div>`}
-          language="html"
-          filename="profile-card.html"
-          title="HTML to Convert"
-        />
-
-        <p>
-          <strong>✅ JSX conversion:</strong>
-        </p>
-
-        <CodeBlock
-          code={`function ProfileCard() {
-  const followUser = () => {
-    alert('Following user!');
-  };
-  
-  return (
-    <div className="profile-card">           {/* class → className */}
-      <img 
-        src="avatar.jpg"
-        alt="User Avatar"
-        className="avatar"                   {/* class → className, self-closing */}
-      />
-      <h2>John Doe</h2>
-      <p className="title">Frontend Developer</p>  {/* class → className */}
-      <div className="contact">              {/* class → className */}
-        <a href="mailto:john@example.com">Email</a>
-        <a href="tel:+1234567890">Phone</a>
-      </div>
-      <button 
-        onClick={followUser}                 {/* onclick → onClick, function reference */}
-        className="follow-btn"               {/* class → className */}
-      >
-        Follow
-      </button>
-    </div>
-  );
-}`}
-          language="jsx"
-          filename="ProfileCard.jsx"
-          title="JSX Conversion"
-        />
 
         <div className="my-6 p-4 bg-green-50 dark:bg-green-950 rounded-lg border border-green-200 dark:border-green-800">
-          <h4 className="text-green-800 dark:text-green-200 font-semibold mb-2 mt-0">
-            🔍 Key changes made:
+          <h4 className="text-green-800 dark:text-green-200 font-semibold mb-3 mt-0">
+            🎊 Congratulations! You've just:
           </h4>
           <ul className="text-green-700 dark:text-green-300 text-sm space-y-1 mb-0">
-            <li>
-              <code>class</code> became <code>className</code> (4 places)
-            </li>
-            <li>
-              <code>&lt;img&gt;</code> became self-closing{" "}
-              <code>&lt;img /&gt;</code>
-            </li>
-            <li>
-              <code>onclick=&quot;followUser()&quot;</code> became{" "}
-              <code>onClick=&#123;followUser&#125;</code>
-            </li>
-            <li>Function is defined inside the component</li>
-            <li>
-              Everything wrapped in a single root <code>&lt;div&gt;</code>
-            </li>
+            <li>✅ Set up React Native development environment</li>
+            <li>✅ Created your first React Native project</li>
+            <li>✅ Connected your phone for live testing</li>
+            <li>✅ Seen React Native code running on a real device</li>
           </ul>
         </div>
 
-        <h2>5. Your First Component </h2>
-
-        <h3>What is a React Component?</h3>
+        <h3>Testing Live Updates</h3>
         <p>
-          A React component is a JavaScript function that returns JSX describing
-          what should appear on the screen. Think of components as custom HTML
-          elements that you create to organize and reuse parts of your user
-          interface.
+          One of the most amazing features of Expo development is instant updates. 
+          Let's try making a change and seeing it appear immediately on your phone.
         </p>
 
-        <CodeBlock
-          code={`// ✅ This is a React component
-function Welcome() {
-  return <h1>Hello, React!</h1>;  // Returns JSX
-}
+        <h4>Make Your First Change</h4>
+        <ol>
+          <li>Open <code>App.js</code> in VS Code</li>
+          <li>Find the text "Open up App.js to start working on your app!"</li>
+          <li>Change it to "Hello from my React Native app! 🚀"</li>
+          <li>Save the file (Ctrl+S or Cmd+S)</li>
+          <li>Watch your phone - the text should update automatically!</li>
+        </ol>
 
-// ✅ You can use it like an HTML tag
-function App() {
+        <CodeBlock
+          code={`export default function App() {
   return (
-    <div>
-      <Welcome />  {/* Custom component, just like <h1> or <div> */}
-      <Welcome />  {/* Can be used multiple times */}
-    </div>
+    <View style={styles.container}>
+      {/* Change this text and save to see live update */}
+      <Text>Hello from my React Native app! 🚀</Text>
+      <StatusBar style="auto" />
+    </View>
   );
 }`}
-          language="jsx"
-          filename="basic-component.jsx"
-          title="React Component"
+          language="javascript"
+          filename="App.js"
+          title="Your First Change"
         />
 
-        <h3>Component Naming Rules</h3>
+        <div className="my-6 p-4 bg-blue-50 dark:bg-blue-950 rounded-lg border border-blue-200 dark:border-blue-800">
+          <h4 className="text-blue-800 dark:text-blue-200 font-semibold mb-2 mt-0">
+            ⚡ Hot Reloading Magic:
+          </h4>
+          <p className="text-blue-700 dark:text-blue-300 text-sm mb-0">
+            When you save changes, Expo automatically updates your app on the phone 
+            without losing your current state. This makes development incredibly fast 
+            and enjoyable!
+          </p>
+        </div>
+
+        <h2>6. Troubleshooting Common Issues</h2>
+
+        <h3>Can't See QR Code?</h3>
+        <div className="my-6 p-4 bg-yellow-50 dark:bg-yellow-950 rounded-lg border border-yellow-200 dark:border-yellow-800">
+          <h4 className="text-yellow-800 dark:text-yellow-200 font-semibold mb-2 mt-0">
+            🔧 Quick fixes:
+          </h4>
+          <ul className="text-yellow-700 dark:text-yellow-300 text-sm space-y-1 mb-0">
+            <li>Make sure your phone and computer are on the same WiFi network</li>
+            <li>Try running <code>npx expo start --tunnel</code> for cellular connection</li>
+            <li>Check that your firewall isn't blocking Expo</li>
+            <li>Restart the Expo development server</li>
+          </ul>
+        </div>
+
+        <h3>App Won't Load on Phone?</h3>
         <div className="my-6 p-4 bg-red-50 dark:bg-red-950 rounded-lg border border-red-200 dark:border-red-800">
           <h4 className="text-red-800 dark:text-red-200 font-semibold mb-2 mt-0">
-            ⚠️ Critical Rule:
+            🚨 Common solutions:
           </h4>
-          <p className="text-red-700 dark:text-red-300 text-sm mb-0">
-            Component names must start with a capital letter. This is how React
-            distinguishes between regular HTML elements and your custom
-            components.
-          </p>
-        </div>
-
-        <CodeBlock
-          code={`// ✅ Good - starts with capital letter
-function UserCard() { }
-function ProductList() { }
-function NavigationMenu() { }
-
-// ❌ Bad - starts with lowercase
-function userCard() { }     // React thinks this is a regular HTML element
-function productList() { }  // Will cause errors`}
-          language="jsx"
-          filename="component-naming.jsx"
-          title="Naming Rules"
-        />
-
-        <h3>Building Your First Component</h3>
-        <p>
-          Let&apos;s create a practical component step by step. We&apos;ll build a
-          greeting card component:
-        </p>
-
-        <CodeBlock
-          code={`// ✅ Step 1: Basic component structure
-function GreetingCard() {
-  return (
-    <div className="greeting-card">
-      <h2>Hello there!</h2>
-      <p>Welcome to React development.</p>
-    </div>
-  );
-}`}
-          language="jsx"
-          filename="GreetingCard.jsx"
-          title="Step 1: Basic Structure"
-        />
-
-        <CodeBlock
-          code={`// ✅ Step 2: Add some styling and personality
-function GreetingCard() {
-  return (
-    <div className="greeting-card" style={{
-      border: '2px solid #007bff',
-      borderRadius: '10px',
-      padding: '20px',
-      margin: '10px',
-      textAlign: 'center',
-      backgroundColor: '#f8f9fa'
-    }}>
-      <h2 style={{ color: '#007bff' }}>Hello there! 👋</h2>
-      <p>Welcome to React development.</p>
-      <p>You&apos;re doing great!</p>
-    </div>
-  );
-}`}
-          language="jsx"
-          filename="GreetingCard.jsx"
-          title="Step 2: Add Styling"
-        />
-
-        <CodeBlock
-          code={`// ✅ Step 3: Use it in your main App component
-function App() {
-  return (
-    <div className="app">
-      <h1>My React Application</h1>
-      <GreetingCard />          {/* Your custom component */}
-      <GreetingCard />          {/* Reused easily */}
-    </div>
-  );
-}`}
-          language="jsx"
-          filename="App.jsx"
-          title="Step 3: Use Component"
-        />
-
-        <h3>Making Components Reusable with Props</h3>
-        <p>
-          Props (short for &quot;properties&quot;) allow you to pass data into components,
-          making them flexible and reusable:
-        </p>
-
-        <CodeBlock
-          code={`// ✅ Component that accepts props
-function PersonalGreeting({ name, message, emoji }) {
-  return (
-    <div className="greeting-card" style={{
-      border: '2px solid #28a745',
-      borderRadius: '10px',
-      padding: '20px',
-      margin: '10px',
-      textAlign: 'center',
-      backgroundColor: '#f8f9fa'
-    }}>
-      <h2 style={{ color: '#28a745' }}>
-        Hello, {name}! {emoji}
-      </h2>
-      <p>{message}</p>
-    </div>
-  );
-}
-
-// ✅ Using the component with different data
-function App() {
-  return (
-    <div className="app">
-      <h1>Welcome to Our Team!</h1>
-      
-      <PersonalGreeting 
-        name="Sarah"
-        message="Great job on your first React component!"
-        emoji="🎉"
-      />
-      
-      <PersonalGreeting 
-        name="Mike"
-        message="Keep up the excellent work!"
-        emoji="💪"
-      />
-      
-      <PersonalGreeting 
-        name="Emma"
-        message="You&apos;re mastering React quickly!"
-        emoji="🚀"
-      />
-    </div>
-  );
-}`}
-          language="jsx"
-          filename="PersonalGreeting.jsx"
-          title="Props Example"
-        />
-
-        <h3>Hands-On Exercise: Create Your Own Component</h3>
-        <div className="my-6 p-4 bg-orange-50 dark:bg-orange-950 rounded-lg border border-orange-200 dark:border-orange-800">
-          <h4 className="text-orange-800 dark:text-orange-200 font-semibold mb-3 mt-0">
-            🎯 Your task:
-          </h4>
-          <p className="text-orange-700 dark:text-orange-300 text-sm mb-2">
-            Create a component called <code>InfoCard</code> that displays
-            information about a hobby or skill.
-          </p>
-          <h5 className="text-orange-800 dark:text-orange-200 font-semibold mb-2">
-            Requirements:
-          </h5>
-          <ul className="text-orange-700 dark:text-orange-300 text-sm space-y-1 mb-0">
-            <li>
-              Takes props for <code>title</code>, <code>description</code>, and{" "}
-              <code>skillLevel</code>
-            </li>
-            <li>Displays all the information in a nicely formatted card</li>
-            <li>Uses different colors based on skill level</li>
-            <li>(Beginner = blue, Intermediate = orange, Advanced = green)</li>
+          <ul className="text-red-700 dark:text-red-300 text-sm space-y-1 mb-0">
+            <li>Close and reopen Expo Go app</li>
+            <li>Make sure Expo Go is updated to latest version</li>
+            <li>Check terminal for error messages</li>
+            <li>Try <code>npx expo start --clear</code> to clear cache</li>
           </ul>
         </div>
 
-        <CodeBlock
-          code={`function InfoCard({ title, description, skillLevel }) {
-  // TODO: Create a card that displays:
-  // - Title as a heading
-  // - Description as a paragraph  
-  // - Skill level with appropriate color
-  //   (Beginner = blue, Intermediate = orange, Advanced = green)
-  
-  return (
-    <div className="info-card">
-      {/* Your JSX here */}
-    </div>
-  );
-}
+        <h3>Getting Started with Emulators (Optional)</h3>
+        <p>
+          While Expo Go on your real device is the easiest way to test, you can also use 
+          emulators if you prefer:
+        </p>
 
-// Use it like this:
-<InfoCard 
-  title="React Development"
-  description="Building user interfaces with components"
-  skillLevel="Beginner"
-/>`}
-          language="jsx"
-          filename="InfoCard.jsx"
-          title="Exercise Template"
-        />
+        <div className="my-6 p-4 bg-gray-50 dark:bg-gray-900 rounded-lg border">
+          <h4 className="font-semibold mb-2 mt-0">Emulator Setup (Advanced)</h4>
+          <p className="text-sm mb-2">
+            <strong>iOS Simulator:</strong> Requires Mac with Xcode installed
+          </p>
+          <p className="text-sm mb-2">
+            <strong>Android Emulator:</strong> Requires Android Studio setup
+          </p>
+          <p className="text-sm text-gray-600 dark:text-gray-400 mb-0">
+            For learning purposes, testing on your real device with Expo Go is much simpler 
+            and gives you a better feel for how your app will perform.
+          </p>
+        </div>
 
-        <details className="my-6">
-          <summary className="cursor-pointer font-semibold text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-200">
-            ✅ Click to see sample solution
-          </summary>
-          <div className="mt-4">
-            <CodeBlock
-              code={`function InfoCard({ title, description, skillLevel }) {
-  // Determine color based on skill level
-  const getSkillColor = (level) => {
-    switch(level.toLowerCase()) {
-      case 'beginner': return '#007bff';
-      case 'intermediate': return '#fd7e14';
-      case 'advanced': return '#28a745';
-      default: return '#6c757d';
-    }
-  };
-  
-  return (
-    <div className="info-card" style={{
-      border: '1px solid #ddd',
-      borderRadius: '8px',
-      padding: '16px',
-      margin: '10px',
-      boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
-    }}>
-      <h3 style={{ 
-        color: '#333',
-        marginTop: '0'
-      }}>
-        {title}
-      </h3>
-      <p style={{ 
-        color: '#666',
-        lineHeight: '1.5'
-      }}>
-        {description}
-      </p>
-      <span style={{
-        backgroundColor: getSkillColor(skillLevel),
-        color: 'white',
-        padding: '4px 12px',
-        borderRadius: '20px',
-        fontSize: '14px',
-        fontWeight: 'bold'
-      }}>
-        {skillLevel}
-      </span>
-    </div>
-  );
-}`}
-              language="jsx"
-              filename="InfoCard-solution.jsx"
-              title="Sample Solution"
-            />
-          </div>
-        </details>
+        <h2>7. Next Steps</h2>
+
+        <div className="my-6 p-4 bg-green-50 dark:bg-green-950 rounded-lg border border-green-200 dark:border-green-800">
+          <h4 className="text-green-800 dark:text-green-200 font-semibold mb-3 mt-0">
+            🎯 What you've accomplished today:
+          </h4>
+          <ul className="text-green-700 dark:text-green-300 text-sm space-y-1 mb-0">
+            <li>✅ Understand what React Native is and why it's powerful</li>
+            <li>✅ Set up complete React Native development environment</li>
+            <li>✅ Created your first React Native project with Expo</li>
+            <li>✅ Successfully tested app on your real mobile device</li>
+            <li>✅ Experienced live code updates and hot reloading</li>
+          </ul>
+        </div>
+
+        <div className="my-6 p-4 bg-blue-50 dark:bg-blue-950 rounded-lg border border-blue-200 dark:border-blue-800">
+          <h4 className="text-blue-800 dark:text-blue-200 font-semibold mb-3 mt-0">
+            🚀 Coming up in Session 2:
+          </h4>
+          <ul className="text-blue-700 dark:text-blue-300 text-sm space-y-1 mb-0">
+            <li>React Native components vs web HTML elements</li>
+            <li>Building your first real mobile interface</li>
+            <li>Understanding mobile-specific styling</li>
+            <li>Creating interactive buttons and user input</li>
+          </ul>
+        </div>
+
+        <div className="my-6 p-4 bg-orange-50 dark:bg-orange-950 rounded-lg border border-orange-200 dark:border-orange-800">
+          <h4 className="text-orange-800 dark:text-orange-200 font-semibold mb-3 mt-0">
+            🎯 Homework Challenge:
+          </h4>
+          <p className="text-orange-700 dark:text-orange-300 text-sm mb-2">
+            Before our next session, try customizing your app:
+          </p>
+          <ul className="text-orange-700 dark:text-orange-300 text-sm space-y-1 mb-0">
+            <li>Change the background color in the StyleSheet</li>
+            <li>Add a second Text component with your name</li>
+            <li>Try different text sizes and colors</li>
+            <li>Add an emoji to make it fun! 🎨</li>
+          </ul>
+        </div>
+
+        <p className="text-lg font-semibold text-center mt-8 mb-4">
+          Welcome to the exciting world of React Native development! 🎉📱
+        </p>
       </div>
     </>
   );

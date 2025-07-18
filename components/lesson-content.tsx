@@ -18,6 +18,7 @@ import { courseContent } from "@/lib/course-content";
 import { Day1Session1Content } from "./lessons/day-1/session-1";
 import { Day1Session2Content } from "./lessons/day-1/session-2";
 import { Day1Session3Content } from "./lessons/day-1/session-3";
+import { Day1Session4Content } from "./lessons/day-1/session-4";
 import { Day1ChallengeContent } from "./lessons/day-1/challenge";
 
 interface LessonContentProps {
@@ -113,6 +114,7 @@ export function LessonContent({
     if (day === 1 && session === 1) return <Day1Session1Content />;
     if (day === 1 && session === 2) return <Day1Session2Content />;
     if (day === 1 && session === 3) return <Day1Session3Content />;
+    if (day === 1 && session === 4) return <Day1Session4Content />;
 
     // For sessions not yet implemented, show placeholder
     return (

@@ -47,12 +47,13 @@ interface SidebarProps {
 const courseStructure = [
   {
     day: 1,
-    title: "React Foundation",
+    title: "React Native Foundation",
     icon: Code,
     sessions: [
-      "React Introduction",
-      "React Component Hierarchy",
-      "State & Events",
+      "React Native Introduction",
+      "React Native Core Components",
+      "React Native State, Events & Input",
+      "Intro to Expo Router",
     ],
   },
   {

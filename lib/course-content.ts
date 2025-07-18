@@ -22,60 +22,72 @@ export interface DayContent {
 
 export const courseContent: Record<number, DayContent> = {
   1: {
-    title: "React Foundation",
-    description: "Learn the fundamentals of React including components, JSX, and basic concepts",
+    title: "React Native Foundation",
+    description: "Learn React Native fundamentals including Expo setup, mobile components, and building your first mobile app",
     sessions: [
       {
-        title: "React Introduction",
-        description: "What is React, Virtual DOM, and setting up your first project",
+        title: "React Native Introduction",
+        description: "What is React Native, Expo vs CLI, development setup, and creating your first mobile app",
         content: null, // Will be loaded from separate files
       },
       {
-        title: "React Component Hierarchy",
-        description: "Understanding component structure and organization",
+        title: "Mobile Components & Styling",
+        description: "Understanding React Native components, mobile-specific styling, and creating responsive interfaces",
         content: null,
       },
       {
-        title: "State & Events",
-        description: "Managing component state and handling user interactions",
+        title: "State & Mobile Interactions",
+        description: "Managing state in mobile apps, touch interactions, and user input handling",
+        content: null,
+      },
+      {
+        title: "Intro to Expo Router",
+        description: "File-based routing, navigation components, and building multi-screen mobile apps",
         content: null,
       },
     ],
     challenge: {
-      title: "React Conditional & List Rendering Challenge",
-      description: "Build a dynamic user management dashboard that demonstrates mastery of conditional rendering and list rendering in React",
+      title: "React Native Mobile App Challenge",
+      description: "Build a personal profile mobile app that demonstrates mastery of React Native components, styling, and mobile interactions",
       tasks: [
-        "Step 1 (Basic): Create a UserCard component with conditional status display",
-        "Step 2 (Medium): Build a UserList with filtering, search, and sorting capabilities",
-        "Step 3 (Hard): Implement a role-based dashboard with advanced features",
-        "Bonus: Add Web Walled security features with clearance-based access control",
-        "Apply performance optimizations and handle edge cases throughout",
+        "Step 1 (Basic): Create a ProfileCard component with your personal information",
+        "Step 2 (Medium): Add interactive buttons and navigation between screens",
+        "Step 3 (Hard): Implement a contact form with validation and mobile-friendly input",
+        "Bonus: Add device features like camera access or location services",
+        "Apply mobile-specific styling and touch interactions throughout",
       ],
-      codeTemplate: `// Challenge: Three-Step Progressive Challenge
+      codeTemplate: `// Challenge: Three-Step Mobile App Challenge
 // Start with Step 1 and progress through each level
 
-// Step 1: User Card with Conditional Rendering
+// Step 1: Profile Card with Mobile Styling
 import React, { useState } from 'react';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 
-const UserCard = ({ user }) => {
+const ProfileCard = ({ user }) => {
   const [showDetails, setShowDetails] = useState(false);
   
-  // TODO: Implement conditional rendering patterns
-  // - Status badges based on user.status
-  // - Premium indicators for user.isPremium
-  // - Admin actions for user.role === 'admin'
-  // - Default avatars when user.avatar is null
-  // - Time-based greetings
+  // TODO: Implement mobile-specific features
+  // - Profile image with fallback
+  // - Touch interactions for expanding details
+  // - Mobile-friendly styling with proper spacing
+  // - Status indicators with conditional rendering
+  // - Social media links as touchable buttons
   
   return (
-    <div className="user-card">
+    <View style={styles.container}>
       {/* Your implementation here */}
-    </div>
+    </View>
   );
 };
 
-// Progress to Step 2: User List with Filtering
-// Then Step 3: Role-Based Dashboard
+const styles = StyleSheet.create({
+  container: {
+    // Add your mobile styles here
+  },
+});
+
+// Progress to Step 2: Navigation and Screens
+// Then Step 3: Contact Form with Validation
 // See full challenge details in the lesson content`,
     },
   },
