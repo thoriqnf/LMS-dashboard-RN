@@ -20,6 +20,21 @@ import { Day1Session2Content } from "./lessons/day-1/session-2";
 import { Day1Session3Content } from "./lessons/day-1/session-3";
 import { Day1Session4Content } from "./lessons/day-1/session-4";
 import { Day1ChallengeContent } from "./lessons/day-1/challenge";
+import { Day2Session1Content } from "./lessons/day-2/session-1";
+import { Day2Session2Content } from "./lessons/day-2/session-2";
+import { Day2Session3Content } from "./lessons/day-2/session-3";
+import { Day2Session4Content } from "./lessons/day-2/session-4";
+import { Day3Session1Content } from "./lessons/day-3/session-1";
+import { Day3Session2Content } from "./lessons/day-3/session-2";
+import { Day3Session3Content } from "./lessons/day-3/session-3";
+import { Day3Session4Content } from "./lessons/day-3/session-4";
+import { Day4Session1Content } from "./lessons/day-4/session-1";
+import { Day4Session2Content } from "./lessons/day-4/session-2";
+import { Day4Session3Content } from "./lessons/day-4/session-3";
+import { Day4Session4Content } from "./lessons/day-4/session-4";
+import { Day5Session1Content } from "./lessons/day-5/session-1";
+import { Day5Session2Content } from "./lessons/day-5/session-2";
+import { Day5Session3Content } from "./lessons/day-5/session-3";
 
 interface LessonContentProps {
   activeSession: { day: number; session: number };
@@ -115,6 +130,29 @@ export function LessonContent({
     if (day === 1 && session === 2) return <Day1Session2Content />;
     if (day === 1 && session === 3) return <Day1Session3Content />;
     if (day === 1 && session === 4) return <Day1Session4Content />;
+    
+    // Day 2 sessions
+    if (day === 2 && session === 1) return <Day2Session1Content />;
+    if (day === 2 && session === 2) return <Day2Session2Content />;
+    if (day === 2 && session === 3) return <Day2Session3Content />;
+    if (day === 2 && session === 4) return <Day2Session4Content />;
+    
+    // Day 3 sessions
+    if (day === 3 && session === 1) return <Day3Session1Content />;
+    if (day === 3 && session === 2) return <Day3Session2Content />;
+    if (day === 3 && session === 3) return <Day3Session3Content />;
+    if (day === 3 && session === 4) return <Day3Session4Content />;
+    
+    // Day 4 sessions
+    if (day === 4 && session === 1) return <Day4Session1Content />;
+    if (day === 4 && session === 2) return <Day4Session2Content />;
+    if (day === 4 && session === 3) return <Day4Session3Content />;
+    if (day === 4 && session === 4) return <Day4Session4Content />;
+    
+    // Day 5 sessions
+    if (day === 5 && session === 1) return <Day5Session1Content />;
+    if (day === 5 && session === 2) return <Day5Session2Content />;
+    if (day === 5 && session === 3) return <Day5Session3Content />;
 
     // For sessions not yet implemented, show placeholder
     return (

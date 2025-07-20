@@ -22,13 +22,18 @@ export function isValidSession(day: number, session: number): boolean {
     return (session >= 1 && session <= 4) || session === 5;
   }
 
-  // Days 2-6: 4 sessions + 1 challenge (session 5)
-  if (day >= 2 && day <= 6) {
+  // Days 2-4: 4 sessions + 1 challenge (session 5)
+  if (day >= 2 && day <= 4) {
     return (session >= 1 && session <= 4) || session === 5;
   }
 
-  // Day 7: 4 sessions + 1 challenge (session 5)
-  if (day === 7) {
+  // Day 5: 3 sessions only (no challenge)
+  if (day === 5) {
+    return session >= 1 && session <= 3;
+  }
+
+  // Days 6-7: 4 sessions + 1 challenge (session 5)
+  if (day >= 6 && day <= 7) {
     return (session >= 1 && session <= 4) || session === 5;
   }
 
@@ -155,8 +160,8 @@ export function getSessionTitle(day: number, session: number): string {
     1: "React Native Foundation",
     2: "React Hooks & State",
     3: "Data Management & APIs",
-    4: "Advanced Routing & State",
-    5: "Performance & Production",
+    4: "Authentication & Advanced UI",
+    5: "Mobile Features",
     6: "Next.js Fundamentals",
     7: "Next.js API Routes & Serverless Functions",
   };
@@ -170,32 +175,30 @@ export function getSessionTitle(day: number, session: number): string {
       5: "React Native Mobile App Challenge",
     },
     2: {
-      1: "React Effect",
-      2: "React Effect Lifecycle",
-      3: "React Callback",
-      4: "React Form Handling",
+      1: "Expo Router Deep Dive",
+      2: "List & Scroll",
+      3: "Fonts & Images",
+      4: "Global UI Components",
       5: "Advanced Components Challenge",
     },
     3: {
-      1: "React Fetching",
-      2: "React Custom Hooks",
-      3: "React Context API",
-      4: "React Context Patterns",
+      1: "Form Handling",
+      2: "Fetching API Data",
+      3: "AsyncStorage & Secure Store",
+      4: "App State & Theming",
       5: "State Management Challenge",
     },
     4: {
-      1: "React Router Basics",
-      2: "React Router Advanced",
-      3: "React State Management",
-      4: "React State Patterns",
+      1: "React Native Auth UI",
+      2: "React Native Auth Logic",
+      3: "Navigation Guards",
+      4: "Keyboard & Input UX",
       5: "Routing Challenge",
     },
     5: {
-      1: "Loading States & Skeletons",
-      2: "Web Storage",
-      3: "Performance Optimization",
-      4: "Unit Testing",
-      5: "Final Project Challenge",
+      1: "Media Picker",
+      2: "Location & Maps",
+      3: "Notifications",
     },
     6: {
       1: "Next.js Introduction & Setup",
@@ -225,13 +228,19 @@ export function getAllValidRoutes(): string[] {
   const routes: string[] = ["/"];
 
   for (let day = 1; day <= 7; day++) {
-    // Add challenge route
-    routes.push(`/day${day}/challenge`);
-
-    // Add session routes
-    const maxSession = 4; // All days now have 4 sessions
-    for (let session = 1; session <= maxSession; session++) {
-      routes.push(`/day${day}/session-${session}`);
+    // Day 5 has only 3 sessions, no challenge
+    if (day === 5) {
+      for (let session = 1; session <= 3; session++) {
+        routes.push(`/day${day}/session-${session}`);
+      }
+    } else {
+      // Other days have 4 sessions + 1 challenge
+      routes.push(`/day${day}/challenge`);
+      
+      const maxSession = 4;
+      for (let session = 1; session <= maxSession; session++) {
+        routes.push(`/day${day}/session-${session}`);
+      }
     }
   }
 
