@@ -510,7 +510,7 @@ export default function QRTestScreen() {
               <div>• Notes app with clickable links</div>
               <div>• Messages app link sharing</div>
               <div>• QR code scanning with Camera app</div>
-              <div>• Simulator Device > Device > Open URL</div>
+              <div>• Simulator Device {'>'} Device {'>'} Open URL</div>
             </div>
           </div>
           

@@ -773,7 +773,7 @@ export function StorageInspector() {
           <div className="p-4 bg-blue-50 dark:bg-blue-900 rounded-lg border">
             <h4 className="font-semibold mb-2 mt-0">📱 Dev Menu Access:</h4>
             <div className="text-sm space-y-1">
-              <div>• iOS Simulator: Cmd+D or Device > Shake</div>
+              <div>• iOS Simulator: Cmd+D or Device {'>'} Shake</div>
               <div>• Android Emulator: Cmd+M or Ctrl+M</div>
               <div>• Physical Device: Shake device</div>
               <div>• Expo: Shake or press 'd' in terminal</div>
