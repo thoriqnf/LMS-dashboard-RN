@@ -87,21 +87,13 @@ export function Day2Session4Content() {
         </p>
 
         <CodeBlock
-          code={`// components/ui/Button.tsx
+          code={`// components/ui/Button.jsx
 import React from 'react';
-import { TouchableOpacity, Text, StyleSheet, ViewStyle, TextStyle } from 'react-native';
+import { TouchableOpacity, Text, StyleSheet } from 'react-native';
+import PropTypes from 'prop-types';
 
-interface ButtonProps {
-  title: string;
-  onPress: () => void;
-  variant?: 'primary' | 'secondary' | 'outline' | 'danger';
-  size?: 'small' | 'medium' | 'large';
-  disabled?: boolean;
-  style?: ViewStyle;
-  textStyle?: TextStyle;
-}
-
-export const Button: React.FC<ButtonProps> = ({
+// JavaScript component with PropTypes for validation
+export const Button = ({
   title,
   onPress,
   variant = 'primary',
@@ -110,12 +102,13 @@ export const Button: React.FC<ButtonProps> = ({
   style,
   textStyle,
 }) => {
+  // Build dynamic styles using JavaScript arrays and object destructuring
   const buttonStyle = [
     styles.button,
     styles[variant],
     styles[size],
     disabled && styles.disabled,
-    style,
+    style, // Allow custom style override
   ];
 
   const buttonTextStyle = [
@@ -123,7 +116,7 @@ export const Button: React.FC<ButtonProps> = ({
     styles[\`\${variant}Text\`],
     styles[\`\${size}Text\`],
     disabled && styles.disabledText,
-    textStyle,
+    textStyle, // Allow custom text style override
   ];
 
   return (
@@ -136,6 +129,17 @@ export const Button: React.FC<ButtonProps> = ({
       <Text style={buttonTextStyle}>{title}</Text>
     </TouchableOpacity>
   );
+};
+
+// PropTypes for type checking (Runtime validation in JavaScript)
+Button.propTypes = {
+  title: PropTypes.string.isRequired,
+  onPress: PropTypes.func.isRequired,
+  variant: PropTypes.oneOf(['primary', 'secondary', 'outline', 'danger']),
+  size: PropTypes.oneOf(['small', 'medium', 'large']),
+  disabled: PropTypes.bool,
+  style: PropTypes.object,
+  textStyle: PropTypes.object,
 };
 
 const styles = StyleSheet.create({
@@ -216,39 +220,34 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
 });`}
-          language="typescript"
-          filename="Button.tsx"
+          language="jsx"
+          filename="Button.jsx"
           title="Reusable Button Component"
         />
 
         <CodeBlock
-          code={`// components/ui/TextInput.tsx
+          code={`// components/ui/TextInput.jsx
 import React from 'react';
-import { View, TextInput as RNTextInput, Text, StyleSheet, TextInputProps } from 'react-native';
+import { View, TextInput as RNTextInput, Text, StyleSheet } from 'react-native';
+import PropTypes from 'prop-types';
 
-interface CustomTextInputProps extends TextInputProps {
-  label?: string;
-  error?: string;
-  helperText?: string;
-  variant?: 'default' | 'outlined' | 'filled';
-  size?: 'small' | 'medium' | 'large';
-}
-
-export const TextInput: React.FC<CustomTextInputProps> = ({
+// JavaScript component with destructuring and default parameters
+export const TextInput = ({
   label,
   error,
   helperText,
   variant = 'default',
   size = 'medium',
   style,
-  ...props
+  ...props // Spread operator to pass through all other props
 }) => {
+  // Dynamic styling using JavaScript arrays and conditional logic
   const inputStyle = [
     styles.input,
     styles[variant],
     styles[size],
-    error && styles.error,
-    style,
+    error && styles.error, // Conditionally apply error style
+    style, // Allow custom style override
   ];
 
   return (
@@ -261,10 +260,22 @@ export const TextInput: React.FC<CustomTextInputProps> = ({
         {...props}
       />
       
+      {/* Conditional rendering based on JavaScript expressions */}
       {error && <Text style={styles.errorText}>{error}</Text>}
       {helperText && !error && <Text style={styles.helperText}>{helperText}</Text>}
     </View>
   );
+};
+
+// PropTypes for runtime type checking in JavaScript
+TextInput.propTypes = {
+  label: PropTypes.string,
+  error: PropTypes.string,
+  helperText: PropTypes.string,
+  variant: PropTypes.oneOf(['default', 'outlined', 'filled']),
+  size: PropTypes.oneOf(['small', 'medium', 'large']),
+  style: PropTypes.object,
+  // All other TextInput props are passed through via ...props
 };
 
 const styles = StyleSheet.create({
@@ -332,34 +343,30 @@ const styles = StyleSheet.create({
     marginTop: 4,
   },
 });`}
-          language="typescript"
-          filename="TextInput.tsx"
+          language="jsx"
+          filename="TextInput.jsx"
           title="Reusable TextInput Component"
         />
 
         <CodeBlock
-          code={`// components/ui/Card.tsx
+          code={`// components/ui/Card.jsx
 import React from 'react';
-import { View, StyleSheet, ViewStyle } from 'react-native';
+import { View, StyleSheet } from 'react-native';
+import PropTypes from 'prop-types';
 
-interface CardProps {
-  children: React.ReactNode;
-  variant?: 'default' | 'elevated' | 'outlined';
-  padding?: number;
-  style?: ViewStyle;
-}
-
-export const Card: React.FC<CardProps> = ({
+// Flexible card component using JavaScript
+export const Card = ({
   children,
   variant = 'default',
   padding = 16,
   style,
 }) => {
+  // Combine styles dynamically using JavaScript objects and arrays
   const cardStyle = [
     styles.card,
     styles[variant],
-    { padding },
-    style,
+    { padding }, // Dynamic padding using object
+    style, // Allow custom style override
   ];
 
   return (
@@ -367,6 +374,14 @@ export const Card: React.FC<CardProps> = ({
       {children}
     </View>
   );
+};
+
+// PropTypes for type checking
+Card.propTypes = {
+  children: PropTypes.node.isRequired,
+  variant: PropTypes.oneOf(['default', 'elevated', 'outlined']),
+  padding: PropTypes.number,
+  style: PropTypes.object,
 };
 
 const styles = StyleSheet.create({
@@ -392,8 +407,8 @@ const styles = StyleSheet.create({
     borderColor: '#E5E7EB',
   },
 });`}
-          language="typescript"
-          filename="Card.tsx"
+          language="jsx"
+          filename="Card.jsx"
           title="Reusable Card Component"
         />
 
@@ -405,7 +420,7 @@ const styles = StyleSheet.create({
             <li><strong>Props-based customization</strong> - Control appearance through props</li>
             <li><strong>Sensible defaults</strong> - Work out of the box with minimal setup</li>
             <li><strong>Style composition</strong> - Combine multiple styles based on props</li>
-            <li><strong>TypeScript support</strong> - Type-safe props and better developer experience</li>
+            <li><strong>PropTypes validation</strong> - Runtime type checking for better developer experience</li>
             <li><strong>Accessibility ready</strong> - Built-in support for screen readers</li>
           </ul>
         </div>
@@ -425,46 +440,15 @@ const styles = StyleSheet.create({
         </p>
 
         <CodeBlock
-          code={`// contexts/ThemeContext.tsx
-import React, { createContext, useContext, useState, ReactNode } from 'react';
+          code={`// contexts/ThemeContext.jsx
+import React, { createContext, useContext, useState } from 'react';
+import PropTypes from 'prop-types';
 
-// Define our theme structure
-interface Theme {
-  colors: {
-    primary: string;
-    secondary: string;
-    background: string;
-    surface: string;
-    text: string;
-    textSecondary: string;
-    border: string;
-    error: string;
-    success: string;
-    warning: string;
-  };
-  typography: {
-    h1: { fontSize: number; fontWeight: string };
-    h2: { fontSize: number; fontWeight: string };
-    h3: { fontSize: number; fontWeight: string };
-    body: { fontSize: number; fontWeight: string };
-    caption: { fontSize: number; fontWeight: string };
-  };
-  spacing: {
-    xs: number;
-    sm: number;
-    md: number;
-    lg: number;
-    xl: number;
-  };
-  borderRadius: {
-    sm: number;
-    md: number;
-    lg: number;
-  };
-}
+// JavaScript theme objects - no interfaces needed!
+// Define theme structure using plain JavaScript objects
 
-// Light theme
-const lightTheme: Theme = {
+// Light theme configuration
+const lightTheme = {
   colors: {
     primary: '#007AFF',
     secondary: '#6C757D',
@@ -515,21 +499,11 @@ const darkTheme: Theme = {
   },
 };
 
-// Theme context
-interface ThemeContextType {
-  theme: Theme;
-  isDark: boolean;
-  toggleTheme: () => void;
-}
+// Create theme context using JavaScript
+const ThemeContext = createContext();
 
-const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
-
-// Theme provider component
-interface ThemeProviderProps {
-  children: ReactNode;
-}
-
-export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
+// Theme provider component using JavaScript
+export const ThemeProvider = ({ children }) => {
   const [isDark, setIsDark] = useState(false);
 
   const toggleTheme = () => {
@@ -545,6 +519,11 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
   );
 };
 
+// PropTypes for ThemeProvider
+ThemeProvider.propTypes = {
+  children: PropTypes.node.isRequired,
+};
+
 // Custom hook to use theme
 export const useTheme = () => {
   const context = useContext(ThemeContext);
@@ -553,26 +532,20 @@ export const useTheme = () => {
   }
   return context;
 };`}
-          language="typescript"
-          filename="ThemeContext.tsx"
+          language="jsx"
+          filename="ThemeContext.jsx"
           title="Complete Theme System with Context"
         />
 
         <CodeBlock
-          code={`// components/ui/ThemedButton.tsx
+          code={`// components/ui/ThemedButton.jsx
 import React from 'react';
 import { TouchableOpacity, Text, StyleSheet } from 'react-native';
+import PropTypes from 'prop-types';
 import { useTheme } from '../../contexts/ThemeContext';
 
-interface ThemedButtonProps {
-  title: string;
-  onPress: () => void;
-  variant?: 'primary' | 'secondary' | 'outline';
-  size?: 'small' | 'medium' | 'large';
-  disabled?: boolean;
-}
-
-export const ThemedButton: React.FC<ThemedButtonProps> = ({
+// Theme-aware button component using JavaScript
+export const ThemedButton = ({
   title,
   onPress,
   variant = 'primary',
@@ -581,7 +554,7 @@ export const ThemedButton: React.FC<ThemedButtonProps> = ({
 }) => {
   const { theme } = useTheme();
 
-  // Create dynamic styles based on theme
+  // Create dynamic styles based on current theme using JavaScript
   const dynamicStyles = StyleSheet.create({
     button: {
       borderRadius: theme.borderRadius.md,
@@ -658,9 +631,18 @@ export const ThemedButton: React.FC<ThemedButtonProps> = ({
       <Text style={textStyle}>{title}</Text>
     </TouchableOpacity>
   );
+};
+
+// PropTypes for type checking
+ThemedButton.propTypes = {
+  title: PropTypes.string.isRequired,
+  onPress: PropTypes.func.isRequired,
+  variant: PropTypes.oneOf(['primary', 'secondary', 'outline']),
+  size: PropTypes.oneOf(['small', 'medium', 'large']),
+  disabled: PropTypes.bool,
 };`}
-          language="typescript"
-          filename="ThemedButton.tsx"
+          language="jsx"
+          filename="ThemedButton.jsx"
           title="Theme-Aware Button Component"
         />
 
@@ -692,23 +674,14 @@ export const ThemedButton: React.FC<ThemedButtonProps> = ({
         </p>
 
         <CodeBlock
-          code={`// hooks/useResponsive.ts
+          code={`// hooks/useResponsive.js
 import { useState, useEffect } from 'react';
 import { Dimensions } from 'react-native';
 
-interface ScreenDimensions {
-  width: number;
-  height: number;
-}
-
-interface ResponsiveBreakpoints {
-  isSmall: boolean;
-  isMedium: boolean;
-  isLarge: boolean;
-  isTablet: boolean;
-}
-
-export const useResponsive = (): ScreenDimensions & ResponsiveBreakpoints => {
+// Custom hook for responsive design using JavaScript
+// Returns screen dimensions and breakpoint booleans
+export const useResponsive = () => {
+  // Initialize state with current screen dimensions
   const [dimensions, setDimensions] = useState(() => {
     const { width, height } = Dimensions.get('window');
     return { width, height };
@@ -728,21 +701,22 @@ export const useResponsive = (): ScreenDimensions & ResponsiveBreakpoints => {
   const isLarge = dimensions.width >= 768 && dimensions.width < 1024;
   const isTablet = dimensions.width >= 768;
 
+  // Return object with dimensions and breakpoint booleans
   return {
-    ...dimensions,
+    ...dimensions, // Spread operator to include width and height
     isSmall,
     isMedium,
     isLarge,
     isTablet,
   };
 };`}
-          language="typescript"
-          filename="useResponsive.ts"
+          language="javascript"
+          filename="useResponsive.js"
           title="Responsive Design Hook"
         />
 
         <CodeBlock
-          code={`// screens/ProfileScreen.tsx
+          code={`// screens/ProfileScreen.jsx
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, ScrollView, Switch } from 'react-native';
 import { ThemedButton } from '../components/ui/ThemedButton';
@@ -751,10 +725,12 @@ import { Card } from '../components/ui/Card';
 import { useTheme } from '../contexts/ThemeContext';
 import { useResponsive } from '../hooks/useResponsive';
 
-export const ProfileScreen: React.FC = () => {
+// Complete profile screen using all our JavaScript components
+export const ProfileScreen = () => {
   const { theme, isDark, toggleTheme } = useTheme();
   const { isTablet, width } = useResponsive();
   
+  // Component state using JavaScript
   const [profile, setProfile] = useState({
     name: 'John Doe',
     email: 'john@example.com',
@@ -949,17 +925,18 @@ export const ProfileScreen: React.FC = () => {
     </View>
   );
 };`}
-          language="typescript"
-          filename="ProfileScreen.tsx"
+          language="jsx"
+          filename="ProfileScreen.jsx"
           title="Complete Responsive Profile Screen"
         />
 
         <CodeBlock
-          code={`// App.tsx - Setting up the theme provider
+          code={`// App.jsx - Setting up the theme provider
 import React from 'react';
 import { ThemeProvider } from './contexts/ThemeContext';
 import { ProfileScreen } from './screens/ProfileScreen';
 
+// Main app component using JavaScript
 export default function App() {
   return (
     <ThemeProvider>
@@ -967,8 +944,8 @@ export default function App() {
     </ThemeProvider>
   );
 }`}
-          language="typescript"
-          filename="App.tsx"
+          language="jsx"
+          filename="App.jsx"
           title="App Setup with Theme Provider"
         />
 
@@ -1080,8 +1057,8 @@ const buttonStyle = {
     onPress={handleSubmit}
   />
 </Card>`}
-          language="typescript"
-          filename="MyComponentLibrary.tsx"
+          language="jsx"
+          filename="MyComponentLibrary.jsx"
           title="Your Component Library Implementation"
         />
 
@@ -1091,7 +1068,7 @@ const buttonStyle = {
           </h4>
           <ul className="text-blue-700 dark:text-blue-300 text-sm space-y-1 mb-0">
             <li><strong>Start simple</strong> - Begin with basic Button, TextInput, Card</li>
-            <li><strong>Use TypeScript</strong> - Type safety prevents bugs and improves DX</li>
+            <li><strong>Use PropTypes</strong> - Runtime validation prevents bugs and improves DX</li>
             <li><strong>Test thoroughly</strong> - Ensure components work in all scenarios</li>
             <li><strong>Document props</strong> - Clear prop descriptions help team adoption</li>
             <li><strong>Consider accessibility</strong> - Add proper labels and keyboard navigation</li>
@@ -1123,7 +1100,7 @@ const buttonStyle = {
             <li><strong>Component abstraction</strong> saves time and ensures consistency</li>
             <li><strong>React Context</strong> is perfect for global state like themes</li>
             <li><strong>Responsive design</strong> is essential for modern mobile apps</li>
-            <li><strong>TypeScript</strong> prevents bugs and improves developer experience</li>
+            <li><strong>PropTypes validation</strong> prevents bugs and improves developer experience</li>
             <li><strong>Props-based customization</strong> makes components flexible</li>
             <li><strong>Theme management</strong> enables easy branding and accessibility</li>
           </ul>

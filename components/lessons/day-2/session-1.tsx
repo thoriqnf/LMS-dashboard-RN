@@ -42,10 +42,10 @@ export function Day2Session1Content() {
             This session builds on Day 1 Session 4 (Intro to Expo Router). Make sure you understand:
           </p>
           <ul className="text-yellow-700 dark:text-yellow-300 text-sm space-y-1 mb-0">
-            <li>• File-based routing (app/index.tsx creates routes)</li>
+            <li>• File-based routing (app/index.jsx creates routes)</li>
             <li>• Basic navigation with Link and useRouter</li>
             <li>• Tab navigation with (tabs) folder</li>
-            <li>• Dynamic routes with [id].tsx files</li>
+            <li>• Dynamic routes with [id].jsx files</li>
           </ul>
         </div>
 
@@ -110,7 +110,7 @@ export function Day2Session1Content() {
         </p>
 
         <CodeBlock
-          code={`// app/index.tsx - Your home screen
+          code={`// app/index.jsx - Your home screen
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { Link, useRouter } from 'expo-router';
 
@@ -199,13 +199,13 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
 });`}
-          language="typescript"
-          filename="app/index.tsx"
+          language="jsx"
+          filename="app/index.jsx"
           title="Basic Navigation Examples"
         />
 
         <CodeBlock
-          code={`// app/profile.tsx - Your profile screen
+          code={`// app/profile.jsx - Your profile screen
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { useRouter, useLocalSearchParams } from 'expo-router';
 
@@ -304,8 +304,8 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
 });`}
-          language="typescript"
-          filename="app/profile.tsx"
+          language="jsx"
+          filename="app/profile.jsx"
           title="Profile Screen with Parameter Handling"
         />
 
@@ -335,7 +335,7 @@ const styles = StyleSheet.create({
               <div>• Basic file-based routing</div>
               <div>• Simple tab navigation</div>
               <div>• Basic Link and useRouter</div>
-              <div>• Dynamic routes [id].tsx</div>
+              <div>• Dynamic routes [id].jsx</div>
             </div>
           </div>
           <div className="p-4 bg-blue-50 dark:bg-blue-950 rounded-lg border border-blue-200 dark:border-blue-800">
@@ -358,7 +358,7 @@ const styles = StyleSheet.create({
         </p>
 
         <CodeBlock
-          code={`// app/_layout.tsx - Advanced root layout with custom options
+          code={`// app/_layout.jsx - Advanced root layout with custom options
 import { Stack } from 'expo-router';
 import { useColorScheme } from 'react-native';
 
@@ -416,12 +416,12 @@ export default function RootLayout() {
   );
 }`}
           language="jsx"
-          filename="app/_layout.tsx"
+          filename="app/_layout.jsx"
           title="Advanced Root Layout Configuration"
         />
 
         <CodeBlock
-          code={`// app/(tabs)/_layout.tsx - Dynamic tab configuration
+          code={`// app/(tabs)/_layout.jsx - Dynamic tab configuration
 import { Tabs } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import { useColorScheme } from 'react-native';
@@ -523,7 +523,7 @@ export default function TabLayout() {
   );
 }`}
           language="jsx"
-          filename="app/(tabs)/_layout.tsx"
+          filename="app/(tabs)/_layout.jsx"
           title="Dynamic Tab Layout with Theme Support"
         />
 
@@ -549,7 +549,7 @@ export default function TabLayout() {
         </p>
 
         <CodeBlock
-          code={`// app/modal/edit-profile.tsx - Modal screen for editing profile
+          code={`// app/modal/edit-profile.jsx - Modal screen for editing profile
 import { View, Text, StyleSheet, TouchableOpacity, TextInput } from 'react-native';
 import { useRouter } from 'expo-router';
 import { useState } from 'react';
@@ -656,12 +656,12 @@ const styles = StyleSheet.create({
   },
 });`}
           language="jsx"
-          filename="app/modal/edit-profile.tsx"
+          filename="app/modal/edit-profile.jsx"
           title="Modal Screen for Profile Editing"
         />
 
         <CodeBlock
-          code={`// Update app/_layout.tsx to include modal routes
+          code={`// Update app/_layout.jsx to include modal routes
 export default function RootLayout() {
   return (
     <Stack screenOptions={{ /* ... existing options ... */ }}>
@@ -691,12 +691,12 @@ export default function RootLayout() {
   );
 }`}
           language="jsx"
-          filename="Updated _layout.tsx"
+          filename="Updated _layout.jsx"
           title="Modal Route Configuration"
         />
 
         <CodeBlock
-          code={`// Update app/(tabs)/profile.tsx to open modal
+          code={`// Update app/(tabs)/profile.jsx to open modal
 import { useRouter } from 'expo-router';
 
 export default function ProfileTab() {
@@ -728,7 +728,7 @@ export default function ProfileTab() {
   );
 }`}
           language="jsx"
-          filename="Updated profile.tsx"
+          filename="Updated profile.jsx"
           title="Opening Modal from Tab Screen"
         />
 
@@ -753,7 +753,7 @@ export default function ProfileTab() {
         </p>
 
         <CodeBlock
-          code={`// app/message/[id].tsx - Advanced parameter handling
+          code={`// app/message/[id].jsx - Advanced parameter handling
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useEffect, useState } from 'react';
 
@@ -856,12 +856,12 @@ export default function MessageDetail() {
   );
 }`}
           language="jsx"
-          filename="app/message/[id].tsx"
+          filename="app/message/[id].jsx"
           title="Advanced Parameter Handling"
         />
 
         <CodeBlock
-          code={`// app/(tabs)/messages.tsx - Enhanced navigation with parameters
+          code={`// app/(tabs)/messages.jsx - Enhanced navigation with parameters
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useEffect, useState } from 'react';
 
@@ -934,7 +934,7 @@ export default function MessagesTab() {
   );
 }`}
           language="jsx"
-          filename="Enhanced messages.tsx"
+          filename="Enhanced messages.jsx"
           title="Complex Parameter Navigation"
         />
 

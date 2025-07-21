@@ -68,7 +68,7 @@ export function Day2Session2Content() {
         </p>
 
         <CodeBlock
-          code={`// app/(tabs)/messages.tsx - Enhanced with FlatList
+          code={`// app/(tabs)/messages.jsx - Enhanced with FlatList
 import React, { useState, useCallback, useMemo } from 'react';
 import { 
   View, 
@@ -433,7 +433,7 @@ const styles = StyleSheet.create({
   },
 });`}
           language="jsx"
-          filename="Enhanced messages.tsx"
+          filename="Enhanced messages.jsx"
           title="Professional FlatList Implementation"
         />
 
@@ -460,7 +460,7 @@ const styles = StyleSheet.create({
         </p>
 
         <CodeBlock
-          code={`// app/(tabs)/profile.tsx - Enhanced with ScrollView patterns
+          code={`// app/(tabs)/profile.jsx - Enhanced with ScrollView patterns
 import React, { useState, useCallback } from 'react';
 import { 
   ScrollView, 
@@ -848,7 +848,7 @@ const styles = StyleSheet.create({
   },
 });`}
           language="jsx"
-          filename="Enhanced profile.tsx"
+          filename="Enhanced profile.jsx"
           title="Advanced ScrollView with Forms"
         />
 
@@ -874,7 +874,7 @@ const styles = StyleSheet.create({
         </p>
 
         <CodeBlock
-          code={`// app/contacts.tsx - Advanced SectionList implementation
+          code={`// app/contacts.jsx - Advanced SectionList implementation
 import React, { useState, useCallback, useMemo } from 'react';
 import { 
   SectionList, 
@@ -1231,7 +1231,7 @@ const styles = StyleSheet.create({
   },
 });`}
           language="jsx"
-          filename="contacts.tsx"
+          filename="contacts.jsx"
           title="Advanced SectionList with Headers"
         />
 

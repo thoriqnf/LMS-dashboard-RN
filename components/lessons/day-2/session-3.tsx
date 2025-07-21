@@ -526,7 +526,7 @@ export default function ProfessionalProfile() {
     company: "Tech Innovations Inc.",
     bio: "Passionate about creating beautiful, performant mobile experiences. 5+ years building React Native apps.",
     avatar: "https://i.pravatar.cc/300?img=1",
-    badges: ["React Native", "TypeScript", "Mobile Design"],
+    badges: ["React Native", "JavaScript", "Mobile Design"],
     stats: {
       projects: 24,
       followers: 1240,
