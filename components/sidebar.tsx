@@ -58,7 +58,7 @@ const courseStructure = [
   },
   {
     day: 2,
-    title: "React Hooks & State",
+    title: "React Native Expo & Component",
     icon: BarChart3,
     sessions: [
       "Expo Router Deep Dive",
@@ -82,17 +82,18 @@ const courseStructure = [
     day: 4,
     title: "Authentication & Advanced UI",
     icon: Users,
-    sessions: ["React Native Auth UI", "React Native Auth Logic", "Navigation Guards", "Keyboard & Input UX"],
+    sessions: [
+      "React Native Auth UI",
+      "React Native Auth Logic",
+      "Navigation Guards",
+      "Keyboard & Input UX",
+    ],
   },
   {
     day: 5,
     title: "Mobile Features",
     icon: Award,
-    sessions: [
-      "Media Picker",
-      "Location & Maps",
-      "Notifications",
-    ],
+    sessions: ["Media Picker", "Location & Maps", "Notifications"],
   },
   {
     day: 6,
