@@ -2,7 +2,7 @@
 
 import { CodeBlock } from "@/components/ui/code-block-new";
 
-export function Day3Session5Content() {
+export function Day3ChallengeContent() {
   return (
     <>
       <div className="prose prose-slate dark:prose-invert max-w-none">
@@ -17,13 +17,16 @@ export function Day3Session5Content() {
             </h3>
             <ul className="text-blue-700 dark:text-blue-300 space-y-2 mb-0">
               <li>
-                <strong>Quick Setup</strong> - Install and configure React Query in minutes
+                <strong>Quick Setup</strong> - Install and configure React Query
+                in minutes
               </li>
               <li>
-                <strong>useQuery Hook</strong> - Replace manual fetch with one simple hook
+                <strong>useQuery Hook</strong> - Replace manual fetch with one
+                simple hook
               </li>
               <li>
-                <strong>Automatic Features</strong> - Caching, loading states, and error handling built-in
+                <strong>Automatic Features</strong> - Caching, loading states,
+                and error handling built-in
               </li>
             </ul>
           </div>
@@ -31,8 +34,9 @@ export function Day3Session5Content() {
 
         <h2>1. Why Use React Query?</h2>
         <p>
-          Remember all the useState and useEffect code from Session 2? React Query replaces that 
-          complexity with one simple hook that handles everything automatically.
+          Remember all the useState and useEffect code from Session 2? React
+          Query replaces that complexity with one simple hook that handles
+          everything automatically.
         </p>
 
         <div className="bg-yellow-50 dark:bg-yellow-950 p-6 rounded-lg border border-yellow-200 dark:border-yellow-800 mb-6">
@@ -40,9 +44,18 @@ export function Day3Session5Content() {
             💡 Before vs After:
           </h4>
           <ul className="text-yellow-700 dark:text-yellow-300 text-sm space-y-1 mb-0">
-            <li><strong>Before</strong> - 20+ lines: useState, useEffect, try/catch, loading states</li>
-            <li><strong>With React Query</strong> - 5 lines: useQuery hook handles everything!</li>
-            <li><strong>Bonus</strong> - Automatic caching, background updates, retry logic</li>
+            <li>
+              <strong>Before</strong> - 20+ lines: useState, useEffect,
+              try/catch, loading states
+            </li>
+            <li>
+              <strong>With React Query</strong> - 5 lines: useQuery hook handles
+              everything!
+            </li>
+            <li>
+              <strong>Bonus</strong> - Automatic caching, background updates,
+              retry logic
+            </li>
           </ul>
         </div>
 
@@ -77,7 +90,7 @@ export default function App() {
 
         <h2>3. Your First useQuery - Replace All That Code!</h2>
         <p>
-          Here's the same user fetching from Session 2, but with React Query. 
+          Here's the same user fetching from Session 2, but with React Query.
           Notice how much simpler it becomes:
         </p>
 
@@ -162,17 +175,30 @@ export default function UsersList() {
             🚀 What useQuery Gives You:
           </h4>
           <ul className="text-green-700 dark:text-green-300 text-sm space-y-1 mb-0">
-            <li><strong>data</strong> - Your fetched data (empty array/object by default)</li>
-            <li><strong>isLoading</strong> - True when first loading</li>
-            <li><strong>error</strong> - Any error that occurred</li>
-            <li><strong>refetch</strong> - Function to refresh data</li>
-            <li><strong>Automatic caching</strong> - Visit screen again = instant load!</li>
+            <li>
+              <strong>data</strong> - Your fetched data (empty array/object by
+              default)
+            </li>
+            <li>
+              <strong>isLoading</strong> - True when first loading
+            </li>
+            <li>
+              <strong>error</strong> - Any error that occurred
+            </li>
+            <li>
+              <strong>refetch</strong> - Function to refresh data
+            </li>
+            <li>
+              <strong>Automatic caching</strong> - Visit screen again = instant
+              load!
+            </li>
           </ul>
         </div>
 
         <h2>4. Essential Query Keys</h2>
         <p>
-          Query keys tell React Query how to cache your data. Simple rule: unique key = separate cache.
+          Query keys tell React Query how to cache your data. Simple rule:
+          unique key = separate cache.
         </p>
 
         <CodeBlock
@@ -199,7 +225,8 @@ const { data } = useQuery({
 
         <h2>5. Essential Practice</h2>
         <p>
-          Try this: Replace one of your manual fetch calls with useQuery and see the difference!
+          Try this: Replace one of your manual fetch calls with useQuery and see
+          the difference!
         </p>
 
         <div className="bg-orange-50 dark:bg-orange-950 p-6 rounded-lg border border-orange-200 dark:border-orange-800 mb-6">
@@ -221,11 +248,22 @@ const { data } = useQuery({
             📚 React Query Essentials:
           </h4>
           <ul className="text-blue-700 dark:text-blue-300 text-sm space-y-1 mb-0">
-            <li><strong>QueryClientProvider</strong> - Wrap your app once</li>
-            <li><strong>useQuery</strong> - Replace manual fetch logic</li>
-            <li><strong>Query keys</strong> - Unique keys for separate caching</li>
-            <li><strong>Automatic features</strong> - Caching, loading, errors, retries</li>
-            <li><strong>Better UX</strong> - Instant loads from cache + fresh data</li>
+            <li>
+              <strong>QueryClientProvider</strong> - Wrap your app once
+            </li>
+            <li>
+              <strong>useQuery</strong> - Replace manual fetch logic
+            </li>
+            <li>
+              <strong>Query keys</strong> - Unique keys for separate caching
+            </li>
+            <li>
+              <strong>Automatic features</strong> - Caching, loading, errors,
+              retries
+            </li>
+            <li>
+              <strong>Better UX</strong> - Instant loads from cache + fresh data
+            </li>
           </ul>
         </div>
       </div>
