@@ -144,7 +144,6 @@ export function LessonContent({
     if (day === 3 && session === 2) return <Day3Session2Content />;
     if (day === 3 && session === 3) return <Day3Session3Content />;
     if (day === 3 && session === 4) return <Day3Session4Content />;
-    if (day === 3 && session === 5) return <Day3Session5Content />;
 
     // Day 4 sessions
     if (day === 4 && session === 1) return <Day4Session1Content />;
