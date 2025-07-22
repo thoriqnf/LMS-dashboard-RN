@@ -169,4 +169,81 @@ const PortfolioApp = () => {
 // and code examples in the lesson content`,
     },
   },
+  3: {
+    title: "Data Management & APIs",
+    description: "Master forms, API integration, data persistence, theming, and modern data fetching with React Query",
+    sessions: [
+      {
+        title: "Form Handling",
+        description: "Controlled components, form validation, and user input management with React Native",
+        content: null,
+      },
+      {
+        title: "Fetching API Data",
+        description: "HTTP requests with fetch and axios, loading states, error handling, and data display",
+        content: null,
+      },
+      {
+        title: "AsyncStorage & Secure Store",
+        description: "Local data persistence, user preferences, secure token storage, and data management",
+        content: null,
+      },
+      {
+        title: "App State & Theming",
+        description: "React Context for global state, theming systems, and system appearance integration",
+        content: null,
+      },
+      {
+        title: "React Query Basics",
+        description: "Modern data fetching with automatic caching, background updates, and optimized UX",
+        content: null,
+      },
+    ],
+    challenge: {
+      title: "Complete Data-Driven Mobile App",
+      description: "Build a full-featured data-driven app that demonstrates forms, API integration, persistence, theming, and React Query",
+      tasks: [
+        "Step 1: User registration form with validation and AsyncStorage",
+        "Step 2: API integration for fetching and displaying user data",
+        "Step 3: Dark/light theme system with user preferences",
+        "Step 4: React Query implementation for optimized data fetching",
+        "Bonus: Secure authentication flow with token storage",
+        "Apply consistent theming and smooth user experience",
+      ],
+      codeTemplate: `// Day 3 Challenge: Data-Driven Mobile App
+// Build a complete app with forms, APIs, storage, and theming
+
+import React, { useState } from 'react';
+import { View, Text, ScrollView } from 'react-native';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+// TODO: Implement complete data-driven app
+// Features to include:
+// - User registration/login forms with validation
+// - API integration for user data and content
+// - Theme system with AsyncStorage persistence
+// - React Query for optimized data fetching and caching
+// - Secure storage for authentication tokens
+// - Smooth UX with loading states and error handling
+
+const queryClient = new QueryClient();
+
+const DataDrivenApp = () => {
+  // Your implementation here
+  // Start with basic structure, then add each feature
+  
+  return (
+    <QueryClientProvider client={queryClient}>
+      <ScrollView style={{ flex: 1 }}>
+        {/* Your app implementation */}
+      </ScrollView>
+    </QueryClientProvider>
+  );
+};
+
+// Challenge includes step-by-step instructions and examples
+// See full details in the lesson content`,
+    },
+  },
 }

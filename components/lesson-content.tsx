@@ -29,6 +29,7 @@ import { Day3Session1Content } from "./lessons/day-3/session-1";
 import { Day3Session2Content } from "./lessons/day-3/session-2";
 import { Day3Session3Content } from "./lessons/day-3/session-3";
 import { Day3Session4Content } from "./lessons/day-3/session-4";
+import { Day3ChallengeContent } from "./lessons/day-3/challenge";
 import { Day4Session1Content } from "./lessons/day-4/session-1";
 import { Day4Session2Content } from "./lessons/day-4/session-2";
 import { Day4Session3Content } from "./lessons/day-4/session-3";
@@ -131,25 +132,26 @@ export function LessonContent({
     if (day === 1 && session === 2) return <Day1Session2Content />;
     if (day === 1 && session === 3) return <Day1Session3Content />;
     if (day === 1 && session === 4) return <Day1Session4Content />;
-    
+
     // Day 2 sessions
     if (day === 2 && session === 1) return <Day2Session1Content />;
     if (day === 2 && session === 2) return <Day2Session2Content />;
     if (day === 2 && session === 3) return <Day2Session3Content />;
     if (day === 2 && session === 4) return <Day2Session4Content />;
-    
+
     // Day 3 sessions
     if (day === 3 && session === 1) return <Day3Session1Content />;
     if (day === 3 && session === 2) return <Day3Session2Content />;
     if (day === 3 && session === 3) return <Day3Session3Content />;
     if (day === 3 && session === 4) return <Day3Session4Content />;
-    
+    if (day === 3 && session === 5) return <Day3Session5Content />;
+
     // Day 4 sessions
     if (day === 4 && session === 1) return <Day4Session1Content />;
     if (day === 4 && session === 2) return <Day4Session2Content />;
     if (day === 4 && session === 3) return <Day4Session3Content />;
     if (day === 4 && session === 4) return <Day4Session4Content />;
-    
+
     // Day 5 sessions
     if (day === 5 && session === 1) return <Day5Session1Content />;
     if (day === 5 && session === 2) return <Day5Session2Content />;
@@ -223,6 +225,47 @@ export function LessonContent({
       return (
         <div>
           <Day2ChallengeContent />
+
+          {/* Finish Content Button */}
+          {isClient && (
+            <div className="mt-8 flex justify-center">
+              {isCompleted ? (
+                <div className="flex items-center gap-2 text-green-600">
+                  <CheckCircle className="h-4 w-4 sm:h-5 sm:w-5" />
+                  <span className="font-medium text-sm sm:text-base">
+                    Challenge Completed!
+                  </span>
+                </div>
+              ) : (
+                <Button
+                  onClick={handleFinishContent}
+                  size="lg"
+                  className="px-6 sm:px-8 text-sm sm:text-base"
+                >
+                  Complete Challenge
+                </Button>
+              )}
+            </div>
+          )}
+
+          {/* Password Dialog */}
+          <PasswordDialog
+            isOpen={showPasswordDialog}
+            onClose={() => setShowPasswordDialog(false)}
+            onSubmit={handlePasswordSubmit}
+            loading={loading}
+            error={error}
+            sessionInfo={activeSession}
+          />
+        </div>
+      );
+    }
+
+    // Day 2 has a custom comprehensive challenge component
+    if (activeSession.day === 3) {
+      return (
+        <div>
+          <Day3ChallengeContent />
 
           {/* Finish Content Button */}
           {isClient && (
