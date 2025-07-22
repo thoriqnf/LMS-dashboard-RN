@@ -24,6 +24,7 @@ import { Day2Session1Content } from "./lessons/day-2/session-1";
 import { Day2Session2Content } from "./lessons/day-2/session-2";
 import { Day2Session3Content } from "./lessons/day-2/session-3";
 import { Day2Session4Content } from "./lessons/day-2/session-4";
+import { Day2ChallengeContent } from "./lessons/day-2/challenge";
 import { Day3Session1Content } from "./lessons/day-3/session-1";
 import { Day3Session2Content } from "./lessons/day-3/session-2";
 import { Day3Session3Content } from "./lessons/day-3/session-3";
@@ -181,6 +182,47 @@ export function LessonContent({
       return (
         <div>
           <Day1ChallengeContent />
+
+          {/* Finish Content Button */}
+          {isClient && (
+            <div className="mt-8 flex justify-center">
+              {isCompleted ? (
+                <div className="flex items-center gap-2 text-green-600">
+                  <CheckCircle className="h-4 w-4 sm:h-5 sm:w-5" />
+                  <span className="font-medium text-sm sm:text-base">
+                    Challenge Completed!
+                  </span>
+                </div>
+              ) : (
+                <Button
+                  onClick={handleFinishContent}
+                  size="lg"
+                  className="px-6 sm:px-8 text-sm sm:text-base"
+                >
+                  Complete Challenge
+                </Button>
+              )}
+            </div>
+          )}
+
+          {/* Password Dialog */}
+          <PasswordDialog
+            isOpen={showPasswordDialog}
+            onClose={() => setShowPasswordDialog(false)}
+            onSubmit={handlePasswordSubmit}
+            loading={loading}
+            error={error}
+            sessionInfo={activeSession}
+          />
+        </div>
+      );
+    }
+
+    // Day 2 has a custom comprehensive challenge component
+    if (activeSession.day === 2) {
+      return (
+        <div>
+          <Day2ChallengeContent />
 
           {/* Finish Content Button */}
           {isClient && (

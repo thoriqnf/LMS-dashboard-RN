@@ -5,31 +5,31 @@ export function Day4Session2Content() {
     <div className="prose prose-slate dark:prose-invert max-w-none">
         <div className="mb-8">
           <h1 className="text-3xl font-bold mb-4">
-            React Native Auth Logic - Session 2
+            Advanced Any Type Patterns - Session 2
           </h1>
 
           <div className="bg-blue-50 dark:bg-blue-950 p-6 rounded-lg border border-blue-200 dark:border-blue-800 mb-8">
             <h3 className="text-blue-800 dark:text-blue-200 font-semibold mb-4 mt-0">
-              ⚡ Session Overview
+              🚀 Session Overview
             </h3>
             <ul className="text-blue-700 dark:text-blue-300 space-y-2 mb-0">
               <li>
-                <strong>JWT Token Simulation</strong> - Create and validate authentication tokens
+                <strong>Complex Data Transformations</strong> - Transform any data to any format
               </li>
               <li>
-                <strong>Advanced State Management</strong> - Handle authentication state with Context
+                <strong>Dynamic Component Generation</strong> - Generate components from any configuration
               </li>
               <li>
-                <strong>Expo Router Integration</strong> - Navigate with authentication guards
+                <strong>Plugin Architecture</strong> - Build extensible systems with any plugins
               </li>
               <li>
-                <strong>Multi-stage Splash Logic</strong> - Build async initialization sequences
+                <strong>Advanced Error Handling</strong> - Handle any error type gracefully
               </li>
               <li>
-                <strong>Session Management</strong> - Implement timeout and refresh patterns
+                <strong>State Management</strong> - Manage any state structure dynamically
               </li>
               <li>
-                <strong>Token Storage & Security</strong> - Handle secure token persistence
+                <strong>Performance Optimization</strong> - Optimize any type operations
               </li>
             </ul>
           </div>
@@ -37,1269 +37,1447 @@ export function Day4Session2Content() {
 
       {/* Introduction */}
       <div className="mb-8">
-        <h2 className="text-xl font-semibold mb-4">Authentication Logic Architecture</h2>
+        <h2 className="text-xl font-semibold mb-4">Advanced Any Type Techniques</h2>
         <p className="text-gray-700 dark:text-gray-300 mb-4">
-          While UI handles the visual aspects, authentication logic manages the complex state, navigation, and security patterns 
-          that make auth systems work. We'll build production-ready authentication logic using modern React Native patterns.
+          In this session, we'll explore advanced patterns for working with `any` types in complex scenarios. 
+          These techniques are particularly useful for building highly dynamic, plugin-based systems and 
+          handling complex data transformations where exact types are unknown at compile time.
         </p>
         
         <div className="bg-blue-50 dark:bg-blue-950/20 p-4 rounded-lg border border-blue-200 dark:border-blue-800">
-          <h4 className="font-semibold text-blue-800 dark:text-blue-200 mb-2">⚡ Auth Logic Components</h4>
+          <h4 className="font-semibold text-blue-800 dark:text-blue-200 mb-2">🔧 Advanced Patterns</h4>
           <ul className="text-blue-700 dark:text-blue-300 text-sm space-y-1">
-            <li>• <strong>Token Management</strong>: JWT simulation, storage, and validation</li>
-            <li>• <strong>Navigation Logic</strong>: Expo Router integration with auth guards</li>
-            <li>• <strong>Splash Logic</strong>: Async auth checking with useEffect patterns</li>
-            <li>• <strong>Session Management</strong>: Timeout handling and auto-logout</li>
+            <li>• <strong>Type Guards</strong>: Runtime type validation for any values</li>
+            <li>• <strong>Factory Patterns</strong>: Create any object type from configuration</li>
+            <li>• <strong>Proxy Objects</strong>: Intercept any property access dynamically</li>
+            <li>• <strong>Memoization</strong>: Cache any computation result efficiently</li>
           </ul>
         </div>
       </div>
 
-      {/* JWT Token Simulation */}
+      {/* Complex Data Transformations */}
       <div className="mb-8">
-        <h2 className="text-xl font-semibold mb-4">JWT Token Simulation</h2>
+        <h2 className="text-xl font-semibold mb-4">Complex Data Transformation Engine</h2>
         <p className="text-gray-700 dark:text-gray-300 mb-4">
-          Let's create a realistic JWT token simulation system that mimics production authentication patterns.
+          Build a powerful data transformation engine that can process any input data structure 
+          and transform it to any desired output format using configurable transformation rules.
         </p>
 
         <CodeBlock
-          code={`// JWT Token Simulation System
-import AsyncStorage from '@react-native-async-storage/async-storage';
+          code={`import React, { useState, useMemo } from 'react';
 
-// Token structure simulation
-const createJWTToken = (payload, expiresIn = 3600) => {
-  const header = {
-    alg: 'HS256',
-    typ: 'JWT'
-  };
-  
-  const now = Math.floor(Date.now() / 1000);
-  const tokenPayload = {
-    ...payload,
-    iat: now, // issued at
-    exp: now + expiresIn, // expires in seconds
-    iss: 'auth-service', // issuer
-    sub: payload.userId || payload.id, // subject
-  };
-  
-  // Simulate JWT structure (header.payload.signature)
-  const encodedHeader = btoa(JSON.stringify(header));
-  const encodedPayload = btoa(JSON.stringify(tokenPayload));
-  const signature = btoa(\`mock-signature-\${Date.now()}\`);
-  
-  return \`\${encodedHeader}.\${encodedPayload}.\${signature}\`;
-};
-
-// Token validation and parsing
-const parseJWTToken = (token) => {
-  try {
-    if (!token || typeof token !== 'string') {
-      return null;
-    }
-    
-    const parts = token.split('.');
-    if (parts.length !== 3) {
-      return null;
-    }
-    
-    const [header, payload, signature] = parts;
-    
-    const decodedHeader = JSON.parse(atob(header));
-    const decodedPayload = JSON.parse(atob(payload));
-    
-    return {
-      header: decodedHeader,
-      payload: decodedPayload,
-      signature,
-      raw: token
-    };
-  } catch (error) {
-    console.error('Token parsing error:', error);
-    return null;
-  }
-};
-
-// Token validation
-const validateToken = (token) => {
-  const parsed = parseJWTToken(token);
-  
-  if (!parsed) {
-    return { valid: false, reason: 'Invalid token format' };
-  }
-  
-  const now = Math.floor(Date.now() / 1000);
-  
-  if (parsed.payload.exp < now) {
-    return { valid: false, reason: 'Token expired' };
-  }
-  
-  if (parsed.payload.iat > now) {
-    return { valid: false, reason: 'Token not yet valid' };
-  }
-  
-  return { valid: true, payload: parsed.payload };
-};
-
-// Token storage keys
-const TOKEN_KEYS = {
-  ACCESS_TOKEN: 'access_token',
-  REFRESH_TOKEN: 'refresh_token',
-  USER_PROFILE: 'user_profile',
-  TOKEN_EXPIRY: 'token_expiry'
-};
-
-// Token storage service
-class TokenStorageService {
-  static async storeTokens(accessToken, refreshToken = null, userProfile = null) {
-    try {
-      const storage = [
-        [TOKEN_KEYS.ACCESS_TOKEN, accessToken],
-        [TOKEN_KEYS.TOKEN_EXPIRY, Date.now().toString()]
-      ];
-      
-      if (refreshToken) {
-        storage.push([TOKEN_KEYS.REFRESH_TOKEN, refreshToken]);
-      }
-      
-      if (userProfile) {
-        storage.push([TOKEN_KEYS.USER_PROFILE, JSON.stringify(userProfile)]);
-      }
-      
-      await AsyncStorage.multiSet(storage);
-      return true;
-    } catch (error) {
-      console.error('Token storage error:', error);
-      return false;
-    }
-  }
-  
-  static async getAccessToken() {
-    try {
-      const token = await AsyncStorage.getItem(TOKEN_KEYS.ACCESS_TOKEN);
-      
-      if (!token) {
-        return null;
-      }
-      
-      const validation = validateToken(token);
-      
-      if (!validation.valid) {
-        console.log('Token validation failed:', validation.reason);
-        await this.clearTokens();
-        return null;
-      }
-      
-      return token;
-    } catch (error) {
-      console.error('Token retrieval error:', error);
-      return null;
-    }
-  }
-  
-  static async getUserProfile() {
-    try {
-      const profileJson = await AsyncStorage.getItem(TOKEN_KEYS.USER_PROFILE);
-      return profileJson ? JSON.parse(profileJson) : null;
-    } catch (error) {
-      console.error('Profile retrieval error:', error);
-      return null;
-    }
-  }
-  
-  static async clearTokens() {
-    try {
-      await AsyncStorage.multiRemove([
-        TOKEN_KEYS.ACCESS_TOKEN,
-        TOKEN_KEYS.REFRESH_TOKEN,
-        TOKEN_KEYS.USER_PROFILE,
-        TOKEN_KEYS.TOKEN_EXPIRY
-      ]);
-      return true;
-    } catch (error) {
-      console.error('Token clearing error:', error);
-      return false;
-    }
-  }
-  
-  static async refreshTokenIfNeeded() {
-    try {
-      const token = await AsyncStorage.getItem(TOKEN_KEYS.ACCESS_TOKEN);
-      
-      if (!token) {
-        return { success: false, reason: 'No token found' };
-      }
-      
-      const parsed = parseJWTToken(token);
-      
-      if (!parsed) {
-        return { success: false, reason: 'Invalid token' };
-      }
-      
-      const now = Math.floor(Date.now() / 1000);
-      const timeToExpiry = parsed.payload.exp - now;
-      
-      // Refresh if token expires in less than 5 minutes
-      if (timeToExpiry < 300) {
-        console.log('Token needs refresh');
-        
-        // Simulate refresh token API call
-        const newToken = createJWTToken({
-          userId: parsed.payload.sub,
-          email: parsed.payload.email,
-          name: parsed.payload.name
-        });
-        
-        await this.storeTokens(newToken);
-        
-        return { success: true, token: newToken };
-      }
-      
-      return { success: true, token };
-    } catch (error) {
-      console.error('Token refresh error:', error);
-      return { success: false, reason: 'Refresh failed' };
-    }
-  }
+// Transformation engine that handles any data type
+interface TransformationRule {
+  name: any;
+  condition: (data: any) => any;
+  transform: (data: any, context: any) => any;
+  priority: any;
+  metadata: any;
 }
 
-export { createJWTToken, parseJWTToken, validateToken, TokenStorageService };`}
-          language="javascript"
-          filename="services/TokenService.js"
-          title="JWT Token Simulation System"
-        />
+export class DataTransformationEngine {
+  private rules: any[] = [];
+  private cache: any = new Map();
+  private stats: any = {
+    transformations: 0,
+    cacheHits: 0,
+    errors: 0
+  };
 
-        <div className="bg-green-50 dark:bg-green-950/20 p-4 rounded-lg border border-green-200 dark:border-green-800 mt-4">
-          <h4 className="font-semibold text-green-800 dark:text-green-200 mb-2">✅ Token System Features</h4>
-          <ul className="text-green-700 dark:text-green-300 text-sm space-y-1">
-            <li>• <strong>JWT Structure</strong> - Realistic header.payload.signature format</li>
-            <li>• <strong>Token Validation</strong> - Expiration and format checking</li>
-            <li>• <strong>Storage Service</strong> - Secure AsyncStorage integration</li>
-            <li>• <strong>Auto-refresh</strong> - Token refresh before expiration</li>
-          </ul>
-        </div>
-      </div>
-
-      {/* Example 1: Basic Auth State Management */}
-      <div className="mb-12">
-        <h2 className="text-xl font-semibold mb-4">Example 1: Auth State Management</h2>
-        <p className="text-gray-700 dark:text-gray-300 mb-4">
-          Let's create a comprehensive authentication state management system using React Context and our token service.
-        </p>
-
-        <CodeBlock
-          code={`import React, { createContext, useContext, useState, useEffect, useRef } from 'react';
-import { TokenStorageService, createJWTToken, validateToken } from './TokenService';
-
-// Auth context
-const AuthContext = createContext({
-  isAuthenticated: false,
-  user: null,
-  loading: true,
-  login: async () => {},
-  logout: async () => {},
-  checkAuthStatus: async () => {},
-  refreshToken: async () => {},
-});
-
-// Auth provider component
-export function AuthProvider({ children }) {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  
-  // Session timeout handling
-  const sessionTimeoutRef = useRef(null);
-  const lastActivityRef = useRef(Date.now());
-  
-  // Session timeout duration (15 minutes)
-  const SESSION_TIMEOUT = 15 * 60 * 1000;
-  
-  // Initialize auth state
-  useEffect(() => {
-    initializeAuth();
-    setupActivityTracking();
+  // Add transformation rule
+  addRule(rule: TransformationRule): any {
+    this.rules.push({
+      ...rule,
+      id: Date.now() + Math.random(),
+      created: new Date().toISOString()
+    });
     
-    return () => {
-      if (sessionTimeoutRef.current) {
-        clearTimeout(sessionTimeoutRef.current);
-      }
-    };
-  }, []);
-  
-  const initializeAuth = async () => {
+    // Sort by priority (higher first)
+    this.rules.sort((a: any, b: any) => (b.priority || 0) - (a.priority || 0));
+    return this;
+  }
+
+  // Remove rule by ID or condition
+  removeRule(identifier: any): any {
+    if (typeof identifier === 'function') {
+      this.rules = this.rules.filter((rule: any) => !identifier(rule));
+    } else {
+      this.rules = this.rules.filter((rule: any) => rule.id !== identifier);
+    }
+    return this;
+  }
+
+  // Transform any data using applicable rules
+  transform(data: any, context: any = {}): any {
+    const cacheKey: any = JSON.stringify({ data, context, rules: this.rules.length });
+    
+    // Check cache first
+    if (this.cache.has(cacheKey)) {
+      this.stats.cacheHits++;
+      return this.cache.get(cacheKey);
+    }
+
     try {
-      setLoading(true);
-      setError(null);
-      
-      // Check for existing valid token
-      const token = await TokenStorageService.getAccessToken();
-      
-      if (token) {
-        const userProfile = await TokenStorageService.getUserProfile();
-        
-        if (userProfile) {
-          setIsAuthenticated(true);
-          setUser(userProfile);
-          
-          // Setup session timeout
-          resetSessionTimeout();
-          
-          console.log('Auth initialized successfully');
-        } else {
-          await TokenStorageService.clearTokens();
+      let result: any = data;
+      const appliedRules: any[] = [];
+
+      // Apply transformation rules in priority order
+      for (const rule of this.rules) {
+        try {
+          if (rule.condition(result)) {
+            const transformed: any = rule.transform(result, {
+              ...context,
+              appliedRules,
+              originalData: data,
+              currentData: result
+            });
+            
+            appliedRules.push({
+              name: rule.name,
+              applied: new Date().toISOString(),
+              input: result,
+              output: transformed
+            });
+            
+            result = transformed;
+          }
+        } catch (error: any) {
+          console.error(\`Transformation rule '\${rule.name}' failed:\`, error);
+          this.stats.errors++;
         }
       }
-    } catch (error) {
-      console.error('Auth initialization error:', error);
-      setError('Authentication initialization failed');
-      await TokenStorageService.clearTokens();
-    } finally {
-      setLoading(false);
-    }
-  };
-  
-  const login = async (credentials) => {
-    try {
-      setLoading(true);
-      setError(null);
-      
-      // Simulate login API call
-      const response = await fetch('https://reqres.in/api/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(credentials),
-      });
-      
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || 'Login failed');
-      }
-      
-      const data = await response.json();
-      
-      // Create our simulated JWT token
-      const userProfile = {
-        id: Date.now(),
-        email: credentials.email,
-        name: credentials.email.split('@')[0],
-        avatar: \`https://ui-avatars.com/api/?name=\${credentials.email.split('@')[0]}&background=4f46e5&color=fff\`,
-        loginTime: new Date().toISOString(),
+
+      const finalResult: any = {
+        data: result,
+        metadata: {
+          originalData: data,
+          appliedRules,
+          transformationId: Date.now(),
+          timestamp: new Date().toISOString()
+        }
       };
-      
-      const jwtToken = createJWTToken({
-        userId: userProfile.id,
-        email: userProfile.email,
-        name: userProfile.name,
-      });
-      
-      // Store tokens and profile
-      await TokenStorageService.storeTokens(jwtToken, data.token, userProfile);
-      
-      setIsAuthenticated(true);
-      setUser(userProfile);
-      
-      // Setup session timeout
-      resetSessionTimeout();
-      
-      return { success: true, user: userProfile };
-    } catch (error) {
-      console.error('Login error:', error);
-      setError(error.message);
-      return { success: false, error: error.message };
-    } finally {
-      setLoading(false);
-    }
-  };
-  
-  const logout = async () => {
-    try {
-      setLoading(true);
-      
-      // Clear session timeout
-      if (sessionTimeoutRef.current) {
-        clearTimeout(sessionTimeoutRef.current);
-      }
-      
-      // Clear stored tokens
-      await TokenStorageService.clearTokens();
-      
-      setIsAuthenticated(false);
-      setUser(null);
-      setError(null);
-      
-      console.log('Logout successful');
-      return { success: true };
-    } catch (error) {
-      console.error('Logout error:', error);
-      setError('Logout failed');
-      return { success: false, error: error.message };
-    } finally {
-      setLoading(false);
-    }
-  };
-  
-  const checkAuthStatus = async () => {
-    try {
-      const token = await TokenStorageService.getAccessToken();
-      
-      if (!token) {
-        if (isAuthenticated) {
-          setIsAuthenticated(false);
-          setUser(null);
-        }
-        return false;
-      }
-      
-      const validation = validateToken(token);
-      
-      if (!validation.valid) {
-        await logout();
-        return false;
-      }
-      
-      // Update last activity
-      lastActivityRef.current = Date.now();
-      resetSessionTimeout();
-      
-      return true;
-    } catch (error) {
-      console.error('Auth status check error:', error);
-      return false;
-    }
-  };
-  
-  const refreshToken = async () => {
-    try {
-      const result = await TokenStorageService.refreshTokenIfNeeded();
-      
-      if (result.success) {
-        // Update last activity
-        lastActivityRef.current = Date.now();
-        resetSessionTimeout();
-        
-        return { success: true };
-      } else {
-        await logout();
-        return { success: false, reason: result.reason };
-      }
-    } catch (error) {
-      console.error('Token refresh error:', error);
-      await logout();
-      return { success: false, reason: 'Refresh failed' };
-    }
-  };
-  
-  const resetSessionTimeout = () => {
-    if (sessionTimeoutRef.current) {
-      clearTimeout(sessionTimeoutRef.current);
-    }
-    
-    sessionTimeoutRef.current = setTimeout(() => {
-      console.log('Session timeout - logging out');
-      logout();
-    }, SESSION_TIMEOUT);
-  };
-  
-  const setupActivityTracking = () => {
-    // Track user activity to reset session timeout
-    const handleActivity = () => {
-      if (isAuthenticated) {
-        lastActivityRef.current = Date.now();
-        resetSessionTimeout();
-      }
-    };
-    
-    // In a real app, you'd track various user interactions
-    // For simulation, we'll just track periodic checks
-    const activityInterval = setInterval(() => {
-      if (isAuthenticated) {
-        const timeSinceActivity = Date.now() - lastActivityRef.current;
-        
-        if (timeSinceActivity > SESSION_TIMEOUT) {
-          console.log('Session timeout due to inactivity');
-          logout();
-        }
-      }
-    }, 60000); // Check every minute
-    
-    return () => clearInterval(activityInterval);
-  };
-  
-  const value = {
-    isAuthenticated,
-    user,
-    loading,
-    error,
-    login,
-    logout,
-    checkAuthStatus,
-    refreshToken,
-  };
-  
-  return (
-    <AuthContext.Provider value={value}>
-      {children}
-    </AuthContext.Provider>
-  );
-}
 
-// Custom hook for using auth context
-export function useAuth() {
-  const context = useContext(AuthContext);
-  
-  if (!context) {
-    throw new Error('useAuth must be used within an AuthProvider');
+      // Cache result
+      this.cache.set(cacheKey, finalResult);
+      this.stats.transformations++;
+
+      return finalResult;
+    } catch (error: any) {
+      console.error('Transformation engine error:', error);
+      this.stats.errors++;
+      return {
+        data,
+        error: error.message,
+        metadata: { failed: true, timestamp: new Date().toISOString() }
+      };
+    }
   }
-  
-  return context;
-}
 
-// Auth status component for debugging
-export function AuthStatusDebug() {
-  const { isAuthenticated, user, loading, error } = useAuth();
-  
-  if (loading) {
-    return <div>Loading auth status...</div>;
-  }
-  
-  return (
-    <div style={{ padding: 10, backgroundColor: '#f0f0f0', margin: 10 }}>
-      <h3>Auth Status (Debug)</h3>
-      <p>Authenticated: {isAuthenticated ? 'Yes' : 'No'}</p>
-      <p>User: {user ? user.email : 'None'}</p>
-      <p>Error: {error || 'None'}</p>
-    </div>
-  );
-}`}
-          language="jsx"
-          filename="contexts/AuthContext.jsx"
-          title="Authentication State Management"
-        />
-
-        <div className="bg-green-50 dark:bg-green-950/20 p-4 rounded-lg border border-green-200 dark:border-green-800 mt-4">
-          <h4 className="font-semibold text-green-800 dark:text-green-200 mb-2">✅ What's New in This Example</h4>
-          <ul className="text-green-700 dark:text-green-300 text-sm space-y-1">
-            <li>• <strong>Auth Context</strong> - Global authentication state management</li>
-            <li>• <strong>Session Timeout</strong> - Automatic logout after inactivity</li>
-            <li>• <strong>Token Refresh</strong> - Automatic token refresh before expiration</li>
-            <li>• <strong>Error Handling</strong> - Comprehensive error state management</li>
-            <li>• <strong>Activity Tracking</strong> - Monitor user activity for session management</li>
-          </ul>
-        </div>
-      </div>
-
-      {/* Example 2: Expo Router Navigation Logic */}
-      <div className="mb-12">
-        <h2 className="text-xl font-semibold mb-4">Example 2: Expo Router Auth Navigation</h2>
-        <p className="text-gray-700 dark:text-gray-300 mb-4">
-          Now let's implement Expo Router integration with protected routes and navigation guards.
-        </p>
-
-        <CodeBlock
-          code={`import { useRouter, useSegments } from 'expo-router';
-import { useEffect } from 'react';
-import { useAuth } from '../contexts/AuthContext';
-
-// Auth guard hook for protected routes
-export function useAuthGuard() {
-  const { isAuthenticated, loading } = useAuth();
-  const router = useRouter();
-  const segments = useSegments();
-  
-  useEffect(() => {
-    if (loading) return; // Wait for auth to initialize
-    
-    const inAuthGroup = segments[0] === '(auth)';
-    const inProtectedGroup = segments[0] === '(protected)';
-    
-    if (!isAuthenticated && inProtectedGroup) {
-      // Redirect to auth if not authenticated and trying to access protected route
-      router.replace('/auth/login');
-    } else if (isAuthenticated && inAuthGroup) {
-      // Redirect to home if authenticated and trying to access auth routes
-      router.replace('/home');
-    }
-  }, [isAuthenticated, loading, segments, router]);
-  
-  return { isAuthenticated, loading };
-}
-
-// Protected route wrapper
-export function ProtectedRoute({ children }) {
-  const { isAuthenticated, loading } = useAuth();
-  const router = useRouter();
-  
-  useEffect(() => {
-    if (!loading && !isAuthenticated) {
-      router.replace('/auth/login');
-    }
-  }, [isAuthenticated, loading, router]);
-  
-  if (loading) {
-    return (
-      <div style={{ 
-        flex: 1, 
-        justifyContent: 'center', 
-        alignItems: 'center',
-        padding: 20 
-      }}>
-        <div>Loading...</div>
-      </div>
+  // Batch transform multiple data items
+  transformBatch(dataArray: any[], context: any = {}): any[] {
+    return dataArray.map((data: any, index: any) => 
+      this.transform(data, { ...context, batchIndex: index })
     );
   }
-  
-  if (!isAuthenticated) {
-    return null; // Will redirect via useEffect
+
+  // Get transformation statistics
+  getStats(): any {
+    return {
+      ...this.stats,
+      cacheSize: this.cache.size,
+      rulesCount: this.rules.length,
+      hitRate: this.stats.cacheHits / Math.max(this.stats.transformations, 1)
+    };
   }
-  
-  return children;
+
+  // Clear cache and reset stats
+  clearCache(): any {
+    this.cache.clear();
+    this.stats = { transformations: 0, cacheHits: 0, errors: 0 };
+    return this;
+  }
+
+  // Get all rules
+  getRules(): any[] {
+    return [...this.rules];
+  }
 }
 
-// Deep linking handler with auth
-export function useAuthDeepLink() {
-  const { isAuthenticated, loading } = useAuth();
-  const router = useRouter();
-  
-  const handleDeepLink = (url) => {
-    if (loading) return;
-    
-    try {
-      const urlObject = new URL(url);
-      const path = urlObject.pathname;
-      
-      // Check if the deep link requires authentication
-      const protectedPaths = ['/profile', '/settings', '/dashboard'];
-      const requiresAuth = protectedPaths.some(protectedPath => 
-        path.startsWith(protectedPath)
-      );
-      
-      if (requiresAuth && !isAuthenticated) {
-        // Store intended destination and redirect to login
-        router.replace(\`/auth/login?redirect=\${encodeURIComponent(path)}\`);
-      } else if (!requiresAuth || isAuthenticated) {
-        // Navigate to the intended destination
-        router.replace(path);
+// Predefined transformation rules
+export const commonTransformationRules: any = {
+  // String transformations
+  uppercaseStrings: {
+    name: 'Uppercase Strings',
+    condition: (data: any) => typeof data === 'string',
+    transform: (data: any) => data.toUpperCase(),
+    priority: 1,
+    metadata: { category: 'string', safe: true }
+  },
+
+  // Number transformations
+  roundNumbers: {
+    name: 'Round Numbers',
+    condition: (data: any) => typeof data === 'number' && !Number.isInteger(data),
+    transform: (data: any, context: any) => {
+      const precision: any = context.precision || 2;
+      return Math.round(data * Math.pow(10, precision)) / Math.pow(10, precision);
+    },
+    priority: 2,
+    metadata: { category: 'number', configurable: true }
+  },
+
+  // Array transformations
+  sortArrays: {
+    name: 'Sort Arrays',
+    condition: (data: any) => Array.isArray(data) && data.length > 1,
+    transform: (data: any, context: any) => {
+      if (context.sortOrder === 'desc') {
+        return [...data].sort((a: any, b: any) => b > a ? 1 : -1);
       }
-    } catch (error) {
-      console.error('Deep link handling error:', error);
-      // Fallback to home or login
-      router.replace(isAuthenticated ? '/home' : '/auth/login');
+      return [...data].sort((a: any, b: any) => a > b ? 1 : -1);
+    },
+    priority: 3,
+    metadata: { category: 'array', modifies: 'order' }
+  },
+
+  // Object transformations
+  flattenObjects: {
+    name: 'Flatten Objects',
+    condition: (data: any) => typeof data === 'object' && data !== null && !Array.isArray(data),
+    transform: (data: any, context: any) => {
+      const flatten = (obj: any, prefix: any = ''): any => {
+        const result: any = {};
+        for (const [key, value] of Object.entries(obj)) {
+          const newKey: any = prefix ? \`\${prefix}.\${key}\` : key;
+          if (typeof value === 'object' && value !== null && !Array.isArray(value)) {
+            Object.assign(result, flatten(value, newKey));
+          } else {
+            result[newKey] = value;
+          }
+        }
+        return result;
+      };
+      return context.flatten ? flatten(data) : data;
+    },
+    priority: 4,
+    metadata: { category: 'object', restructures: true }
+  },
+
+  // Date transformations
+  formatDates: {
+    name: 'Format Dates',
+    condition: (data: any) => data instanceof Date || 
+      (typeof data === 'string' && !isNaN(Date.parse(data))),
+    transform: (data: any, context: any) => {
+      const date: any = data instanceof Date ? data : new Date(data);
+      const format: any = context.dateFormat || 'ISO';
+      
+      switch (format) {
+        case 'ISO':
+          return date.toISOString();
+        case 'local':
+          return date.toLocaleDateString();
+        case 'timestamp':
+          return date.getTime();
+        default:
+          return date.toString();
+      }
+    },
+    priority: 5,
+    metadata: { category: 'date', formats: ['ISO', 'local', 'timestamp'] }
+  }
+};
+
+// React component for transformation engine demo
+export function DataTransformationDemo() {
+  const [engine] = useState(() => new DataTransformationEngine());
+  const [inputData, setInputData] = useState<any>('');
+  const [transformationContext, setTransformationContext] = useState<any>('{}');
+  const [results, setResults] = useState<any[]>([]);
+  const [activeRules, setActiveRules] = useState<any>({});
+
+  // Initialize engine with common rules
+  React.useEffect(() => {
+    Object.values(commonTransformationRules).forEach((rule: any) => {
+      engine.addRule(rule);
+    });
+  }, [engine]);
+
+  const performTransformation = () => {
+    try {
+      const data: any = JSON.parse(inputData);
+      const context: any = JSON.parse(transformationContext);
+      
+      const result: any = engine.transform(data, context);
+      setResults(prev => [result, ...prev.slice(0, 9)]); // Keep last 10 results
+    } catch (error: any) {
+      alert('Invalid JSON input: ' + error.message);
     }
   };
-  
-  return { handleDeepLink };
-}
 
-// Navigation service for auth-aware navigation
-export class AuthNavigationService {
-  static router = null;
-  
-  static setRouter(router) {
-    this.router = router;
-  }
-  
-  static async navigateToAuth(screen = 'login') {
-    if (this.router) {
-      await this.router.replace(\`/auth/\${screen}\`);
-    }
-  }
-  
-  static async navigateToProtected(screen = 'home') {
-    if (this.router) {
-      await this.router.replace(\`/\${screen}\`);
-    }
-  }
-  
-  static async navigateWithAuthCheck(path, requiresAuth = true) {
-    if (!this.router) return;
-    
-    const { isAuthenticated } = useAuth();
-    
-    if (requiresAuth && !isAuthenticated) {
-      await this.navigateToAuth('login');
-    } else if (!requiresAuth && isAuthenticated) {
-      await this.navigateToProtected();
-    } else {
-      await this.router.replace(path);
-    }
-  }
-}
+  const toggleRule = (ruleName: any) => {
+    setActiveRules((prev: any) => ({
+      ...prev,
+      [ruleName]: !prev[ruleName]
+    }));
 
-// Root layout with auth routing
-export function RootLayout() {
-  const { isAuthenticated, loading } = useAuth();
-  const router = useRouter();
-  
-  useEffect(() => {
-    // Set up navigation service
-    AuthNavigationService.setRouter(router);
-  }, [router]);
-  
-  // Auth guard logic
-  useAuthGuard();
-  
-  if (loading) {
-    return <SplashScreen />;
-  }
-  
+    const rule: any = Object.values(commonTransformationRules)
+      .find((r: any) => r.name === ruleName);
+    
+    if (activeRules[ruleName]) {
+      engine.removeRule((r: any) => r.name === ruleName);
+    } else if (rule) {
+      engine.addRule(rule);
+    }
+  };
+
+  const stats: any = engine.getStats();
+
   return (
-    <div style={{ flex: 1 }}>
-      {isAuthenticated ? (
-        <ProtectedStack />
-      ) : (
-        <AuthStack />
+    <div className="space-y-6">
+      {/* Input Section */}
+      <div className="bg-white p-6 border rounded-lg">
+        <h3 className="text-lg font-semibold mb-4">Data Transformation Input</h3>
+        
+        <div className="grid md:grid-cols-2 gap-4 mb-4">
+          <div>
+            <label className="block text-sm font-medium mb-1">Input Data (JSON):</label>
+            <textarea
+              value={inputData}
+              onChange={(e: any) => setInputData(e.target.value)}
+              placeholder='{"name": "test", "value": 3.14159, "items": [3, 1, 2], "date": "2024-01-01"}'
+              className="w-full p-2 border rounded h-32"
+            />
+          </div>
+          
+          <div>
+            <label className="block text-sm font-medium mb-1">Transformation Context (JSON):</label>
+            <textarea
+              value={transformationContext}
+              onChange={(e: any) => setTransformationContext(e.target.value)}
+              placeholder='{"precision": 2, "sortOrder": "asc", "flatten": true, "dateFormat": "ISO"}'
+              className="w-full p-2 border rounded h-32"
+            />
+          </div>
+        </div>
+
+        <button
+          onClick={performTransformation}
+          className="w-full p-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+        >
+          Transform Data
+        </button>
+      </div>
+
+      {/* Rules Control */}
+      <div className="bg-white p-6 border rounded-lg">
+        <h3 className="text-lg font-semibold mb-4">Transformation Rules</h3>
+        <div className="grid md:grid-cols-2 gap-4">
+          {Object.entries(commonTransformationRules).map(([key, rule]: [any, any]) => (
+            <div key={key} className="flex items-center justify-between p-3 border rounded">
+              <div>
+                <div className="font-medium">{rule.name}</div>
+                <div className="text-sm text-gray-600">
+                  Priority: {rule.priority} | Category: {rule.metadata.category}
+                </div>
+              </div>
+              <label className="flex items-center">
+                <input
+                  type="checkbox"
+                  checked={!activeRules[rule.name]}
+                  onChange={() => toggleRule(rule.name)}
+                  className="mr-2"
+                />
+                <span className="text-sm">Active</span>
+              </label>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Statistics */}
+      <div className="bg-white p-6 border rounded-lg">
+        <h3 className="text-lg font-semibold mb-4">Engine Statistics</h3>
+        <div className="grid md:grid-cols-4 gap-4 text-center">
+          <div className="p-4 bg-blue-50 rounded">
+            <div className="text-2xl font-bold text-blue-600">{stats.transformations}</div>
+            <div className="text-sm text-blue-800">Transformations</div>
+          </div>
+          <div className="p-4 bg-green-50 rounded">
+            <div className="text-2xl font-bold text-green-600">{stats.cacheHits}</div>
+            <div className="text-sm text-green-800">Cache Hits</div>
+          </div>
+          <div className="p-4 bg-purple-50 rounded">
+            <div className="text-2xl font-bold text-purple-600">{stats.rulesCount}</div>
+            <div className="text-sm text-purple-800">Active Rules</div>
+          </div>
+          <div className="p-4 bg-orange-50 rounded">
+            <div className="text-2xl font-bold text-orange-600">
+              {Math.round(stats.hitRate * 100)}%
+            </div>
+            <div className="text-sm text-orange-800">Cache Hit Rate</div>
+          </div>
+        </div>
+      </div>
+
+      {/* Results */}
+      {results.length > 0 && (
+        <div className="bg-white p-6 border rounded-lg">
+          <div className="flex justify-between items-center mb-4">
+            <h3 className="text-lg font-semibold">Transformation Results</h3>
+            <button
+              onClick={() => setResults([])}
+              className="text-sm px-3 py-1 bg-gray-500 text-white rounded hover:bg-gray-600"
+            >
+              Clear Results
+            </button>
+          </div>
+          <div className="space-y-4 max-h-96 overflow-y-auto">
+            {results.map((result: any, index: any) => (
+              <div key={index} className="border rounded p-4">
+                <div className="grid md:grid-cols-2 gap-4">
+                  <div>
+                    <h4 className="font-medium mb-2">Transformed Data:</h4>
+                    <pre className="text-sm bg-gray-100 p-3 rounded overflow-auto">
+                      {JSON.stringify(result.data, null, 2)}
+                    </pre>
+                  </div>
+                  <div>
+                    <h4 className="font-medium mb-2">Applied Rules:</h4>
+                    <div className="text-sm space-y-1">
+                      {result.metadata.appliedRules.map((rule: any, rIndex: any) => (
+                        <div key={rIndex} className="p-2 bg-blue-50 rounded">
+                          <strong>{rule.name}</strong>
+                          <div className="text-xs text-gray-600">{rule.applied}</div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
       )}
     </div>
   );
-}
-
-// Auth stack for unauthenticated users
-function AuthStack() {
-  return (
-    <div>
-      {/* Auth routes would be rendered here */}
-      <div>Auth Stack - Login/Signup</div>
-    </div>
-  );
-}
-
-// Protected stack for authenticated users
-function ProtectedStack() {
-  return (
-    <div>
-      {/* Protected routes would be rendered here */}
-      <div>Protected Stack - Home/Profile/Settings</div>
-    </div>
-  );
-}
-
-// Splash screen component
-function SplashScreen() {
-  return (
-    <div style={{ 
-      flex: 1, 
-      justifyContent: 'center', 
-      alignItems: 'center',
-      backgroundColor: '#4f46e5',
-      color: '#ffffff'
-    }}>
-      <div style={{ textAlign: 'center' }}>
-        <div style={{ fontSize: 48, marginBottom: 16 }}>⚡</div>
-        <h2>Loading...</h2>
-        <p>Checking authentication status</p>
-      </div>
-    </div>
-  );
-}
-
-// Example usage in app entry point
-export default function App() {
-  return (
-    <AuthProvider>
-      <RootLayout />
-    </AuthProvider>
-  );
 }`}
-          language="jsx"
-          filename="navigation/AuthNavigation.jsx"
-          title="Expo Router Auth Navigation"
+          language="tsx"
+          filename="components/DataTransformationEngine.tsx"
+          title="Advanced Data Transformation Engine"
         />
 
         <div className="bg-green-50 dark:bg-green-950/20 p-4 rounded-lg border border-green-200 dark:border-green-800 mt-4">
           <h4 className="font-semibold text-green-800 dark:text-green-200 mb-2">✅ What's New in This Example</h4>
           <ul className="text-green-700 dark:text-green-300 text-sm space-y-1">
-            <li>• <strong>Auth Guards</strong> - Automatic route protection based on auth state</li>
-            <li>• <strong>Deep Link Handling</strong> - Authentication-aware deep link navigation</li>
-            <li>• <strong>Navigation Service</strong> - Centralized auth-aware navigation</li>
-            <li>• <strong>Route Segments</strong> - Dynamic routing based on auth status</li>
-            <li>• <strong>Protected Routes</strong> - Wrapper component for authenticated content</li>
+            <li>• <strong>Rule-Based Engine</strong> - Configurable transformation rules for any data</li>
+            <li>• <strong>Priority System</strong> - Rules execute in priority order</li>
+            <li>• <strong>Caching Layer</strong> - Performance optimization for repeated transformations</li>
+            <li>• <strong>Batch Processing</strong> - Transform multiple data items efficiently</li>
+            <li>• <strong>Context Support</strong> - Pass any configuration to transformation rules</li>
           </ul>
         </div>
       </div>
 
-      {/* Example 3: Advanced Splash Screen Logic */}
+      {/* Dynamic Component Generation */}
       <div className="mb-12">
-        <h2 className="text-xl font-semibold mb-4">Example 3: Advanced Splash Screen with Async Logic</h2>
+        <h2 className="text-xl font-semibold mb-4">Dynamic Component Generation System</h2>
         <p className="text-gray-700 dark:text-gray-300 mb-4">
-          Let's create a sophisticated splash screen that handles complex authentication checks, token refresh, and smooth transitions.
+          Create a system that can generate any React component dynamically from configuration objects, 
+          perfect for building flexible dashboard systems, form builders, or content management interfaces.
         </p>
 
         <CodeBlock
-          code={`import React, { useState, useEffect, useRef } from 'react';
-import { 
-  View, 
-  Text, 
-  StyleSheet, 
-  ActivityIndicator, 
-  Animated, 
-  Dimensions,
-  Platform 
-} from 'react-native';
-import { useRouter } from 'expo-router';
-import { useAuth } from '../contexts/AuthContext';
-import { TokenStorageService } from '../services/TokenService';
+          code={`import React, { useState, useMemo, createElement } from 'react';
 
-const { width, height } = Dimensions.get('window');
-
-export default function AdvancedSplashScreen() {
-  const [loadingStage, setLoadingStage] = useState('initializing');
-  const [progress, setProgress] = useState(0);
-  const [error, setError] = useState(null);
-  
-  const router = useRouter();
-  const { checkAuthStatus, refreshToken } = useAuth();
-  
-  // Animations
-  const fadeAnim = useRef(new Animated.Value(0)).current;
-  const scaleAnim = useRef(new Animated.Value(0.8)).current;
-  const progressAnim = useRef(new Animated.Value(0)).current;
-  
-  // Loading stages
-  const LOADING_STAGES = {
-    INITIALIZING: 'initializing',
-    CHECKING_AUTH: 'checking_auth',
-    VALIDATING_TOKEN: 'validating_token',
-    REFRESHING_TOKEN: 'refreshing_token',
-    LOADING_PROFILE: 'loading_profile',
-    FINALIZING: 'finalizing',
-    NAVIGATING: 'navigating',
-    ERROR: 'error'
-  };
-  
-  const STAGE_MESSAGES = {
-    [LOADING_STAGES.INITIALIZING]: 'Starting up...',
-    [LOADING_STAGES.CHECKING_AUTH]: 'Checking authentication...',
-    [LOADING_STAGES.VALIDATING_TOKEN]: 'Validating session...',
-    [LOADING_STAGES.REFRESHING_TOKEN]: 'Refreshing credentials...',
-    [LOADING_STAGES.LOADING_PROFILE]: 'Loading profile...',
-    [LOADING_STAGES.FINALIZING]: 'Almost ready...',
-    [LOADING_STAGES.NAVIGATING]: 'Welcome back!',
-    [LOADING_STAGES.ERROR]: 'Something went wrong...'
-  };
-  
-  useEffect(() => {
-    startSplashSequence();
-  }, []);
-  
-  const startSplashSequence = async () => {
-    try {
-      // Start entrance animations
-      Animated.parallel([
-        Animated.timing(fadeAnim, {
-          toValue: 1,
-          duration: 800,
-          useNativeDriver: true,
-        }),
-        Animated.spring(scaleAnim, {
-          toValue: 1,
-          tension: 50,
-          friction: 8,
-          useNativeDriver: true,
-        }),
-      ]).start();
-      
-      // Start auth check sequence
-      await performAuthCheck();
-      
-    } catch (error) {
-      console.error('Splash sequence error:', error);
-      setError('Failed to initialize application');
-      setLoadingStage(LOADING_STAGES.ERROR);
-    }
-  };
-  
-  const performAuthCheck = async () => {
-    const stages = [
-      { stage: LOADING_STAGES.INITIALIZING, duration: 500, progress: 10 },
-      { stage: LOADING_STAGES.CHECKING_AUTH, duration: 800, progress: 25 },
-      { stage: LOADING_STAGES.VALIDATING_TOKEN, duration: 600, progress: 50 },
-      { stage: LOADING_STAGES.REFRESHING_TOKEN, duration: 700, progress: 75 },
-      { stage: LOADING_STAGES.LOADING_PROFILE, duration: 500, progress: 90 },
-      { stage: LOADING_STAGES.FINALIZING, duration: 300, progress: 100 },
-    ];
-    
-    for (const { stage, duration, progress } of stages) {
-      setLoadingStage(stage);
-      
-      // Animate progress
-      Animated.timing(progressAnim, {
-        toValue: progress,
-        duration: duration * 0.8,
-        useNativeDriver: false,
-      }).start();
-      
-      // Perform actual auth logic based on stage
-      await performStageLogic(stage);
-      
-      // Wait for stage completion
-      await new Promise(resolve => setTimeout(resolve, duration));
-    }
-    
-    // Navigate based on auth result
-    await navigateToDestination();
-  };
-  
-  const performStageLogic = async (stage) => {
-    switch (stage) {
-      case LOADING_STAGES.CHECKING_AUTH:
-        // Check if tokens exist
-        const hasToken = await TokenStorageService.getAccessToken();
-        if (!hasToken) {
-          // Skip token-related stages if no token
-          setLoadingStage(LOADING_STAGES.FINALIZING);
-          setProgress(100);
-          return;
-        }
-        break;
-        
-      case LOADING_STAGES.VALIDATING_TOKEN:
-        // Validate existing token
-        const isValid = await checkAuthStatus();
-        if (!isValid) {
-          setLoadingStage(LOADING_STAGES.FINALIZING);
-          setProgress(100);
-          return;
-        }
-        break;
-        
-      case LOADING_STAGES.REFRESHING_TOKEN:
-        // Refresh token if needed
-        const refreshResult = await refreshToken();
-        if (!refreshResult.success) {
-          console.log('Token refresh failed:', refreshResult.reason);
-        }
-        break;
-        
-      case LOADING_STAGES.LOADING_PROFILE:
-        // Load user profile
-        const profile = await TokenStorageService.getUserProfile();
-        if (!profile) {
-          console.log('No user profile found');
-        }
-        break;
-        
-      default:
-        // Default stage logic
-        break;
-    }
-  };
-  
-  const navigateToDestination = async () => {
-    setLoadingStage(LOADING_STAGES.NAVIGATING);
-    
-    // Final navigation delay for smooth transition
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    
-    // Check final auth state
-    const isAuthenticated = await checkAuthStatus();
-    
-    if (isAuthenticated) {
-      router.replace('/home');
-    } else {
-      router.replace('/auth/login');
-    }
-  };
-  
-  const retryInitialization = async () => {
-    setError(null);
-    setLoadingStage(LOADING_STAGES.INITIALIZING);
-    setProgress(0);
-    
-    // Reset animations
-    progressAnim.setValue(0);
-    
-    await performAuthCheck();
-  };
-  
-  const renderLoadingIndicator = () => {
-    if (loadingStage === LOADING_STAGES.ERROR) {
-      return (
-        <View style={styles.errorContainer}>
-          <Text style={styles.errorText}>⚠️</Text>
-          <Text style={styles.errorMessage}>{error}</Text>
-          <TouchableOpacity 
-            style={styles.retryButton}
-            onPress={retryInitialization}
-          >
-            <Text style={styles.retryButtonText}>Retry</Text>
-          </TouchableOpacity>
-        </View>
-      );
-    }
-    
-    return (
-      <View style={styles.loadingContainer}>
-        <ActivityIndicator size="large" color="#ffffff" />
-        <Text style={styles.loadingText}>
-          {STAGE_MESSAGES[loadingStage]}
-        </Text>
-        
-        {/* Progress bar */}
-        <View style={styles.progressBarContainer}>
-          <Animated.View 
-            style={[
-              styles.progressBar,
-              {
-                width: progressAnim.interpolate({
-                  inputRange: [0, 100],
-                  outputRange: ['0%', '100%'],
-                  extrapolate: 'clamp',
-                }),
-              }
-            ]}
-          />
-        </View>
-        
-        <Text style={styles.progressText}>
-          {Math.round(progress)}% Complete
-        </Text>
-      </View>
-    );
-  };
-  
-  return (
-    <View style={styles.container}>
-      <Animated.View 
-        style={[
-          styles.content,
-          {
-            opacity: fadeAnim,
-            transform: [{ scale: scaleAnim }]
-          }
-        ]}
-      >
-        {/* Logo section */}
-        <View style={styles.logoContainer}>
-          <Text style={styles.logo}>⚡</Text>
-          <Text style={styles.appName}>SecureApp</Text>
-          <Text style={styles.tagline}>
-            Professional Authentication
-          </Text>
-        </View>
-        
-        {/* Loading section */}
-        {renderLoadingIndicator()}
-        
-        {/* Debug info (only in development) */}
-        {__DEV__ && (
-          <View style={styles.debugContainer}>
-            <Text style={styles.debugText}>
-              Stage: {loadingStage}
-            </Text>
-            <Text style={styles.debugText}>
-              Progress: {Math.round(progress)}%
-            </Text>
-          </View>
-        )}
-      </Animated.View>
-    </View>
-  );
+// Component registry for dynamic generation
+interface ComponentDefinition {
+  type: any;
+  props: any;
+  children: any;
+  style: any;
+  events: any;
+  conditions: any;
+  metadata: any;
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#4f46e5',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  content: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: width * 0.8,
-  },
-  logoContainer: {
-    alignItems: 'center',
-    marginBottom: 60,
-  },
-  logo: {
-    fontSize: 80,
-    marginBottom: 20,
-  },
-  appName: {
-    fontSize: 32,
-    fontWeight: 'bold',
-    color: '#ffffff',
-    marginBottom: 8,
-  },
-  tagline: {
-    fontSize: 16,
-    color: '#e0e7ff',
-    textAlign: 'center',
-  },
-  loadingContainer: {
-    alignItems: 'center',
-    minHeight: 120,
-  },
-  loadingText: {
-    fontSize: 16,
-    color: '#e0e7ff',
-    marginTop: 16,
-    textAlign: 'center',
-  },
-  progressBarContainer: {
-    width: 200,
-    height: 4,
-    backgroundColor: '#6366f1',
-    borderRadius: 2,
-    marginTop: 20,
-    overflow: 'hidden',
-  },
-  progressBar: {
-    height: '100%',
-    backgroundColor: '#ffffff',
-    borderRadius: 2,
-  },
-  progressText: {
-    fontSize: 12,
-    color: '#c7d2fe',
-    marginTop: 8,
-  },
-  errorContainer: {
-    alignItems: 'center',
-    minHeight: 120,
-  },
-  errorText: {
-    fontSize: 48,
-    marginBottom: 16,
-  },
-  errorMessage: {
-    fontSize: 16,
-    color: '#fecaca',
-    textAlign: 'center',
-    marginBottom: 20,
-  },
-  retryButton: {
-    backgroundColor: '#ffffff',
-    paddingHorizontal: 20,
-    paddingVertical: 10,
-    borderRadius: 20,
-  },
-  retryButtonText: {
-    color: '#4f46e5',
-    fontSize: 16,
-    fontWeight: '600',
-  },
-  debugContainer: {
-    position: 'absolute',
-    bottom: 50,
-    left: 20,
-    right: 20,
-    backgroundColor: 'rgba(0,0,0,0.5)',
-    padding: 10,
-    borderRadius: 8,
-  },
-  debugText: {
-    color: '#ffffff',
-    fontSize: 12,
-    textAlign: 'center',
-  },
-});`}
-          language="jsx"
-          filename="screens/AdvancedSplashScreen.jsx"
-          title="Advanced Splash Screen with Async Logic"
+export class ComponentGenerator {
+  private componentRegistry: any = new Map();
+  private themeRegistry: any = new Map();
+  private validationRules: any = new Map();
+
+  // Register a component type
+  registerComponent(
+    name: any, 
+    component: any, 
+    defaultProps: any = {}, 
+    validation: any = null
+  ): any {
+    this.componentRegistry.set(name, {
+      component,
+      defaultProps,
+      validation,
+      registered: new Date().toISOString()
+    });
+    return this;
+  }
+
+  // Register a theme
+  registerTheme(name: any, theme: any): any {
+    this.themeRegistry.set(name, theme);
+    return this;
+  }
+
+  // Validate component definition
+  validateDefinition(definition: ComponentDefinition): any {
+    const errors: any[] = [];
+    
+    if (!definition.type) {
+      errors.push('Component type is required');
+    }
+    
+    if (!this.componentRegistry.has(definition.type)) {
+      errors.push(\`Unknown component type: \${definition.type}\`);
+    }
+
+    const componentInfo: any = this.componentRegistry.get(definition.type);
+    if (componentInfo?.validation) {
+      try {
+        const validationResult: any = componentInfo.validation(definition);
+        if (validationResult !== true) {
+          errors.push(...(Array.isArray(validationResult) ? validationResult : [validationResult]));
+        }
+      } catch (error: any) {
+        errors.push(\`Validation error: \${error.message}\`);
+      }
+    }
+
+    return errors.length === 0 ? true : errors;
+  }
+
+  // Generate component from definition
+  generateComponent(definition: ComponentDefinition, context: any = {}): any {
+    try {
+      // Validate definition
+      const validation: any = this.validateDefinition(definition);
+      if (validation !== true) {
+        console.warn('Component validation failed:', validation);
+        return createElement('div', 
+          { className: 'text-red-500 p-2 border border-red-300 rounded' },
+          \`Validation Error: \${validation.join(', ')}\`
+        );
+      }
+
+      const componentInfo: any = this.componentRegistry.get(definition.type);
+      if (!componentInfo) {
+        return createElement('div', 
+          { className: 'text-red-500' },
+          \`Unknown component: \${definition.type}\`
+        );
+      }
+
+      // Check conditions
+      if (definition.conditions) {
+        const shouldRender: any = this.evaluateConditions(definition.conditions, context);
+        if (!shouldRender) {
+          return null;
+        }
+      }
+
+      // Merge props
+      const props: any = {
+        ...componentInfo.defaultProps,
+        ...definition.props,
+        key: definition.metadata?.id || Math.random(),
+        style: {
+          ...componentInfo.defaultProps?.style,
+          ...definition.style
+        }
+      };
+
+      // Add event handlers
+      if (definition.events) {
+        Object.entries(definition.events).forEach(([eventName, handler]: [any, any]) => {
+          props[eventName] = (...args: any[]) => {
+            try {
+              if (typeof handler === 'function') {
+                handler(...args, { context, definition });
+              } else if (typeof handler === 'string') {
+                // Execute handler string as function
+                const fn: any = new Function('event', 'context', 'definition', handler);
+                fn(...args, context, definition);
+              }
+            } catch (error: any) {
+              console.error('Event handler error:', error);
+            }
+          };
+        });
+      }
+
+      // Generate children
+      let children: any = null;
+      if (definition.children) {
+        if (Array.isArray(definition.children)) {
+          children = definition.children.map((child: any, index: any) => {
+            if (typeof child === 'object' && child.type) {
+              return this.generateComponent(child, { ...context, parentIndex: index });
+            }
+            return child;
+          });
+        } else if (typeof definition.children === 'object' && definition.children.type) {
+          children = this.generateComponent(definition.children, context);
+        } else {
+          children = definition.children;
+        }
+      }
+
+      return createElement(componentInfo.component, props, children);
+    } catch (error: any) {
+      console.error('Component generation error:', error);
+      return createElement('div', 
+        { className: 'text-red-500 p-2 border border-red-300 rounded' },
+        \`Generation Error: \${error.message}\`
+      );
+    }
+  }
+
+  // Generate multiple components
+  generateComponents(definitions: any[], context: any = {}): any[] {
+    return definitions.map((def: any, index: any) => 
+      this.generateComponent(def, { ...context, index })
+    );
+  }
+
+  // Evaluate conditions
+  private evaluateConditions(conditions: any, context: any): any {
+    try {
+      if (typeof conditions === 'function') {
+        return conditions(context);
+      }
+      
+      if (typeof conditions === 'object') {
+        // Support for complex condition objects
+        for (const [key, value] of Object.entries(conditions)) {
+          switch (key) {
+            case 'and':
+              return Array.isArray(value) && value.every((cond: any) => 
+                this.evaluateConditions(cond, context)
+              );
+            case 'or':
+              return Array.isArray(value) && value.some((cond: any) => 
+                this.evaluateConditions(cond, context)
+              );
+            case 'not':
+              return !this.evaluateConditions(value, context);
+            case 'equals':
+              return context[value.key] === value.value;
+            case 'contains':
+              return String(context[value.key] || '').includes(value.value);
+            default:
+              return context[key] === value;
+          }
+        }
+      }
+      
+      return Boolean(conditions);
+    } catch (error: any) {
+      console.error('Condition evaluation error:', error);
+      return false;
+    }
+  }
+
+  // Get registered components
+  getRegisteredComponents(): any[] {
+    return Array.from(this.componentRegistry.keys());
+  }
+
+  // Clear registry
+  clear(): any {
+    this.componentRegistry.clear();
+    this.themeRegistry.clear();
+    this.validationRules.clear();
+    return this;
+  }
+}
+
+// Basic components for the registry
+const BasicButton = ({ children, onClick, variant = 'primary', ...props }: any) => (
+  <button
+    onClick={onClick}
+    className={\`px-4 py-2 rounded \${
+      variant === 'primary' ? 'bg-blue-500 text-white hover:bg-blue-600' :
+      variant === 'secondary' ? 'bg-gray-500 text-white hover:bg-gray-600' :
+      'bg-red-500 text-white hover:bg-red-600'
+    }\`}
+    {...props}
+  >
+    {children}
+  </button>
+);
+
+const BasicInput = ({ label, value, onChange, type = 'text', ...props }: any) => (
+  <div className="mb-4">
+    {label && <label className="block text-sm font-medium mb-1">{label}</label>}
+    <input
+      type={type}
+      value={value}
+      onChange={onChange}
+      className="w-full p-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+      {...props}
+    />
+  </div>
+);
+
+const BasicCard = ({ title, children, ...props }: any) => (
+  <div className="bg-white border rounded-lg shadow-sm p-6" {...props}>
+    {title && <h3 className="text-lg font-semibold mb-4">{title}</h3>}
+    {children}
+  </div>
+);
+
+const BasicText = ({ children, variant = 'body', ...props }: any) => {
+  const className: any = {
+    heading: 'text-2xl font-bold mb-4',
+    subheading: 'text-xl font-semibold mb-3',
+    body: 'text-gray-700',
+    caption: 'text-sm text-gray-500'
+  }[variant] || 'text-gray-700';
+
+  return <div className={className} {...props}>{children}</div>;
+};
+
+// Demo component
+export function DynamicComponentDemo() {
+  const [generator] = useState(() => {
+    const gen = new ComponentGenerator();
+    
+    // Register components
+    gen.registerComponent('button', BasicButton, { variant: 'primary' });
+    gen.registerComponent('input', BasicInput, { type: 'text' });
+    gen.registerComponent('card', BasicCard);
+    gen.registerComponent('text', BasicText, { variant: 'body' });
+    gen.registerComponent('div', 'div');
+    
+    return gen;
+  });
+
+  const [configInput, setConfigInput] = useState<any>(JSON.stringify([
+    {
+      type: 'card',
+      props: { title: 'Dynamic Form' },
+      metadata: { id: 'form-card' },
+      children: [
+        {
+          type: 'text',
+          props: { variant: 'subheading' },
+          children: 'User Information'
+        },
+        {
+          type: 'input',
+          props: { 
+            label: 'Name',
+            placeholder: 'Enter your name'
+          },
+          events: {
+            onChange: '(e) => console.log("Name changed:", e.target.value)'
+          }
+        },
+        {
+          type: 'input',
+          props: { 
+            label: 'Email',
+            type: 'email',
+            placeholder: 'Enter your email'
+          }
+        },
+        {
+          type: 'div',
+          style: { display: 'flex', gap: '10px', marginTop: '16px' },
+          children: [
+            {
+              type: 'button',
+              props: { variant: 'primary' },
+              children: 'Submit',
+              events: {
+                onClick: '() => alert("Form submitted!")'
+              }
+            },
+            {
+              type: 'button',
+              props: { variant: 'secondary' },
+              children: 'Cancel'
+            }
+          ]
+        }
+      ]
+    }
+  ], null, 2));
+
+  const [context, setContext] = useState<any>(JSON.stringify({
+    user: { role: 'admin', name: 'John' },
+    theme: 'light',
+    permissions: ['read', 'write']
+  }, null, 2));
+
+  const [generatedComponents, setGeneratedComponents] = useState<any[]>([]);
+
+  const generateFromConfig = () => {
+    try {
+      const config: any = JSON.parse(configInput);
+      const ctx: any = JSON.parse(context);
+      
+      const components: any = Array.isArray(config) 
+        ? generator.generateComponents(config, ctx)
+        : [generator.generateComponent(config, ctx)];
+      
+      setGeneratedComponents(components);
+    } catch (error: any) {
+      alert('Invalid JSON configuration: ' + error.message);
+    }
+  };
+
+  const presetConfigs: any = {
+    'Simple Form': {
+      type: 'card',
+      props: { title: 'Contact Form' },
+      children: [
+        { type: 'input', props: { label: 'Name', placeholder: 'Your name' } },
+        { type: 'input', props: { label: 'Message', placeholder: 'Your message' } },
+        { type: 'button', children: 'Send', props: { variant: 'primary' } }
+      ]
+    },
+    'Dashboard Card': {
+      type: 'card',
+      props: { title: 'Statistics' },
+      children: [
+        { type: 'text', props: { variant: 'heading' }, children: '1,234' },
+        { type: 'text', props: { variant: 'caption' }, children: 'Total Users' }
+      ]
+    },
+    'Conditional Content': {
+      type: 'div',
+      conditions: { equals: { key: 'user.role', value: 'admin' } },
+      children: [
+        { type: 'text', props: { variant: 'heading' }, children: 'Admin Panel' },
+        { type: 'button', children: 'Admin Action', props: { variant: 'primary' } }
+      ]
+    }
+  };
+
+  const loadPreset = (presetName: any) => {
+    setConfigInput(JSON.stringify(presetConfigs[presetName], null, 2));
+  };
+
+  return (
+    <div className="space-y-6">
+      {/* Configuration Input */}
+      <div className="bg-white p-6 border rounded-lg">
+        <h3 className="text-lg font-semibold mb-4">Component Configuration</h3>
+        
+        <div className="mb-4">
+          <label className="block text-sm font-medium mb-1">Load Preset:</label>
+          <div className="flex gap-2">
+            {Object.keys(presetConfigs).map((preset: any) => (
+              <button
+                key={preset}
+                onClick={() => loadPreset(preset)}
+                className="px-3 py-1 text-sm bg-gray-500 text-white rounded hover:bg-gray-600"
+              >
+                {preset}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <div className="grid md:grid-cols-2 gap-4 mb-4">
+          <div>
+            <label className="block text-sm font-medium mb-1">Component Config (JSON):</label>
+            <textarea
+              value={configInput}
+              onChange={(e: any) => setConfigInput(e.target.value)}
+              className="w-full p-2 border rounded h-64 font-mono text-sm"
+            />
+          </div>
+          
+          <div>
+            <label className="block text-sm font-medium mb-1">Context (JSON):</label>
+            <textarea
+              value={context}
+              onChange={(e: any) => setContext(e.target.value)}
+              className="w-full p-2 border rounded h-64 font-mono text-sm"
+            />
+          </div>
+        </div>
+
+        <button
+          onClick={generateFromConfig}
+          className="w-full p-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+        >
+          Generate Components
+        </button>
+      </div>
+
+      {/* Registry Info */}
+      <div className="bg-white p-6 border rounded-lg">
+        <h3 className="text-lg font-semibold mb-4">Available Components</h3>
+        <div className="grid md:grid-cols-4 gap-2">
+          {generator.getRegisteredComponents().map((componentName: any) => (
+            <div key={componentName} className="p-2 bg-gray-100 rounded text-center">
+              <code className="text-sm">{componentName}</code>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Generated Components Display */}
+      {generatedComponents.length > 0 && (
+        <div className="bg-white p-6 border rounded-lg">
+          <h3 className="text-lg font-semibold mb-4">Generated Components</h3>
+          <div className="space-y-4">
+            {generatedComponents.map((component: any, index: any) => (
+              <div key={index} className="border rounded p-4">
+                <div className="text-sm text-gray-600 mb-2">Component {index + 1}:</div>
+                {component}
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}`}
+          language="tsx"
+          filename="components/DynamicComponentGenerator.tsx"
+          title="Dynamic Component Generation System"
         />
 
         <div className="bg-green-50 dark:bg-green-950/20 p-4 rounded-lg border border-green-200 dark:border-green-800 mt-4">
           <h4 className="font-semibold text-green-800 dark:text-green-200 mb-2">✅ What's New in This Example</h4>
           <ul className="text-green-700 dark:text-green-300 text-sm space-y-1">
-            <li>• <strong>Multi-stage Loading</strong> - Sequential auth checks with progress tracking</li>
-            <li>• <strong>Animated Progress</strong> - Visual feedback for each auth stage</li>
-            <li>• <strong>Error Recovery</strong> - Retry mechanism for failed auth checks</li>
-            <li>• <strong>Debug Mode</strong> - Development-only debug information</li>
-            <li>• <strong>Smooth Transitions</strong> - Professional animations between states</li>
+            <li>• <strong>Component Registry</strong> - Register any React component dynamically</li>
+            <li>• <strong>JSON-Driven UI</strong> - Generate components from configuration objects</li>
+            <li>• <strong>Conditional Rendering</strong> - Show/hide components based on any condition</li>
+            <li>• <strong>Event Binding</strong> - Attach any event handlers dynamically</li>
+            <li>• <strong>Nested Components</strong> - Support for any component hierarchy</li>
           </ul>
         </div>
       </div>
 
-      {/* Auth Logic Architecture */}
-      <div className="mb-8">
-        <h2 className="text-xl font-semibold mb-4">Complete Auth Logic Flow</h2>
+      {/* Plugin Architecture */}
+      <div className="mb-12">
+        <h2 className="text-xl font-semibold mb-4">Plugin Architecture System</h2>
+        <p className="text-gray-700 dark:text-gray-300 mb-4">
+          Build an extensible plugin system that can load and execute any type of plugin, 
+          allowing for modular application architecture with dynamic feature loading.
+        </p>
+
+        <CodeBlock
+          code={`import React, { useState, useEffect } from 'react';
+
+// Plugin interface
+interface Plugin {
+  name: any;
+  version: any;
+  dependencies: any[];
+  hooks: any;
+  init: (context: any) => any;
+  destroy?: () => any;
+  metadata: any;
+}
+
+// Plugin manager class
+export class PluginManager {
+  private plugins: any = new Map();
+  private hooks: any = new Map();
+  private context: any = {};
+  private eventBus: any = new EventTarget();
+
+  // Register a plugin
+  register(plugin: Plugin): any {
+    try {
+      // Check dependencies
+      const missingDeps: any = plugin.dependencies.filter((dep: any) => 
+        !this.plugins.has(dep)
+      );
+      
+      if (missingDeps.length > 0) {
+        throw new Error(\`Missing dependencies: \${missingDeps.join(', ')}\`);
+      }
+
+      // Initialize plugin
+      const pluginInstance: any = {
+        ...plugin,
+        id: Date.now() + Math.random(),
+        status: 'loading',
+        loadedAt: new Date().toISOString()
+      };
+
+      this.plugins.set(plugin.name, pluginInstance);
+
+      // Register hooks
+      if (plugin.hooks) {
+        Object.entries(plugin.hooks).forEach(([hookName, handler]: [any, any]) => {
+          this.addHook(hookName, handler, plugin.name);
+        });
+      }
+
+      // Initialize plugin
+      if (plugin.init) {
+        const initResult: any = plugin.init({
+          ...this.context,
+          pluginManager: this,
+          emit: (event: any, data: any) => this.emit(event, data),
+          hooks: this.hooks
+        });
         
-        <div className="bg-gray-50 dark:bg-gray-950/20 p-4 rounded-lg border border-gray-200 dark:border-gray-800">
-          <h4 className="font-semibold text-gray-800 dark:text-gray-200 mb-3">🔄 Authentication Logic Sequence</h4>
-          <div className="text-sm space-y-2">
-            <div className="flex items-center gap-2">
-              <span className="text-indigo-500 font-mono">1.</span>
-              <span className="text-gray-700 dark:text-gray-300">
-                <strong>App Launch</strong> - Advanced splash screen with animated progress
-              </span>
+        pluginInstance.initResult = initResult;
+      }
+
+      pluginInstance.status = 'loaded';
+      this.emit('plugin:loaded', { plugin: pluginInstance });
+      
+      return pluginInstance;
+    } catch (error: any) {
+      console.error(\`Failed to register plugin \${plugin.name}:\`, error);
+      this.emit('plugin:error', { plugin, error });
+      throw error;
+    }
+  }
+
+  // Unregister a plugin
+  unregister(pluginName: any): any {
+    const plugin: any = this.plugins.get(pluginName);
+    if (!plugin) return false;
+
+    try {
+      // Call destroy method if available
+      if (plugin.destroy) {
+        plugin.destroy();
+      }
+
+      // Remove hooks
+      this.hooks.forEach((handlers: any, hookName: any) => {
+        this.hooks.set(hookName, handlers.filter((h: any) => h.pluginName !== pluginName));
+      });
+
+      this.plugins.delete(pluginName);
+      this.emit('plugin:unloaded', { plugin });
+      
+      return true;
+    } catch (error: any) {
+      console.error(\`Failed to unregister plugin \${pluginName}:\`, error);
+      return false;
+    }
+  }
+
+  // Add hook
+  addHook(hookName: any, handler: any, pluginName: any = 'system'): any {
+    if (!this.hooks.has(hookName)) {
+      this.hooks.set(hookName, []);
+    }
+    
+    this.hooks.get(hookName).push({
+      handler,
+      pluginName,
+      registered: new Date().toISOString()
+    });
+  }
+
+  // Execute hook
+  executeHook(hookName: any, ...args: any[]): any {
+    const handlers: any = this.hooks.get(hookName) || [];
+    const results: any = [];
+
+    for (const { handler, pluginName } of handlers) {
+      try {
+        const result: any = handler(...args);
+        results.push({ pluginName, result });
+      } catch (error: any) {
+        console.error(\`Hook \${hookName} failed for plugin \${pluginName}:\`, error);
+        results.push({ pluginName, error });
+      }
+    }
+
+    return results;
+  }
+
+  // Set global context
+  setContext(key: any, value: any): any {
+    this.context[key] = value;
+    this.emit('context:updated', { key, value });
+  }
+
+  // Get global context
+  getContext(key?: any): any {
+    return key ? this.context[key] : this.context;
+  }
+
+  // Event system
+  emit(event: any, data: any): any {
+    this.eventBus.dispatchEvent(new CustomEvent(event, { detail: data }));
+  }
+
+  on(event: any, handler: any): any {
+    this.eventBus.addEventListener(event, handler);
+    return () => this.eventBus.removeEventListener(event, handler);
+  }
+
+  // Get all plugins
+  getPlugins(): any[] {
+    return Array.from(this.plugins.values());
+  }
+
+  // Get plugin by name
+  getPlugin(name: any): any {
+    return this.plugins.get(name);
+  }
+
+  // Check if plugin is loaded
+  isLoaded(name: any): any {
+    const plugin: any = this.plugins.get(name);
+    return plugin && plugin.status === 'loaded';
+  }
+
+  // Clear all plugins
+  clear(): any {
+    this.plugins.forEach((plugin: any) => {
+      if (plugin.destroy) {
+        try { plugin.destroy(); } catch (e: any) {}
+      }
+    });
+    
+    this.plugins.clear();
+    this.hooks.clear();
+    this.context = {};
+  }
+}
+
+// Example plugins
+const themePlugin: Plugin = {
+  name: 'theme',
+  version: '1.0.0',
+  dependencies: [],
+  metadata: { category: 'ui', author: 'System' },
+  hooks: {
+    'app:render': (appData: any) => {
+      return {
+        ...appData,
+        theme: appData.theme || 'light'
+      };
+    }
+  },
+  init: (context: any) => {
+    context.setContext('currentTheme', 'light');
+    
+    return {
+      setTheme: (theme: any) => {
+        context.setContext('currentTheme', theme);
+        context.emit('theme:changed', { theme });
+      },
+      getTheme: () => context.getContext('currentTheme')
+    };
+  }
+};
+
+const analyticsPlugin: Plugin = {
+  name: 'analytics',
+  version: '1.0.0',
+  dependencies: [],
+  metadata: { category: 'tracking', author: 'System' },
+  hooks: {
+    'user:action': (action: any) => {
+      console.log('Analytics: User action tracked:', action);
+      return { tracked: true, timestamp: new Date().toISOString() };
+    }
+  },
+  init: (context: any) => {
+    const events: any[] = [];
+    
+    return {
+      track: (event: any, data: any) => {
+        const eventData: any = {
+          event,
+          data,
+          timestamp: new Date().toISOString(),
+          id: Date.now() + Math.random()
+        };
+        events.push(eventData);
+        context.emit('analytics:event', eventData);
+        return eventData;
+      },
+      getEvents: () => [...events],
+      clearEvents: () => events.length = 0
+    };
+  }
+};
+
+const validationPlugin: Plugin = {
+  name: 'validation',
+  version: '1.0.0',
+  dependencies: [],
+  metadata: { category: 'utility', author: 'System' },
+  hooks: {
+    'form:validate': (formData: any) => {
+      const errors: any = {};
+      
+      Object.entries(formData).forEach(([key, value]: [any, any]) => {
+        if (!value || String(value).trim() === '') {
+          errors[key] = 'This field is required';
+        }
+      });
+      
+      return { valid: Object.keys(errors).length === 0, errors };
+    }
+  },
+  init: (context: any) => ({
+    validateEmail: (email: any) => /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(email),
+    validatePhone: (phone: any) => /^[\\d\\-\\+\\(\\)\\s]+$/.test(phone),
+    validateRequired: (value: any) => value && String(value).trim() !== ''
+  })
+};
+
+// Demo component
+export function PluginSystemDemo() {
+  const [pluginManager] = useState(() => new PluginManager());
+  const [plugins, setPlugins] = useState<any[]>([]);
+  const [logs, setLogs] = useState<any[]>([]);
+  const [context, setContext] = useState<any>({});
+
+  // Available plugins
+  const availablePlugins: any = {
+    theme: themePlugin,
+    analytics: analyticsPlugin,
+    validation: validationPlugin
+  };
+
+  useEffect(() => {
+    // Listen to plugin events
+    const unsubscribes: any[] = [
+      pluginManager.on('plugin:loaded', (e: any) => {
+        addLog('Plugin loaded: ' + e.detail.plugin.name);
+        updateState();
+      }),
+      pluginManager.on('plugin:unloaded', (e: any) => {
+        addLog('Plugin unloaded: ' + e.detail.plugin.name);
+        updateState();
+      }),
+      pluginManager.on('plugin:error', (e: any) => {
+        addLog('Plugin error: ' + e.detail.error.message);
+      }),
+      pluginManager.on('context:updated', (e: any) => {
+        addLog(\`Context updated: \${e.detail.key} = \${e.detail.value}\`);
+        updateState();
+      }),
+      pluginManager.on('theme:changed', (e: any) => {
+        addLog('Theme changed to: ' + e.detail.theme);
+      }),
+      pluginManager.on('analytics:event', (e: any) => {
+        addLog(\`Analytics event: \${e.detail.event}\`);
+      })
+    ];
+
+    return () => unsubscribes.forEach(unsub => unsub());
+  }, [pluginManager]);
+
+  const addLog = (message: any) => {
+    setLogs(prev => [
+      { message, timestamp: new Date().toISOString() },
+      ...prev.slice(0, 19)
+    ]);
+  };
+
+  const updateState = () => {
+    setPlugins(pluginManager.getPlugins());
+    setContext(pluginManager.getContext());
+  };
+
+  const loadPlugin = (pluginName: any) => {
+    try {
+      pluginManager.register(availablePlugins[pluginName]);
+      updateState();
+    } catch (error: any) {
+      addLog('Failed to load plugin: ' + error.message);
+    }
+  };
+
+  const unloadPlugin = (pluginName: any) => {
+    pluginManager.unregister(pluginName);
+    updateState();
+  };
+
+  const testHook = (hookName: any) => {
+    const testData: any = {
+      'app:render': { title: 'Test App', version: '1.0.0' },
+      'user:action': { action: 'click', element: 'button' },
+      'form:validate': { name: '', email: 'test@example.com' }
+    };
+
+    const results: any = pluginManager.executeHook(hookName, testData[hookName]);
+    addLog(\`Hook \${hookName} executed with \${results.length} handlers\`);
+    console.log('Hook results:', results);
+  };
+
+  const testPluginFunction = (pluginName: any, functionName: any) => {
+    const plugin: any = pluginManager.getPlugin(pluginName);
+    if (plugin?.initResult?.[functionName]) {
+      try {
+        const result: any = plugin.initResult[functionName]('test-data');
+        addLog(\`Called \${pluginName}.\${functionName}(): \${JSON.stringify(result)}\`);
+      } catch (error: any) {
+        addLog(\`Error calling \${pluginName}.\${functionName}(): \${error.message}\`);
+      }
+    }
+  };
+
+  return (
+    <div className="space-y-6">
+      {/* Plugin Management */}
+      <div className="bg-white p-6 border rounded-lg">
+        <h3 className="text-lg font-semibold mb-4">Plugin Management</h3>
+        
+        <div className="grid md:grid-cols-3 gap-4 mb-4">
+          {Object.keys(availablePlugins).map((pluginName: any) => (
+            <div key={pluginName} className="border rounded p-4">
+              <div className="font-medium mb-2">{pluginName}</div>
+              <div className="text-sm text-gray-600 mb-3">
+                v{availablePlugins[pluginName].version}
+              </div>
+              <div className="space-y-2">
+                {pluginManager.isLoaded(pluginName) ? (
+                  <button
+                    onClick={() => unloadPlugin(pluginName)}
+                    className="w-full px-3 py-1 text-sm bg-red-500 text-white rounded hover:bg-red-600"
+                  >
+                    Unload
+                  </button>
+                ) : (
+                  <button
+                    onClick={() => loadPlugin(pluginName)}
+                    className="w-full px-3 py-1 text-sm bg-green-500 text-white rounded hover:bg-green-600"
+                  >
+                    Load
+                  </button>
+                )}
+              </div>
             </div>
-            <div className="flex items-center gap-2">
-              <span className="text-indigo-500 font-mono">2.</span>
-              <span className="text-gray-700 dark:text-gray-300">
-                <strong>Token Check</strong> - Validate existing JWT tokens from AsyncStorage
-              </span>
-            </div>
-            <div className="flex items-center gap-2">
-              <span className="text-indigo-500 font-mono">3.</span>
-              <span className="text-gray-700 dark:text-gray-300">
-                <strong>Token Refresh</strong> - Automatic refresh if token expires soon
-              </span>
-            </div>
-            <div className="flex items-center gap-2">
-              <span className="text-indigo-500 font-mono">4.</span>
-              <span className="text-gray-700 dark:text-gray-300">
-                <strong>Route Guard</strong> - Expo Router navigation based on auth state
-              </span>
-            </div>
-            <div className="flex items-center gap-2">
-              <span className="text-indigo-500 font-mono">5.</span>
-              <span className="text-gray-700 dark:text-gray-300">
-                <strong>Session Management</strong> - Activity tracking and timeout handling
-              </span>
-            </div>
-          </div>
+          ))}
         </div>
       </div>
 
-      {/* Best Practices */}
+      {/* Hook Testing */}
+      <div className="bg-white p-6 border rounded-lg">
+        <h3 className="text-lg font-semibold mb-4">Hook System Testing</h3>
+        <div className="grid md:grid-cols-3 gap-2">
+          {['app:render', 'user:action', 'form:validate'].map((hookName: any) => (
+            <button
+              key={hookName}
+              onClick={() => testHook(hookName)}
+              className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 text-sm"
+            >
+              Test {hookName}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* Plugin Functions */}
+      {plugins.length > 0 && (
+        <div className="bg-white p-6 border rounded-lg">
+          <h3 className="text-lg font-semibold mb-4">Plugin Functions</h3>
+          <div className="space-y-4">
+            {plugins.map((plugin: any) => (
+              <div key={plugin.name} className="border rounded p-3">
+                <div className="font-medium mb-2">{plugin.name}</div>
+                <div className="flex gap-2 flex-wrap">
+                  {plugin.initResult && Object.keys(plugin.initResult).map((funcName: any) => (
+                    <button
+                      key={funcName}
+                      onClick={() => testPluginFunction(plugin.name, funcName)}
+                      className="px-2 py-1 text-xs bg-purple-500 text-white rounded hover:bg-purple-600"
+                    >
+                      {funcName}()
+                    </button>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Global Context */}
+      <div className="bg-white p-6 border rounded-lg">
+        <h3 className="text-lg font-semibold mb-4">Global Context</h3>
+        <pre className="text-sm bg-gray-100 p-3 rounded">
+          {JSON.stringify(context, null, 2) || 'Empty context'}
+        </pre>
+      </div>
+
+      {/* Event Log */}
+      <div className="bg-white p-6 border rounded-lg">
+        <div className="flex justify-between items-center mb-4">
+          <h3 className="text-lg font-semibold">Event Log</h3>
+          <button
+            onClick={() => setLogs([])}
+            className="text-sm px-3 py-1 bg-gray-500 text-white rounded hover:bg-gray-600"
+          >
+            Clear Log
+          </button>
+        </div>
+        <div className="space-y-1 max-h-64 overflow-y-auto">
+          {logs.map((log: any, index: any) => (
+            <div key={index} className="text-sm p-2 bg-gray-50 rounded">
+              <span className="text-gray-500 text-xs">{log.timestamp}</span>
+              <span className="ml-2">{log.message}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}`}
+          language="tsx"
+          filename="components/PluginSystem.tsx"
+          title="Extensible Plugin Architecture"
+        />
+
+        <div className="bg-green-50 dark:bg-green-950/20 p-4 rounded-lg border border-green-200 dark:border-green-800 mt-4">
+          <h4 className="font-semibold text-green-800 dark:text-green-200 mb-2">✅ What's New in This Example</h4>
+          <ul className="text-green-700 dark:text-green-300 text-sm space-y-1">
+            <li>• <strong>Plugin Registry</strong> - Load and unload any plugin dynamically</li>
+            <li>• <strong>Hook System</strong> - Execute any callback at defined points</li>
+            <li>• <strong>Dependency Management</strong> - Handle plugin dependencies automatically</li>
+            <li>• <strong>Event Bus</strong> - Communication between any plugins</li>
+            <li>• <strong>Global Context</strong> - Share any data across all plugins</li>
+          </ul>
+        </div>
+      </div>
+
+      {/* Best Practices for Advanced Patterns */}
       <div className="mb-8">
-        <h2 className="text-xl font-semibold mb-4">Auth Logic Best Practices</h2>
+        <h2 className="text-xl font-semibold mb-4">Advanced Any Type Best Practices</h2>
         
         <div className="grid md:grid-cols-2 gap-6">
           <div className="bg-blue-50 dark:bg-blue-950/20 p-4 rounded-lg border border-blue-200 dark:border-blue-800">
-            <h4 className="font-semibold text-blue-800 dark:text-blue-200 mb-3">🔐 Security Patterns</h4>
+            <h4 className="font-semibold text-blue-800 dark:text-blue-200 mb-3">🏗️ Architecture Patterns</h4>
             <ul className="text-blue-700 dark:text-blue-300 text-sm space-y-1">
-              <li>• Store tokens securely in AsyncStorage</li>
-              <li>• Implement automatic token refresh</li>
-              <li>• Use session timeouts for security</li>
-              <li>• Validate tokens before API calls</li>
-              <li>• Clear sensitive data on logout</li>
+              <li>• Use factory patterns for any object creation</li>
+              <li>• Implement type guards for runtime safety</li>
+              <li>• Cache transformed data for performance</li>
+              <li>• Use proxy objects for dynamic property access</li>
+              <li>• Implement plugin systems for extensibility</li>
             </ul>
           </div>
           
-          <div className="bg-purple-50 dark:bg-purple-950/20 p-4 rounded-lg border border-purple-200 dark:border-purple-800">
-            <h4 className="font-semibold text-purple-800 dark:text-purple-200 mb-3">⚡ Performance Tips</h4>
-            <ul className="text-purple-700 dark:text-purple-300 text-sm space-y-1">
-              <li>• Cache auth state to reduce API calls</li>
-              <li>• Use optimistic updates for better UX</li>
-              <li>• Implement proper loading states</li>
-              <li>• Batch auth-related operations</li>
-              <li>• Use native animations for smooth transitions</li>
+          <div className="bg-green-50 dark:bg-green-950/20 p-4 rounded-lg border border-green-200 dark:border-green-800">
+            <h4 className="font-semibold text-green-800 dark:text-green-200 mb-3">⚡ Performance Tips</h4>
+            <ul className="text-green-700 dark:text-green-300 text-sm space-y-1">
+              <li>• Memoize expensive any type operations</li>
+              <li>• Use WeakMap for object-specific caching</li>
+              <li>• Batch transformations when possible</li>
+              <li>• Implement lazy evaluation for heavy computations</li>
+              <li>• Profile and optimize hot paths</li>
             </ul>
-          </div>
-        </div>
-      </div>
-
-      {/* Integration Guide */}
-      <div className="mb-8">
-        <h2 className="text-xl font-semibold mb-4">Integration with Session 1</h2>
-        
-        <div className="bg-green-50 dark:bg-green-950/20 p-4 rounded-lg border border-green-200 dark:border-green-800">
-          <h4 className="font-semibold text-green-800 dark:text-green-200 mb-3">🔗 Combining UI and Logic</h4>
-          <div className="text-green-700 dark:text-green-300 text-sm space-y-2">
-            <div>
-              <strong>Session 1 (UI):</strong> Login/Signup screens, form validation, API integration
-            </div>
-            <div>
-              <strong>Session 2 (Logic):</strong> Token management, navigation guards, session handling
-            </div>
-            <div>
-              <strong>Combined Result:</strong> Complete authentication system with professional UI and robust logic
-            </div>
           </div>
         </div>
       </div>
@@ -1307,36 +1485,36 @@ const styles = StyleSheet.create({
       {/* Hands-On Exercise */}
       <div className="bg-orange-50 dark:bg-orange-950/20 p-6 rounded-xl border border-orange-200 dark:border-orange-800">
         <h3 className="text-lg font-semibold text-orange-900 dark:text-orange-100 mb-4">
-          🎯 Hands-On Exercise: Complete Auth System
+          🎯 Hands-On Exercise: Build a Data Pipeline
         </h3>
         
         <div className="text-orange-800 dark:text-orange-200 space-y-4">
           <div>
-            <h4 className="font-semibold mb-2">Challenge: Integrate UI and Logic</h4>
+            <h4 className="font-semibold mb-2">Challenge: Create a Data Processing Pipeline</h4>
             <p className="text-sm">
-              Combine the auth UI from Session 1 with the logic patterns from Session 2 to create a complete authentication system.
+              Build a flexible data processing pipeline that can transform any data through any sequence of operations.
             </p>
           </div>
           
           <div>
             <h4 className="font-semibold mb-2">Requirements:</h4>
             <ul className="text-sm space-y-1">
-              <li>• Advanced splash screen with multi-stage loading</li>
-              <li>• JWT token simulation and validation</li>
-              <li>• Protected routes with Expo Router</li>
-              <li>• Session management with timeout</li>
-              <li>• Automatic token refresh</li>
+              <li>• Accept any input data format (JSON, CSV, XML, etc.)</li>
+              <li>• Support any transformation operations (filter, map, reduce, sort)</li>
+              <li>• Handle any error scenarios gracefully</li>
+              <li>• Output to any format desired</li>
+              <li>• Allow plugin-based operation extensions</li>
             </ul>
           </div>
           
           <div>
             <h4 className="font-semibold mb-2">Bonus Features:</h4>
             <ul className="text-sm space-y-1">
-              <li>• Biometric authentication integration</li>
-              <li>• Offline mode detection</li>
-              <li>• Push notification token handling</li>
-              <li>• Social login with deep linking</li>
-              <li>• Admin role-based access control</li>
+              <li>• Visual pipeline builder with drag-and-drop</li>
+              <li>• Real-time data processing and streaming</li>
+              <li>• Performance monitoring and optimization</li>
+              <li>• Pipeline versioning and rollback</li>
+              <li>• Integration with any external data sources</li>
             </ul>
           </div>
         </div>
@@ -1347,12 +1525,12 @@ const styles = StyleSheet.create({
             🎉 Session 2 Complete!
           </h4>
           <p className="text-green-700 dark:text-green-300 mb-3">
-            You've mastered authentication logic with JWT tokens, state management, Expo Router navigation, 
-            and multi-stage splash screens. These patterns enable sophisticated auth flows.
+            You've mastered advanced any type patterns including data transformation engines, dynamic component generation, 
+            and plugin architectures. These patterns enable building highly flexible and extensible applications.
           </p>
           <p className="text-green-700 dark:text-green-300 mb-0">
-            <strong>Next:</strong> Session 3 will focus on navigation guards, protected routes, 
-            and role-based access control for secure app architecture.
+            <strong>Next:</strong> Session 3 will explore real-world applications of any types, including integration with 
+            third-party APIs, building CMS systems, and handling complex legacy code migrations.
           </p>
         </div>
     </div>
