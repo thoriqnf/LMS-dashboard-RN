@@ -1,7 +1,5 @@
 "use client";
 
-import { CodeBlock } from "@/components/ui/code-block-new";
-
 export function Day4ChallengeContent() {
   return (
     <>
@@ -13,10 +11,10 @@ export function Day4ChallengeContent() {
             </div>
             <div>
               <h1 className="text-3xl font-bold mb-2 mt-0">
-                Day 4 Challenge: Personal Task Manager App
+                Day 4 Challenge: Personal Notes App
               </h1>
               <p className="text-muted-foreground m-0">
-                Build a complete task management app using all concepts from Days 1-4
+                Build a simple notes app with real authentication in just 1 hour
               </p>
             </div>
           </div>
@@ -26,375 +24,231 @@ export function Day4ChallengeContent() {
               🎯 Challenge Overview
             </h3>
             <p className="text-blue-700 dark:text-blue-300 mb-4">
-              Create a personal task manager app that combines authentication, data persistence, 
-              and professional UI/UX patterns. This challenge integrates everything you've learned 
-              from React Native basics to advanced authentication flows.
+              Create a personal notes app that demonstrates the authentication system from Day 4 Sessions 1-3. 
+              This focused challenge lets you practice real authentication with a simple, achievable project.
             </p>
             <div className="text-blue-700 dark:text-blue-300 text-sm">
-              <strong>Estimated Time:</strong> 3-4 hours • <strong>Difficulty:</strong> Intermediate
+              <strong>Estimated Time:</strong> 1 hour • <strong>Difficulty:</strong> Beginner-Intermediate
             </div>
           </div>
         </div>
 
-        <h2>📋 App Requirements</h2>
-        
+        <h2>📝 What You'll Build</h2>
+
         <div className="bg-gray-50 dark:bg-gray-900 p-6 rounded-lg border mb-6">
-          <h4 className="font-semibold mb-3 mt-0">Core Features:</h4>
+          <h4 className="font-semibold mb-3 mt-0">Simple Personal Notes App:</h4>
           <div className="grid md:grid-cols-2 gap-4 text-sm">
             <div>
-              <strong className="text-green-600">Authentication System:</strong>
+              <strong className="text-green-600">Authentication (30 min):</strong>
               <ul className="mt-1 space-y-1 ml-4">
-                <li>• User registration and login</li>
-                <li>• Persistent login sessions</li>
-                <li>• Profile management</li>
-                <li>• Secure logout</li>
+                <li>• Login/signup with json-server-auth</li>
+                <li>• JWT token management</li>
+                <li>• Protected routes</li>
+                <li>• Session persistence</li>
               </ul>
             </div>
             <div>
-              <strong className="text-blue-600">Task Management:</strong>
+              <strong className="text-blue-600">Notes Features (25 min):</strong>
               <ul className="mt-1 space-y-1 ml-4">
-                <li>• Create, edit, delete tasks</li>
-                <li>• Mark tasks as complete</li>
-                <li>• Task categories/priorities</li>
-                <li>• Data persistence</li>
+                <li>• Add new notes (title + content)</li>
+                <li>• View all notes in a list</li>
+                <li>• Delete notes</li>
+                <li>• Store notes in AsyncStorage</li>
+              </ul>
+            </div>
+          </div>
+          <div className="mt-4 p-3 bg-yellow-100 dark:bg-yellow-900 rounded-lg">
+            <strong className="text-yellow-800 dark:text-yellow-200">⏱️ Polish (5 min):</strong>
+            <span className="text-yellow-700 dark:text-yellow-300 text-sm ml-2">Basic styling, loading states, keyboard handling</span>
+          </div>
+        </div>
+
+        <h2>🚀 Quick Setup Guide</h2>
+
+        <div className="bg-green-50 dark:bg-green-950 p-6 rounded-lg border border-green-200 dark:border-green-800 mb-6">
+          <h4 className="text-green-800 dark:text-green-200 font-semibold mb-4 mt-0">
+            ⚡ Copy & Paste Ready Components:
+          </h4>
+          <div className="text-green-700 dark:text-green-300 space-y-3 text-sm">
+            <div>
+              <strong>Step 1 (10 min): Backend Setup</strong>
+              <ul className="mt-1 space-y-1 ml-4">
+                <li>• Copy json-server-auth setup from Day 4 Session 1</li>
+                <li>• Run: <code className="bg-gray-200 dark:bg-gray-700 px-1 rounded">npx json-server-auth db.json --port 3001</code></li>
+              </ul>
+            </div>
+            <div>
+              <strong>Step 2 (20 min): Authentication</strong>
+              <ul className="mt-1 space-y-1 ml-4">
+                <li>• Copy AuthContext code from Day 4 Session 2</li>
+                <li>• Copy login/signup forms from Day 4 Session 1</li>
+                <li>• Copy ProtectedRoute from Day 4 Session 3</li>
+              </ul>
+            </div>
+            <div>
+              <strong>Step 3 (25 min): Notes Features</strong>
+              <ul className="mt-1 space-y-1 ml-4">
+                <li>• Create simple add note form (title + content fields)</li>
+                <li>• Display notes in FlatList</li>
+                <li>• Add delete button per note</li>
+                <li>• Use AsyncStorage to save notes locally</li>
+              </ul>
+            </div>
+            <div>
+              <strong>Step 4 (5 min): Final Polish</strong>
+              <ul className="mt-1 space-y-1 ml-4">
+                <li>• Add KeyboardAvoidingView to forms</li>
+                <li>• Basic loading states</li>
+                <li>• Simple styling</li>
               </ul>
             </div>
           </div>
         </div>
 
-        <h2>🏗️ Technical Requirements</h2>
+        <h2>📱 Simple App Flow</h2>
 
-        <div className="space-y-6">
-          <div className="bg-orange-50 dark:bg-orange-950 p-6 rounded-lg border border-orange-200 dark:border-orange-800">
-            <h4 className="text-orange-800 dark:text-orange-200 font-semibold mb-4 mt-0">
-              📱 Day 1 Concepts (React Native Foundation)
-            </h4>
-            <div className="text-orange-700 dark:text-orange-300 space-y-3">
-              <div>
-                <strong>Core Components Implementation:</strong>
-                <ul className="text-sm mt-2 space-y-1 ml-4">
-                  <li>• Use View, Text, ScrollView for app structure</li>
-                  <li>• Implement TouchableOpacity for all buttons</li>
-                  <li>• Create proper component hierarchy</li>
-                  <li>• Apply consistent styling throughout</li>
-                </ul>
-              </div>
-              <div>
-                <strong>State Management:</strong>
-                <ul className="text-sm mt-2 space-y-1 ml-4">
-                  <li>• Use useState for form inputs and UI state</li>
-                  <li>• Manage task list state properly</li>
-                  <li>• Handle loading and error states</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-
-          <div className="bg-green-50 dark:bg-green-950 p-6 rounded-lg border border-green-200 dark:border-green-800">
-            <h4 className="text-green-800 dark:text-green-200 font-semibold mb-4 mt-0">
-              🧭 Day 2 Concepts (Navigation & UI)
-            </h4>
-            <div className="text-green-700 dark:text-green-300 space-y-3">
-              <div>
-                <strong>Navigation Structure:</strong>
-                <ul className="text-sm mt-2 space-y-1 ml-4">
-                  <li>• Create multiple screens (Auth, Task List, Profile)</li>
-                  <li>• Implement screen transitions</li>
-                  <li>• Use conditional rendering for navigation</li>
-                </ul>
-              </div>
-              <div>
-                <strong>Lists & Components:</strong>
-                <ul className="text-sm mt-2 space-y-1 ml-4">
-                  <li>• Use FlatList or ScrollView for task display</li>
-                  <li>• Create reusable TaskItem components</li>
-                  <li>• Implement proper list performance</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-
-          <div className="bg-purple-50 dark:bg-purple-950 p-6 rounded-lg border border-purple-200 dark:border-purple-800">
-            <h4 className="text-purple-800 dark:text-purple-200 font-semibold mb-4 mt-0">
-              💾 Day 3 Concepts (Data & Forms)
-            </h4>
-            <div className="text-purple-700 dark:text-purple-300 space-y-3">
-              <div>
-                <strong>Form Implementation:</strong>
-                <ul className="text-sm mt-2 space-y-1 ml-4">
-                  <li>• Create task creation/editing forms</li>
-                  <li>• Implement proper form validation</li>
-                  <li>• Handle controlled inputs correctly</li>
-                  <li>• Show validation errors clearly</li>
-                </ul>
-              </div>
-              <div>
-                <strong>Data Persistence:</strong>
-                <ul className="text-sm mt-2 space-y-1 ml-4">
-                  <li>• Use AsyncStorage for task data</li>
-                  <li>• Store user preferences</li>
-                  <li>• Implement data loading on app start</li>
-                  <li>• Handle storage errors gracefully</li>
-                </ul>
-              </div>
-              <div>
-                <strong>Context API Usage:</strong>
-                <ul className="text-sm mt-2 space-y-1 ml-4">
-                  <li>• Create TaskContext for global task management</li>
-                  <li>• Share user data across screens</li>
-                  <li>• Implement theme/settings context</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-
-          <div className="bg-red-50 dark:bg-red-950 p-6 rounded-lg border border-red-200 dark:border-red-800">
-            <h4 className="text-red-800 dark:text-red-200 font-semibold mb-4 mt-0">
-              🔐 Day 4 Concepts (Authentication & UX)
-            </h4>
-            <div className="text-red-700 dark:text-red-300 space-y-3">
-              <div>
-                <strong>Authentication System:</strong>
-                <ul className="text-sm mt-2 space-y-1 ml-4">
-                  <li>• Implement AuthContext from Day 4 Session 2</li>
-                  <li>• Create login/signup forms with validation</li>
-                  <li>• Use AsyncStorage for persistent sessions</li>
-                  <li>• Handle login/logout state changes</li>
-                </ul>
-              </div>
-              <div>
-                <strong>Navigation Guards:</strong>
-                <ul className="text-sm mt-2 space-y-1 ml-4">
-                  <li>• Protect task screens (require login)</li>
-                  <li>• Redirect based on auth status</li>
-                  <li>• Show loading during auth checks</li>
-                </ul>
-              </div>
-              <div>
-                <strong>Professional UX:</strong>
-                <ul className="text-sm mt-2 space-y-1 ml-4">
-                  <li>• Use KeyboardAvoidingView in forms</li>
-                  <li>• Implement tap-to-dismiss keyboard</li>
-                  <li>• Add smooth form navigation</li>
-                  <li>• Use appropriate keyboard types</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <h2>🎨 App Structure</h2>
-        
         <div className="bg-gray-50 dark:bg-gray-900 p-6 rounded-lg border mb-6">
-          <h4 className="font-semibold mb-4 mt-0">Recommended Screen Flow:</h4>
+          <h4 className="font-semibold mb-4 mt-0">Just 2 Main Screens:</h4>
           <div className="space-y-4 text-sm">
             <div className="border-l-4 border-blue-500 pl-4">
-              <strong>1. Welcome/Login Screen</strong>
+              <strong>1. Auth Screen (If not logged in)</strong>
               <p className="mt-1 text-gray-600 dark:text-gray-400">
-                Landing page with login form or navigation to signup
+                Simple login/signup forms using Day 4 Session 1 components
               </p>
             </div>
             <div className="border-l-4 border-green-500 pl-4">
-              <strong>2. Task List Screen (Main)</strong>
+              <strong>2. Notes Screen (If logged in)</strong>
               <p className="mt-1 text-gray-600 dark:text-gray-400">
-                Display all tasks, add new tasks, mark complete/incomplete
-              </p>
-            </div>
-            <div className="border-l-4 border-yellow-500 pl-4">
-              <strong>3. Add/Edit Task Screen</strong>
-              <p className="mt-1 text-gray-600 dark:text-gray-400">
-                Form to create new tasks or edit existing ones
-              </p>
-            </div>
-            <div className="border-l-4 border-purple-500 pl-4">
-              <strong>4. Profile/Settings Screen</strong>
-              <p className="mt-1 text-gray-600 dark:text-gray-400">
-                User info, logout button, app preferences
+                Add note form at top, list of notes below with delete buttons
               </p>
             </div>
           </div>
+          
+          <div className="mt-4 p-3 bg-blue-100 dark:bg-blue-900 rounded-lg">
+            <strong className="text-blue-800 dark:text-blue-200">💡 Navigation:</strong>
+            <span className="text-blue-700 dark:text-blue-300 text-sm ml-2">
+              Use conditional rendering - no complex navigation needed!
+            </span>
+          </div>
         </div>
 
-        <h2>📝 Task Requirements</h2>
+        <h2>✅ Simple Checklist</h2>
 
         <div className="bg-yellow-50 dark:bg-yellow-950 p-6 rounded-lg border border-yellow-200 dark:border-yellow-800 mb-6">
           <h4 className="text-yellow-800 dark:text-yellow-200 font-semibold mb-4 mt-0">
-            ✅ Essential Features Checklist
+            🎯 Must-Have Features (1 Hour Total):
           </h4>
           
           <div className="space-y-4">
             <div>
-              <strong className="text-yellow-800 dark:text-yellow-200">Authentication:</strong>
+              <strong className="text-yellow-800 dark:text-yellow-200">Authentication (30 min):</strong>
               <ul className="text-yellow-700 dark:text-yellow-300 text-sm mt-2 space-y-1 ml-4">
+                <li>☐ json-server-auth backend running</li>
                 <li>☐ User can register with email/password</li>
-                <li>☐ User can login with credentials</li>
-                <li>☐ Login session persists after app restart</li>
-                <li>☐ User can logout safely</li>
-                <li>☐ Form validation with error messages</li>
-                <li>☐ Loading states during auth operations</li>
+                <li>☐ User can login and receive JWT token</li>
+                <li>☐ Login persists after app restart</li>
+                <li>☐ User can logout</li>
+                <li>☐ Basic form validation</li>
               </ul>
             </div>
             
             <div>
-              <strong className="text-yellow-800 dark:text-yellow-200">Task Management:</strong>
+              <strong className="text-yellow-800 dark:text-yellow-200">Notes Features (25 min):</strong>
               <ul className="text-yellow-700 dark:text-yellow-300 text-sm mt-2 space-y-1 ml-4">
-                <li>☐ Create new tasks with title and description</li>
-                <li>☐ Mark tasks as complete/incomplete</li>
-                <li>☐ Edit existing task details</li>
-                <li>☐ Delete tasks with confirmation</li>
-                <li>☐ Tasks persist between app sessions</li>
-                <li>☐ Display task count and completion status</li>
+                <li>☐ Add new note with title and content</li>
+                <li>☐ Display all notes in a list</li>
+                <li>☐ Delete notes with simple button</li>
+                <li>☐ Notes save to AsyncStorage</li>
+                <li>☐ Notes load on app start</li>
               </ul>
             </div>
             
             <div>
-              <strong className="text-yellow-800 dark:text-yellow-200">User Experience:</strong>
+              <strong className="text-yellow-800 dark:text-yellow-200">Basic Polish (5 min):</strong>
               <ul className="text-yellow-700 dark:text-yellow-300 text-sm mt-2 space-y-1 ml-4">
-                <li>☐ Professional keyboard handling in forms</li>
-                <li>☐ Smooth navigation between screens</li>
-                <li>☐ Clear visual feedback for all actions</li>
-                <li>☐ Consistent styling throughout app</li>
-                <li>☐ Proper error handling and messages</li>
-                <li>☐ Loading indicators where appropriate</li>
+                <li>☐ KeyboardAvoidingView on forms</li>
+                <li>☐ Loading states during login</li>
+                <li>☐ Simple, clean styling</li>
               </ul>
             </div>
           </div>
         </div>
 
-        <h2>🚀 Bonus Features</h2>
+        <h2>🌟 If You Finish Early</h2>
         
         <div className="bg-green-50 dark:bg-green-950 p-6 rounded-lg border border-green-200 dark:border-green-800 mb-6">
           <h4 className="text-green-800 dark:text-green-200 font-semibold mb-3 mt-0">
-            🌟 Optional Enhancements (if you have extra time):
+            ⚡ Quick Enhancements (5-10 min each):
           </h4>
-          <div className="text-green-700 dark:text-green-300 space-y-3 text-sm">
-            <div>
-              <strong>Task Organization:</strong>
-              <ul className="mt-1 space-y-1 ml-4">
-                <li>• Add task priorities (High, Medium, Low)</li>
-                <li>• Implement task categories/tags</li>
-                <li>• Sort tasks by date created or priority</li>
-                <li>• Search/filter functionality</li>
-              </ul>
-            </div>
-            <div>
-              <strong>Enhanced UX:</strong>
-              <ul className="mt-1 space-y-1 ml-4">
-                <li>• Dark/light theme toggle</li>
-                <li>• Swipe-to-delete gestures</li>
-                <li>• Task completion animations</li>
-                <li>• Due date picker for tasks</li>
-              </ul>
-            </div>
-            <div>
-              <strong>Data Features:</strong>
-              <ul className="mt-1 space-y-1 ml-4">
-                <li>• Export tasks to text</li>
-                <li>• Task statistics (completed today, this week)</li>
-                <li>• Backup/restore functionality</li>
-              </ul>
-            </div>
+          <div className="text-green-700 dark:text-green-300 text-sm">
+            <ul className="space-y-1">
+              <li>• Add note creation timestamp</li>
+              <li>• Add simple note search</li>
+              <li>• Add logout button in notes screen</li>
+              <li>• Show user name after login</li>
+              <li>• Add confirmation dialog before deleting notes</li>
+              <li>• Add empty state message when no notes</li>
+            </ul>
           </div>
         </div>
 
-        <h2>📚 Development Tips</h2>
+        <h2>💡 Pro Tips</h2>
 
         <div className="space-y-4 mb-6">
           <div className="bg-blue-50 dark:bg-blue-950 p-4 rounded-lg border border-blue-200 dark:border-blue-800">
             <h4 className="text-blue-800 dark:text-blue-200 font-semibold mb-2 mt-0">
-              🏁 Getting Started:
+              ⏰ Time Management:
             </h4>
             <ul className="text-blue-700 dark:text-blue-300 text-sm space-y-1">
-              <li>1. Start with basic app structure and navigation</li>
-              <li>2. Implement authentication system first</li>
-              <li>3. Add basic task CRUD operations</li>
-              <li>4. Enhance with data persistence</li>
-              <li>5. Polish UX and add keyboard handling</li>
+              <li>• Don't get stuck on styling - use simple, clean designs</li>
+              <li>• Copy-paste authentication code from Day 4 sessions</li>
+              <li>• Focus on functionality first, polish last</li>
+              <li>• Test early and often - especially the backend connection</li>
             </ul>
           </div>
 
           <div className="bg-purple-50 dark:bg-purple-950 p-4 rounded-lg border border-purple-200 dark:border-purple-800">
             <h4 className="text-purple-800 dark:text-purple-200 font-semibold mb-2 mt-0">
-              🔍 Testing Your App:
+              🔍 Quick Testing:
             </h4>
             <ul className="text-purple-700 dark:text-purple-300 text-sm space-y-1">
-              <li>• Test complete registration and login flow</li>
-              <li>• Verify data persists after closing/reopening app</li>
-              <li>• Test form validation with invalid inputs</li>
-              <li>• Check keyboard behavior on different screens</li>
-              <li>• Ensure logout clears all user data properly</li>
+              <li>• Check json-server-auth is running before starting</li>
+              <li>• Test registration first, then login</li>
+              <li>• Verify notes save by closing and reopening app</li>
+              <li>• Make sure logout clears everything properly</li>
             </ul>
           </div>
         </div>
 
-        <h2>🎯 Success Criteria</h2>
+        <h2>🎯 Success = These 3 Things Work</h2>
 
         <div className="bg-gradient-to-r from-green-50 to-blue-50 dark:from-green-950 dark:to-blue-950 p-6 rounded-lg border mb-6">
-          <h4 className="font-semibold mb-4 mt-0">Your app is successful when:</h4>
           <div className="space-y-3 text-sm">
             <div className="flex items-start gap-2">
-              <span className="text-green-500 mt-1">✓</span>
-              <span>A new user can register, login, and immediately start creating tasks</span>
+              <span className="text-green-500 mt-1 text-lg">✓</span>
+              <span><strong>Authentication works:</strong> Can register, login, logout, and stay logged in after app restart</span>
             </div>
             <div className="flex items-start gap-2">
-              <span className="text-green-500 mt-1">✓</span>
-              <span>All tasks and user session persist after closing and reopening the app</span>
+              <span className="text-green-500 mt-1 text-lg">✓</span>
+              <span><strong>Notes work:</strong> Can add notes, see them in a list, delete them, and they persist</span>
             </div>
             <div className="flex items-start gap-2">
-              <span className="text-green-500 mt-1">✓</span>
-              <span>Forms provide clear validation feedback and handle keyboard professionally</span>
-            </div>
-            <div className="flex items-start gap-2">
-              <span className="text-green-500 mt-1">✓</span>
-              <span>The app feels smooth and responsive with proper loading states</span>
-            </div>
-            <div className="flex items-start gap-2">
-              <span className="text-green-500 mt-1">✓</span>
-              <span>Code is clean, well-organized, and follows React Native best practices</span>
-            </div>
-          </div>
-        </div>
-
-        <h2>📖 Concept Review</h2>
-
-        <div className="bg-gray-50 dark:bg-gray-900 p-6 rounded-lg border mb-6">
-          <h4 className="font-semibold mb-4 mt-0">Before you start, review these key concepts:</h4>
-          <div className="grid md:grid-cols-2 gap-6 text-sm">
-            <div>
-              <strong className="block mb-2">Day 1-2 Review:</strong>
-              <ul className="space-y-1 ml-4">
-                <li>• React Native core components</li>
-                <li>• useState and state management</li>
-                <li>• Component structure and props</li>
-                <li>• FlatList/ScrollView usage</li>
-                <li>• TouchableOpacity interactions</li>
-              </ul>
-            </div>
-            <div>
-              <strong className="block mb-2">Day 3-4 Review:</strong>
-              <ul className="space-y-1 ml-4">
-                <li>• Form handling and validation</li>
-                <li>• AsyncStorage for data persistence</li>
-                <li>• Context API for global state</li>
-                <li>• Authentication patterns</li>
-                <li>• KeyboardAvoidingView usage</li>
-              </ul>
+              <span className="text-green-500 mt-1 text-lg">✓</span>
+              <span><strong>App flows well:</strong> Unauthenticated users see login, authenticated users see notes</span>
             </div>
           </div>
         </div>
 
         <div className="bg-gradient-to-r from-orange-50 to-red-50 dark:from-orange-950 dark:to-red-950 p-6 rounded-lg border border-orange-200 dark:border-orange-800">
           <h4 className="text-orange-800 dark:text-orange-200 font-semibold mb-3 mt-0">
-            🏆 Challenge Complete!
+            🏆 You Did It!
           </h4>
           <p className="text-orange-700 dark:text-orange-300 mb-3">
-            This challenge combines all the essential React Native concepts you've learned. 
-            Take your time, build incrementally, and don't hesitate to review previous sessions for reference.
+            This simple challenge demonstrates real authentication with a practical app in just 1 hour. 
+            You've learned to build secure, persistent, user-focused React Native applications.
           </p>
           <p className="text-orange-700 dark:text-orange-300 mb-0">
-            <strong>Remember:</strong> The goal is to apply your knowledge and create a functional app 
-            that demonstrates your understanding of React Native fundamentals, authentication, 
-            data management, and professional UX patterns.
+            <strong>Next steps:</strong> Try the bonus features, or use this foundation to build your own ideas!
           </p>
         </div>
       </div>
