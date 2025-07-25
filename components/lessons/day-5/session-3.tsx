@@ -8,7 +8,7 @@ export function Day5Session3Content() {
       <div className="prose prose-slate dark:prose-invert max-w-none">
         <div className="mb-8">
           <h1 className="text-3xl font-bold mb-4">
-            Notifications - Session 3
+            Simple Notifications - Session 3
           </h1>
 
           <div className="bg-blue-50 dark:bg-blue-950 p-6 rounded-lg border border-blue-200 dark:border-blue-800 mb-8">
@@ -17,107 +17,213 @@ export function Day5Session3Content() {
             </h3>
             <ul className="text-blue-700 dark:text-blue-300 space-y-2 mb-0">
               <li>
-                <strong>expo-notifications Setup</strong> - Install and configure notification services
+                <strong>Notification Setup</strong> - Install expo-notifications and basic configuration
               </li>
               <li>
-                <strong>Push Token Generation</strong> - Get device push notification tokens for remote notifications
+                <strong>Permission Handling</strong> - Request notification permissions properly
               </li>
               <li>
-                <strong>Local Notification Triggers</strong> - Schedule and trigger notifications locally
-              </li>
-              <li>
-                <strong>Push Notification Testing</strong> - Send and receive test push notifications effectively
+                <strong>Local Notifications</strong> - Schedule simple notifications that work offline
               </li>
             </ul>
           </div>
         </div>
 
-        <h2>1. Building Engaging Notification Systems</h2>
+        <h2>1. Understanding Mobile Notifications</h2>
         <p>
-          Notifications are crucial for user engagement and app retention—from reminders to real-time updates to 
-          promotional messages. Let's build professional notification experiences that respect user preferences, 
-          handle permissions gracefully, and provide both local and push notification capabilities.
+          Mobile notifications are messages that appear on a user's device to provide timely information, even when your app isn't actively open. 
+          They're essential for user engagement and keeping your app useful throughout the day.
         </p>
 
-        <div className="grid md:grid-cols-2 gap-4 my-6">
-          <div className="p-4 bg-gray-50 dark:bg-gray-900 rounded-lg border">
-            <h4 className="font-semibold mb-2 mt-0">📱 What We'll Build:</h4>
-            <div className="text-sm space-y-1">
-              <div>• Local notification scheduling</div>
-              <div>• Push notification tokens</div>
-              <div>• Interactive notification handling</div>
-              <div>• Notification permission management</div>
-              <div>• Custom notification categories</div>
+        <div className="bg-blue-50 dark:bg-blue-950 p-6 rounded-lg border border-blue-200 dark:border-blue-800 mb-6">
+          <h4 className="text-blue-800 dark:text-blue-200 font-semibold mb-3 mt-0">
+            📱 Types of Notifications
+          </h4>
+          <div className="text-blue-700 dark:text-blue-300 text-sm space-y-3">
+            <div>
+              <strong>Local Notifications:</strong> Scheduled by your app, work offline, perfect for reminders and alarms
             </div>
-          </div>
-          <div className="p-4 bg-green-50 dark:bg-green-900 rounded-lg border">
-            <h4 className="font-semibold mb-2 mt-0">🎯 Key Features:</h4>
-            <div className="text-sm space-y-1">
-              <div>• Rich notification content</div>
-              <div>• Sound and vibration control</div>
-              <div>• Notification actions and responses</div>
-              <div>• Background notification handling</div>
-              <div>• Cross-platform compatibility</div>
+            <div>
+              <strong>Push Notifications:</strong> Sent from a server, require internet, used for messages and updates
+            </div>
+            <div>
+              <strong>Today's Focus:</strong> We'll build local notifications - they're simpler and don't need server setup
             </div>
           </div>
         </div>
 
-        <h2>2. Setting Up expo-notifications</h2>
+        <h2>2. Expo Notifications Theory</h2>
         <p>
-          First, let's install and configure expo-notifications. This powerful library handles both local 
-          and push notifications with a unified API across iOS and Android platforms.
+          Expo provides a unified notification system that works consistently across iOS and Android. 
+          Behind the scenes, it handles the complex platform differences for you.
+        </p>
+
+        <div className="bg-green-50 dark:bg-green-950 p-6 rounded-lg border border-green-200 dark:border-green-800 mb-6">
+          <h4 className="text-green-800 dark:text-green-200 font-semibold mb-3 mt-0">
+            🔧 How Expo Notifications Work
+          </h4>
+          <div className="text-green-700 dark:text-green-300 text-sm space-y-2">
+            <div><strong>1. Permission Request:</strong> Ask user for notification access (required on both platforms)</div>
+            <div><strong>2. Schedule or Send:</strong> Create notification with title, body, and trigger time</div>
+            <div><strong>3. System Delivery:</strong> iOS/Android handles showing the notification to user</div>
+            <div><strong>4. User Interaction:</strong> User taps notification → your app receives the event</div>
+          </div>
+        </div>
+
+        <div className="bg-yellow-50 dark:bg-yellow-950 p-4 rounded-lg border border-yellow-200 dark:border-yellow-800 my-6">
+          <h4 className="text-yellow-800 dark:text-yellow-200 font-semibold mb-2 mt-0">
+            🏗️ Expo Account Setup (For Push Notifications)
+          </h4>
+          <div className="text-yellow-700 dark:text-yellow-300 text-sm space-y-2">
+            <p><strong>For Local Notifications:</strong> No Expo account setup needed! Everything works locally.</p>
+            <p><strong>For Push Notifications (Advanced):</strong></p>
+            <ul className="list-disc list-inside space-y-1 ml-4">
+              <li>Create account at <code>expo.dev</code></li>
+              <li>Run <code>expo login</code> in your project</li>
+              <li>Configure push notification credentials</li>
+              <li>Set up server to send notifications</li>
+            </ul>
+            <p><strong>Today's Focus:</strong> Local notifications only - no account needed!</p>
+          </div>
+        </div>
+
+        <div className="bg-green-50 dark:bg-green-950 p-6 rounded-lg border border-green-200 dark:border-green-800 mb-6">
+          <h4 className="text-green-800 dark:text-green-200 font-semibold mb-3 mt-0">
+            ✅ Notification Best Practices:
+          </h4>
+          <ul className="text-green-700 dark:text-green-300 text-sm space-y-1 mb-0">
+            <li><strong>Ask permission first</strong> - Always request before sending notifications</li>
+            <li><strong>Be helpful</strong> - Only send notifications that provide real value</li>
+            <li><strong>Respect choices</strong> - Make it easy to disable notifications</li>
+            <li><strong>Clear messages</strong> - Write clear, actionable notification text</li>
+            <li><strong>Timing matters</strong> - Don't spam users with too many notifications</li>
+          </ul>
+        </div>
+
+        <h2>3. Installing Notifications</h2>
+        <p>
+          Let's install expo-notifications and understand the complete setup process for both development and production.
         </p>
 
         <CodeBlock
-          code={`# Install expo-notifications
-npx expo install expo-notifications
-
-# For device testing with real push notifications
-npx expo install expo-device expo-constants`}
+          code={`# Install notification library
+npx expo install expo-notifications`}
           language="bash"
           filename="terminal"
-          title="Installation"
+          title="Installation Command"
+        />
+
+        <div className="bg-blue-50 dark:bg-blue-950 p-4 rounded-lg border border-blue-200 dark:border-blue-800 my-6">
+          <h4 className="text-blue-800 dark:text-blue-200 font-semibold mb-2 mt-0">
+            📋 What Gets Installed
+          </h4>
+          <div className="text-blue-700 dark:text-blue-300 text-sm space-y-2">
+            <div>• <strong>expo-notifications:</strong> Unified API for local and push notifications</div>
+            <div>• <strong>Platform handlers:</strong> iOS and Android native notification managers</div>
+            <div>• <strong>Permission system:</strong> Cross-platform permission requests</div>
+            <div>• <strong>Scheduling engine:</strong> Local notification timing and delivery</div>
+          </div>
+        </div>
+
+        <h2>4. Basic Configuration</h2>
+        <p>
+          For local notifications, minimal setup is required. Let's configure the notification handler in your app.
+        </p>
+
+        <CodeBlock
+          code={`// App.js or App.tsx - Basic notification configuration
+import * as Notifications from 'expo-notifications';
+
+// Configure how notifications appear when app is open
+Notifications.setNotificationHandler({
+  handleNotification: async () => ({
+    shouldShowAlert: true,    // Show notification popup
+    shouldPlaySound: true,    // Play notification sound
+    shouldSetBadge: false,    // Don't show badge number
+  }),
+});
+
+export default function App() {
+  // Your app component
+  return (
+    // Your app JSX
+  );
+}`}
+          language="javascript"
+          filename="App.js"
+          title="Basic App Configuration"
+        />
+
+        <div className="bg-green-50 dark:bg-green-950 p-4 rounded-lg border border-green-200 dark:border-green-800 my-6">
+          <h4 className="text-green-800 dark:text-green-200 font-semibold mb-2 mt-0">
+            🎯 Configuration Options Explained
+          </h4>
+          <div className="text-green-700 dark:text-green-300 text-sm space-y-2">
+            <div>• <strong>shouldShowAlert:</strong> Display notification when app is open</div>
+            <div>• <strong>shouldPlaySound:</strong> Play sound for notifications</div>
+            <div>• <strong>shouldSetBadge:</strong> Show number badge on app icon (iOS)</div>
+          </div>
+        </div>
+
+        <h2>5. Production Configuration (Optional)</h2>
+        <p>
+          For production apps, you can customize notification appearance and behavior.
+        </p>
+
+        <CodeBlock
+          code={`// app.config.js - Production configuration
+export default {
+  expo: {
+    name: "Your App Name",
+    slug: "your-app-slug",
+    plugins: [
+      [
+        "expo-notifications",
+        {
+          // Custom notification icon (must be 96x96px, white/transparent)
+          icon: "./assets/notification-icon.png",
+          
+          // Notification color theme (Android)
+          color: "#ffffff",
+          
+          // Default notification sound (optional)
+          sounds: ["./assets/notification-sound.wav"],
+          
+          // iOS specific settings
+          mode: "production"  // or "development"
+        }
+      ]
+    ]
+  }
+};`}
+          language="javascript"
+          filename="app.config.js"
+          title="Advanced Production Setup"
         />
 
         <div className="bg-yellow-50 dark:bg-yellow-950 p-4 rounded-lg border border-yellow-200 dark:border-yellow-800 my-6">
           <h4 className="text-yellow-800 dark:text-yellow-200 font-semibold mb-2 mt-0">
-            📱 App Configuration
+            📱 Development vs Production
           </h4>
-          <p className="text-yellow-700 dark:text-yellow-300 text-sm mb-2">
-            Add notification configuration to your app.json or app.config.js:
-          </p>
-          <CodeBlock
-            code={`{
-  "expo": {
-    "plugins": [
-      [
-        "expo-notifications",
-        {
-          "icon": "./assets/notification-icon.png",
-          "color": "#ffffff",
-          "sounds": ["./assets/notification-sound.wav"],
-          "mode": "production"
-        }
-      ]
-    ],
-    "notification": {
-      "icon": "./assets/notification-icon.png",
-      "color": "#000000",
-      "androidMode": "default",
-      "androidCollapsedTitle": "#{unread_notifications} new notifications"
-    }
-  }
-}`}
-            language="json"
-            filename="app.json"
-            title="Notification Configuration"
-        />
+          <div className="text-yellow-700 dark:text-yellow-300 text-sm space-y-2">
+            <div><strong>Development Mode:</strong></div>
+            <ul className="list-disc list-inside space-y-1 ml-4">
+              <li>Works automatically with Expo Go</li>
+              <li>No configuration needed</li>
+              <li>All notifications appear immediately</li>
+            </ul>
+            <div><strong>Production Mode:</strong></div>
+            <ul className="list-disc list-inside space-y-1 ml-4">
+              <li>Requires app.config.js configuration</li>
+              <li>Custom icons and sounds</li>
+              <li>Build with <code>expo build</code> or EAS Build</li>
+            </ul>
+          </div>
         </div>
 
-        <h2>3. Example 1: Basic Local Notifications</h2>
+        <h2>6. Example 1: Notification Sender</h2>
         <p>
-          Let's start with local notifications that can be scheduled and triggered without requiring 
-          internet connectivity. These are perfect for reminders, alarms, and app-specific alerts.
+          Now let's build a practical component that demonstrates local notifications with proper setup.
         </p>
 
         <CodeBlock
@@ -125,143 +231,134 @@ npx expo install expo-device expo-constants`}
 import {
   View,
   Text,
-  StyleSheet,
   TouchableOpacity,
   Alert,
   SafeAreaView,
-  ScrollView,
   TextInput,
-  Switch,
+  StyleSheet,
 } from 'react-native';
 import * as Notifications from 'expo-notifications';
-import * as Device from 'expo-device';
 
-// Configure how notifications are handled when app is in foreground
+// Configure how notifications appear when app is open
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
     shouldShowAlert: true,
     shouldPlaySound: true,
-    shouldSetBadge: true,
+    shouldSetBadge: false,
   }),
 });
 
-export default function BasicLocalNotifications() {
-  const [notificationTitle, setNotificationTitle] = useState('Hello!');
-  const [notificationBody, setNotificationBody] = useState('This is a test notification');
-  const [enableSound, setEnableSound] = useState(true);
-  const [permissionStatus, setPermissionStatus] = useState(null);
-  const [notification, setNotification] = useState(false);
+interface NotificationData {
+  title: string;
+  body: string;
+}
+
+export default function NotificationSender(): JSX.Element {
+  const [title, setTitle] = useState<string>('Hello!');
+  const [message, setMessage] = useState<string>('This is a test notification');
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [lastNotification, setLastNotification] = useState<any>(null);
   
-  const notificationListener = useRef();
-  const responseListener = useRef();
+  const notificationListener = useRef<any>();
+  const responseListener = useRef<any>();
 
   useEffect(() => {
-    // Check initial permission status
-    checkPermissionStatus();
-
-    // This listener is fired whenever a notification is received while the app is foregrounded
+    // Listen for notifications when app is open
     notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
-      setNotification(notification);
-      console.log('Notification received:', notification);
+      setLastNotification(notification);
+      console.log('📱 Notification received:', notification);
     });
 
-    // This listener is fired whenever a user taps on or interacts with a notification
+    // Listen for when user taps notification
     responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
-      console.log('Notification response:', response);
+      console.log('👆 Notification tapped:', response);
       Alert.alert(
-        'Notification Tapped',
-        \`You tapped on: "\${response.notification.request.content.title}"\`,
+        'Notification Tapped!',
+        \`You tapped: "\${response.notification.request.content.title}"\`,
         [{ text: 'OK' }]
       );
     });
 
     return () => {
-      Notifications.removeNotificationSubscription(notificationListener.current);
-      Notifications.removeNotificationSubscription(responseListener.current);
+      if (notificationListener.current) {
+        Notifications.removeNotificationSubscription(notificationListener.current);
+      }
+      if (responseListener.current) {
+        Notifications.removeNotificationSubscription(responseListener.current);
+      }
     };
   }, []);
 
-  const checkPermissionStatus = async () => {
-    const { status } = await Notifications.getPermissionsAsync();
-    setPermissionStatus(status);
-  };
+  const requestPermission = async (): Promise<boolean> => {
+    try {
+      const { status: existingStatus } = await Notifications.getPermissionsAsync();
+      let finalStatus = existingStatus;
+      
+      if (existingStatus !== 'granted') {
+        const { status } = await Notifications.requestPermissionsAsync();
+        finalStatus = status;
+      }
+      
+      if (finalStatus !== 'granted') {
+        Alert.alert(
+          'Permission Needed',
+          'Please allow notifications to use this feature.',
+          [{ text: 'OK' }]
+        );
+        return false;
+      }
 
-  const requestPermissions = async () => {
-    if (!Device.isDevice) {
-      Alert.alert(
-        'Simulator Detected',
-        'Push notifications don\\'t work on simulator. Use a physical device.',
-        [{ text: 'OK' }]
-      );
+      return true;
+    } catch (error) {
+      console.error('Permission error:', error);
       return false;
     }
-
-    const { status: existingStatus } = await Notifications.getPermissionsAsync();
-    let finalStatus = existingStatus;
-    
-    if (existingStatus !== 'granted') {
-      const { status } = await Notifications.requestPermissionsAsync();
-      finalStatus = status;
-    }
-    
-    if (finalStatus !== 'granted') {
-      Alert.alert(
-        'Permission Required',
-        'Notification permissions are required to send you alerts.',
-        [{ text: 'OK' }]
-      );
-      return false;
-    }
-
-    setPermissionStatus(finalStatus);
-    return true;
   };
 
-  const scheduleImmediateNotification = async () => {
-    const hasPermission = await requestPermissions();
+  const sendNotificationNow = async (): Promise<void> => {
+    const hasPermission = await requestPermission();
     if (!hasPermission) return;
 
     try {
-      const notificationId = await Notifications.scheduleNotificationAsync({
+      setIsLoading(true);
+      
+      await Notifications.scheduleNotificationAsync({
         content: {
-          title: notificationTitle,
-          body: notificationBody,
-          sound: enableSound ? 'default' : false,
-          badge: 1,
+          title: title,
+          body: message,
+          sound: 'default',
           data: { 
             type: 'immediate',
-            timestamp: new Date().toISOString() 
+            sentAt: new Date().toISOString()
           },
         },
-        trigger: null, // Immediate notification
+        trigger: null, // Send immediately
       });
 
-      Alert.alert(
-        'Notification Scheduled',
-        \`Immediate notification sent! ID: \${notificationId}\`,
-        [{ text: 'OK' }]
-      );
+      Alert.alert('Sent!', 'Check your notification panel');
     } catch (error) {
-      console.error('Error scheduling notification:', error);
-      Alert.alert('Error', 'Failed to schedule notification.');
+      console.error('Send error:', error);
+      Alert.alert('Error', 'Failed to send notification');
+    } finally {
+      setIsLoading(false);
     }
   };
 
-  const scheduleDelayedNotification = async (seconds) => {
-    const hasPermission = await requestPermissions();
+  const sendDelayedNotification = async (seconds: number): Promise<void> => {
+    const hasPermission = await requestPermission();
     if (!hasPermission) return;
 
     try {
-      const notificationId = await Notifications.scheduleNotificationAsync({
+      setIsLoading(true);
+      
+      await Notifications.scheduleNotificationAsync({
         content: {
-          title: \`⏰ Delayed Notification\`,
-          body: \`This notification was scheduled \${seconds} seconds ago!\`,
-          sound: enableSound ? 'default' : false,
-          badge: 1,
+          title: \`⏰ \${title}\`,
+          body: \`Delayed message: \${message}\`,
+          sound: 'default',
           data: { 
             type: 'delayed',
-            scheduledFor: seconds,
-            timestamp: new Date().toISOString() 
+            delay: seconds
           },
         },
         trigger: {
@@ -270,217 +367,103 @@ export default function BasicLocalNotifications() {
       });
 
       Alert.alert(
-        'Notification Scheduled',
-        \`Notification will arrive in \${seconds} seconds. ID: \${notificationId}\`,
-        [{ text: 'OK' }]
+        'Scheduled!', 
+        \`Notification will arrive in \${seconds} seconds\`
       );
     } catch (error) {
-      console.error('Error scheduling delayed notification:', error);
-      Alert.alert('Error', 'Failed to schedule delayed notification.');
+      console.error('Schedule error:', error);
+      Alert.alert('Error', 'Failed to schedule notification');
+    } finally {
+      setIsLoading(false);
     }
   };
 
-  const scheduleRepeatingNotification = async () => {
-    const hasPermission = await requestPermissions();
-    if (!hasPermission) return;
-
-    try {
-      const notificationId = await Notifications.scheduleNotificationAsync({
-        content: {
-          title: '🔄 Daily Reminder',
-          body: 'This is your daily reminder to check the app!',
-          sound: enableSound ? 'default' : false,
-          badge: 1,
-          data: { 
-            type: 'repeating',
-            interval: 'daily',
-            timestamp: new Date().toISOString() 
-          },
-        },
-        trigger: {
-          seconds: 60, // Start in 1 minute for demo
-          repeats: true,
-        },
-      });
-
-      Alert.alert(
-        'Repeating Notification Set',
-        \`Daily notification scheduled! ID: \${notificationId}\\n\\nFirst notification in 1 minute, then every minute (for demo).\`,
-        [{ text: 'OK' }]
-      );
-    } catch (error) {
-      console.error('Error scheduling repeating notification:', error);
-      Alert.alert('Error', 'Failed to schedule repeating notification.');
-    }
-  };
-
-  const cancelAllNotifications = async () => {
+  const clearAllNotifications = async (): Promise<void> => {
     try {
       await Notifications.cancelAllScheduledNotificationsAsync();
-      Alert.alert(
-        'Notifications Canceled',
-        'All scheduled notifications have been canceled.',
-        [{ text: 'OK' }]
-      );
+      Alert.alert('Cleared!', 'All scheduled notifications canceled');
     } catch (error) {
-      console.error('Error canceling notifications:', error);
-      Alert.alert('Error', 'Failed to cancel notifications.');
-    }
-  };
-
-  const clearBadge = async () => {
-    try {
-      await Notifications.setBadgeCountAsync(0);
-      Alert.alert('Badge Cleared', 'App badge count reset to 0.');
-    } catch (error) {
-      console.error('Error clearing badge:', error);
-    }
-  };
-
-  const getPermissionStatusColor = () => {
-    switch (permissionStatus) {
-      case 'granted': return '#4CAF50';
-      case 'denied': return '#F44336';
-      case 'undetermined': return '#FF9800';
-      default: return '#9E9E9E';
-    }
-  };
-
-  const getPermissionStatusText = () => {
-    switch (permissionStatus) {
-      case 'granted': return 'Granted';
-      case 'denied': return 'Denied';
-      case 'undetermined': return 'Not Requested';
-      default: return 'Unknown';
+      console.error('Clear error:', error);
     }
   };
 
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView contentContainerStyle={styles.content}>
-        <Text style={styles.title}>Local Notifications</Text>
+      <View style={styles.content}>
+        <Text style={styles.title}>Send Notifications</Text>
         
-        {/* Permission Status */}
-        <View style={styles.statusContainer}>
-          <Text style={styles.statusLabel}>Permission Status:</Text>
-          <View style={[styles.statusBadge, { backgroundColor: getPermissionStatusColor() }]}>
-            <Text style={styles.statusText}>{getPermissionStatusText()}</Text>
-          </View>
+        <View style={styles.inputSection}>
+          <Text style={styles.label}>Notification Title:</Text>
+          <TextInput
+            style={styles.input}
+            value={title}
+            onChangeText={setTitle}
+            placeholder="Enter title..."
+          />
+          
+          <Text style={styles.label}>Message:</Text>
+          <TextInput
+            style={[styles.input, styles.messageInput]}
+            value={message}
+            onChangeText={setMessage}
+            placeholder="Enter your message..."
+            multiline
+            numberOfLines={3}
+          />
         </View>
 
-        {/* Notification Content Settings */}
-        <View style={styles.settingsSection}>
-          <Text style={styles.sectionTitle}>Notification Content</Text>
-          
-          <View style={styles.inputContainer}>
-            <Text style={styles.inputLabel}>Title:</Text>
-            <TextInput
-              style={styles.textInput}
-              value={notificationTitle}
-              onChangeText={setNotificationTitle}
-              placeholder="Enter notification title"
-            />
-          </View>
-          
-          <View style={styles.inputContainer}>
-            <Text style={styles.inputLabel}>Message:</Text>
-            <TextInput
-              style={[styles.textInput, styles.textArea]}
-              value={notificationBody}
-              onChangeText={setNotificationBody}
-              placeholder="Enter notification message"
-              multiline
-              numberOfLines={3}
-            />
-          </View>
-
-          <View style={styles.switchContainer}>
-            <Text style={styles.switchLabel}>Enable Sound</Text>
-            <Switch
-              value={enableSound}
-              onValueChange={setEnableSound}
-              trackColor={{ false: '#ccc', true: '#4CAF50' }}
-              thumbColor={enableSound ? '#fff' : '#f4f3f4'}
-            />
-          </View>
-        </View>
-
-        {/* Action Buttons */}
         <View style={styles.buttonSection}>
           <TouchableOpacity
-            style={[styles.button, styles.primaryButton]}
-            onPress={scheduleImmediateNotification}
+            style={[styles.button, styles.primaryButton, isLoading && styles.buttonDisabled]}
+            onPress={sendNotificationNow}
+            disabled={isLoading}
           >
-            <Text style={styles.buttonText}>🔔 Send Now</Text>
+            <Text style={styles.buttonText}>
+              {isLoading ? 'Sending...' : '🔔 Send Now'}
+            </Text>
           </TouchableOpacity>
 
           <TouchableOpacity
             style={[styles.button, styles.secondaryButton]}
-            onPress={() => scheduleDelayedNotification(5)}
+            onPress={() => sendDelayedNotification(5)}
+            disabled={isLoading}
           >
-            <Text style={styles.secondaryButtonText}>⏱️ Send in 5s</Text>
+            <Text style={styles.secondaryButtonText}>⏱️ Send in 5 seconds</Text>
           </TouchableOpacity>
 
           <TouchableOpacity
             style={[styles.button, styles.secondaryButton]}
-            onPress={() => scheduleDelayedNotification(30)}
+            onPress={() => sendDelayedNotification(30)}
+            disabled={isLoading}
           >
-            <Text style={styles.secondaryButtonText}>⏰ Send in 30s</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity
-            style={[styles.button, styles.warningButton]}
-            onPress={scheduleRepeatingNotification}
-          >
-            <Text style={styles.buttonText}>🔄 Daily Reminder</Text>
-          </TouchableOpacity>
-        </View>
-
-        {/* Management Buttons */}
-        <View style={styles.managementSection}>
-          <TouchableOpacity
-            style={[styles.button, styles.infoButton]}
-            onPress={clearBadge}
-          >
-            <Text style={styles.buttonText}>🏷️ Clear Badge</Text>
+            <Text style={styles.secondaryButtonText}>⏰ Send in 30 seconds</Text>
           </TouchableOpacity>
 
           <TouchableOpacity
             style={[styles.button, styles.dangerButton]}
-            onPress={cancelAllNotifications}
+            onPress={clearAllNotifications}
           >
-            <Text style={styles.buttonText}>❌ Cancel All</Text>
+            <Text style={styles.buttonText}>❌ Clear All Scheduled</Text>
           </TouchableOpacity>
         </View>
 
-        {/* Last Notification Display */}
-        {notification && (
+        {lastNotification && (
           <View style={styles.lastNotificationSection}>
-            <Text style={styles.sectionTitle}>Last Received Notification</Text>
+            <Text style={styles.sectionTitle}>Last Notification Received:</Text>
             <View style={styles.notificationCard}>
               <Text style={styles.notificationTitle}>
-                {notification.request.content.title}
+                {lastNotification.request.content.title}
               </Text>
               <Text style={styles.notificationBody}>
-                {notification.request.content.body}
+                {lastNotification.request.content.body}
               </Text>
               <Text style={styles.notificationTime}>
-                Received: {new Date(notification.date).toLocaleTimeString()}
+                {new Date(lastNotification.date).toLocaleTimeString()}
               </Text>
             </View>
           </View>
         )}
-
-        {/* Tips Section */}
-        <View style={styles.tipsSection}>
-          <Text style={styles.tipsTitle}>💡 Notification Tips</Text>
-          <Text style={styles.tipText}>• Test on physical device for best results</Text>
-          <Text style={styles.tipText}>• Notifications work even when app is closed</Text>
-          <Text style={styles.tipText}>• Users can disable notifications in device settings</Text>
-          <Text style={styles.tipText}>• Badge count shows unread notifications</Text>
-          <Text style={styles.tipText}>• Tapping notifications opens the app</Text>
-        </View>
-      </ScrollView>
+      </View>
     </SafeAreaView>
   );
 }
@@ -497,34 +480,13 @@ const styles = StyleSheet.create({
     fontSize: 28,
     fontWeight: 'bold',
     textAlign: 'center',
-    marginBottom: 20,
+    marginBottom: 30,
     color: '#333',
   },
-  statusContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginBottom: 20,
-  },
-  statusLabel: {
-    fontSize: 16,
-    color: '#666',
-    marginRight: 10,
-  },
-  statusBadge: {
-    paddingHorizontal: 12,
-    paddingVertical: 6,
-    borderRadius: 15,
-  },
-  statusText: {
-    color: 'white',
-    fontSize: 14,
-    fontWeight: 'bold',
-  },
-  settingsSection: {
+  inputSection: {
     backgroundColor: 'white',
-    borderRadius: 12,
     padding: 20,
+    borderRadius: 12,
     marginBottom: 20,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
@@ -532,22 +494,13 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     elevation: 3,
   },
-  sectionTitle: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: '#333',
-    marginBottom: 15,
-  },
-  inputContainer: {
-    marginBottom: 15,
-  },
-  inputLabel: {
+  label: {
     fontSize: 16,
     fontWeight: '600',
     color: '#333',
     marginBottom: 8,
   },
-  textInput: {
+  input: {
     backgroundColor: '#f8f8f8',
     borderWidth: 1,
     borderColor: '#ddd',
@@ -555,55 +508,34 @@ const styles = StyleSheet.create({
     padding: 12,
     fontSize: 16,
     color: '#333',
+    marginBottom: 16,
   },
-  textArea: {
+  messageInput: {
     height: 80,
     textAlignVertical: 'top',
   },
-  switchContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingVertical: 10,
-  },
-  switchLabel: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: '#333',
-  },
   buttonSection: {
-    marginBottom: 20,
-  },
-  managementSection: {
-    flexDirection: 'row',
-    gap: 10,
-    marginBottom: 20,
+    gap: 12,
   },
   button: {
     paddingVertical: 15,
     paddingHorizontal: 20,
     borderRadius: 8,
     alignItems: 'center',
-    marginBottom: 10,
   },
   primaryButton: {
     backgroundColor: '#007AFF',
   },
   secondaryButton: {
-    backgroundColor: 'transparent',
+    backgroundColor: 'white',
     borderWidth: 1,
     borderColor: '#007AFF',
   },
-  warningButton: {
-    backgroundColor: '#FF9800',
-  },
-  infoButton: {
-    backgroundColor: '#17A2B8',
-    flex: 1,
-  },
   dangerButton: {
-    backgroundColor: '#DC3545',
-    flex: 1,
+    backgroundColor: '#FF3B30',
+  },
+  buttonDisabled: {
+    opacity: 0.5,
   },
   buttonText: {
     color: 'white',
@@ -619,15 +551,21 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     borderRadius: 12,
     padding: 20,
-    marginBottom: 20,
+    marginTop: 20,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 4,
     elevation: 3,
   },
+  sectionTitle: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: '#333',
+    marginBottom: 12,
+  },
   notificationCard: {
-    backgroundColor: '#f8f9fa',
+    backgroundColor: '#f0f7ff',
     padding: 15,
     borderRadius: 8,
     borderLeftWidth: 4,
@@ -637,7 +575,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
     color: '#333',
-    marginBottom: 5,
+    marginBottom: 4,
   },
   notificationBody: {
     fontSize: 14,
@@ -647,135 +585,57 @@ const styles = StyleSheet.create({
   notificationTime: {
     fontSize: 12,
     color: '#999',
-    fontStyle: 'italic',
-  },
-  tipsSection: {
-    backgroundColor: 'white',
-    borderRadius: 12,
-    padding: 20,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 3,
-  },
-  tipsTitle: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: '#333',
-    marginBottom: 10,
-  },
-  tipText: {
-    fontSize: 14,
-    color: '#666',
-    marginBottom: 5,
-    lineHeight: 20,
   },
 });`}
-          language="jsx"
-          filename="BasicLocalNotifications.jsx"
-          title="Local Notification System"
+          language="tsx"
+          filename="NotificationSender.tsx"
+          title="Simple Notification Sender Component"
         />
 
         <div className="bg-green-50 dark:bg-green-950 p-4 rounded-lg border border-green-200 dark:border-green-800 my-6">
           <h4 className="text-green-800 dark:text-green-200 font-semibold mb-2 mt-0">
-            🔧 Key Features Explained
+            🔧 Key Learning Points
           </h4>
           <div className="text-green-700 dark:text-green-300 text-sm space-y-2">
-            <div><strong>Permission Management:</strong> Request and check notification permissions with user-friendly messaging</div>
-            <div><strong>Scheduling Options:</strong> Immediate, delayed, and repeating notifications with flexible timing</div>
-            <div><strong>Rich Content:</strong> Custom titles, messages, sounds, and badge counts</div>
-            <div><strong>Interactive Handling:</strong> Respond to user interactions with notifications</div>
-            <div><strong>Background Support:</strong> Notifications work even when app is closed or backgrounded</div>
+            <div>• <strong>Permission handling</strong> - Always request before sending notifications</div>
+            <div>• <strong>Immediate vs delayed</strong> - Send now or schedule for later</div>
+            <div>• <strong>Event listeners</strong> - Detect when notifications are received or tapped</div>
+            <div>• <strong>TypeScript interfaces</strong> - Define data structures for type safety</div>
           </div>
         </div>
 
-        <h2>4. Example 2: Push Notification System</h2>
+        <h2>7. Example 2: Reminder Manager</h2>
         <p>
-          Now let's implement push notifications that can be sent from a server to your app. 
-          We'll get the push token and create a system for testing remote notifications.
+          Let's create a simple reminder app that schedules notifications for later.
         </p>
 
         <CodeBlock
-          code={`import React, { useState, useEffect, useRef } from 'react';
+          code={`import React, { useState } from 'react';
 import {
   View,
   Text,
-  StyleSheet,
   TouchableOpacity,
   Alert,
   SafeAreaView,
-  ScrollView,
   TextInput,
-  ActivityIndicator,
-  Clipboard,
+  StyleSheet,
+  ScrollView,
 } from 'react-native';
 import * as Notifications from 'expo-notifications';
-import * as Device from 'expo-device';
-import Constants from 'expo-constants';
 
-// Configure notification handling
-Notifications.setNotificationHandler({
-  handleNotification: async () => ({
-    shouldShowAlert: true,
-    shouldPlaySound: true,
-    shouldSetBadge: true,
-  }),
-});
+interface Reminder {
+  id: string;
+  title: string;
+  scheduledFor: Date;
+}
 
-export default function PushNotificationSystem() {
-  const [expoPushToken, setExpoPushToken] = useState('');
-  const [notification, setNotification] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-  const [testMessage, setTestMessage] = useState('Hello from push notifications!');
-  const [testTitle, setTestTitle] = useState('Test Push Notification');
-  
-  const notificationListener = useRef();
-  const responseListener = useRef();
+export default function ReminderManager(): JSX.Element {
+  const [reminderText, setReminderText] = useState<string>('');
+  const [minutes, setMinutes] = useState<string>('5');
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  useEffect(() => {
-    registerForPushNotificationsAsync();
-
-    // Listen for incoming notifications
-    notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
-      setNotification(notification);
-      console.log('Push notification received:', notification);
-    });
-
-    // Listen for notification interactions
-    responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
-      console.log('Push notification response:', response);
-      
-      // Handle different notification actions
-      const { notification, actionIdentifier } = response;
-      const data = notification.request.content.data;
-      
-      Alert.alert(
-        'Push Notification Tapped',
-        \`Action: \${actionIdentifier}\\nData: \${JSON.stringify(data, null, 2)}\`,
-        [{ text: 'OK' }]
-      );
-    });
-
-    return () => {
-      Notifications.removeNotificationSubscription(notificationListener.current);
-      Notifications.removeNotificationSubscription(responseListener.current);
-    };
-  }, []);
-
-  const registerForPushNotificationsAsync = async () => {
-    let token;
-
-    if (Platform.OS === 'android') {
-      await Notifications.setNotificationChannelAsync('default', {
-        name: 'default',
-        importance: Notifications.AndroidImportance.MAX,
-        vibrationPattern: [0, 250, 250, 250],
-        lightColor: '#FF231F7C',
-      });
-    }
-
-    if (Device.isDevice) {
+  const requestPermission = async (): Promise<boolean> => {
+    try {
       const { status: existingStatus } = await Notifications.getPermissionsAsync();
       let finalStatus = existingStatus;
       
@@ -784,292 +644,150 @@ export default function PushNotificationSystem() {
         finalStatus = status;
       }
       
-      if (finalStatus !== 'granted') {
-        Alert.alert(
-          'Push Notifications Disabled',
-          'Failed to get push token for push notification! Make sure you have enabled notifications.',
-          [{ text: 'OK' }]
-        );
-        return;
-      }
-      
-      token = (await Notifications.getExpoPushTokenAsync({
-        projectId: Constants.expoConfig?.extra?.eas?.projectId,
-      })).data;
-      
-      console.log('Expo Push Token:', token);
-      setExpoPushToken(token);
-    } else {
-      Alert.alert(
-        'Simulator Detected',
-        'Must use physical device for Push Notifications. Expo Push Tokens don\\'t work on simulators.',
-        [{ text: 'OK' }]
-      );
+      return finalStatus === 'granted';
+    } catch (error) {
+      return false;
     }
-
-    return token;
   };
 
-  const sendPushNotification = async (expoPushToken, title, message) => {
-    const pushMessage = {
-      to: expoPushToken,
-      sound: 'default',
-      title: title,
-      body: message,
-      data: { 
-        type: 'test_push',
-        timestamp: new Date().toISOString(),
-        customData: 'This is custom data that can be used by your app' 
-      },
-      badge: 1,
-      priority: 'high',
-      channelId: 'default',
-    };
+  const scheduleReminder = async (): Promise<void> => {
+    if (!reminderText.trim()) {
+      Alert.alert('Missing reminder', 'Please enter what to remind you about');
+      return;
+    }
+
+    const minutesNum = parseInt(minutes);
+    if (isNaN(minutesNum) || minutesNum < 1) {
+      Alert.alert('Invalid time', 'Please enter a valid number of minutes');
+      return;
+    }
+
+    const hasPermission = await requestPermission();
+    if (!hasPermission) {
+      Alert.alert('Permission needed', 'Please allow notifications');
+      return;
+    }
 
     try {
       setIsLoading(true);
       
-      const response = await fetch('https://exp.host/--/api/v2/push/send', {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Accept-encoding': 'gzip, deflate',
-          'Content-Type': 'application/json',
+      const scheduledDate = new Date();
+      scheduledDate.setMinutes(scheduledDate.getMinutes() + minutesNum);
+      
+      await Notifications.scheduleNotificationAsync({
+        content: {
+          title: '⏰ Reminder',
+          body: reminderText.trim(),
+          sound: 'default',
+          data: { 
+            type: 'reminder',
+            originalText: reminderText.trim(),
+            scheduledFor: scheduledDate.toISOString()
+          },
         },
-        body: JSON.stringify(pushMessage),
+        trigger: {
+          seconds: minutesNum * 60,
+        },
       });
 
-      const responseData = await response.json();
-      console.log('Push notification response:', responseData);
-      
-      if (responseData.data && responseData.data[0].status === 'ok') {
-        Alert.alert(
-          'Push Sent Successfully!',
-          \`Push notification sent to your device. Check your notification panel!\`,
-          [{ text: 'OK' }]
-        );
-      } else {
-        Alert.alert(
-          'Push Failed',
-          \`Failed to send push notification: \${responseData.data?.[0]?.message || 'Unknown error'}\`,
-          [{ text: 'OK' }]
-        );
-      }
-    } catch (error) {
-      console.error('Error sending push notification:', error);
       Alert.alert(
-        'Error',
-        'Failed to send push notification. Check your internet connection.',
+        'Reminder Set!',
+        \`I'll remind you "\${reminderText.trim()}" in \${minutesNum} minute\${minutesNum === 1 ? '' : 's'}\`,
         [{ text: 'OK' }]
       );
+      
+      setReminderText('');
+    } catch (error) {
+      console.error('Schedule error:', error);
+      Alert.alert('Error', 'Failed to schedule reminder');
     } finally {
       setIsLoading(false);
     }
   };
 
-  const testPushNotification = () => {
-    if (!expoPushToken) {
-      Alert.alert(
-        'No Push Token',
-        'Push token not available. Make sure you\\'re using a physical device and have granted notification permissions.',
-        [{ text: 'OK' }]
-      );
+  const quickReminders = [
+    { text: 'Take a break', minutes: 5 },
+    { text: 'Drink water', minutes: 30 },
+    { text: 'Check messages', minutes: 60 },
+    { text: 'Stand up and stretch', minutes: 90 },
+  ];
+
+  const scheduleQuickReminder = async (text: string, mins: number): Promise<void> => {
+    const hasPermission = await requestPermission();
+    if (!hasPermission) {
+      Alert.alert('Permission needed', 'Please allow notifications');
       return;
     }
 
-    Alert.alert(
-      'Send Test Push?',
-      \`This will send a push notification to this device.\\n\\nTitle: "\${testTitle}"\\nMessage: "\${testMessage}"\`,
-      [
-        { text: 'Cancel', style: 'cancel' },
-        { 
-          text: 'Send Push', 
-          onPress: () => sendPushNotification(expoPushToken, testTitle, testMessage)
+    try {
+      await Notifications.scheduleNotificationAsync({
+        content: {
+          title: '⏰ Quick Reminder',
+          body: text,
+          sound: 'default',
+          data: { type: 'quick_reminder' },
         },
-      ]
-    );
-  };
+        trigger: {
+          seconds: mins * 60,
+        },
+      });
 
-  const copyTokenToClipboard = () => {
-    if (!expoPushToken) {
-      Alert.alert('No Token', 'Push token not available.');
-      return;
+      Alert.alert('Set!', \`Reminder in \${mins} minutes\`);
+    } catch (error) {
+      Alert.alert('Error', 'Failed to set reminder');
     }
-
-    Clipboard.setString(expoPushToken);
-    Alert.alert(
-      'Token Copied!',
-      'Push token copied to clipboard. You can use this token to send push notifications from your server.',
-      [{ text: 'OK' }]
-    );
-  };
-
-  const sendTestPushFromServer = () => {
-    Alert.alert(
-      'Test from Server',
-      \`To test from your server, send a POST request to:\\n\\nhttps://exp.host/--/api/v2/push/send\\n\\nWith this token and message payload.\`,
-      [
-        { text: 'Copy Token', onPress: copyTokenToClipboard },
-        { text: 'OK' },
-      ]
-    );
   };
 
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView contentContainerStyle={styles.content}>
-        <Text style={styles.title}>Push Notifications</Text>
+      <ScrollView style={styles.scrollView}>
+        <Text style={styles.title}>Reminder Manager</Text>
         
-        {/* Push Token Section */}
-        <View style={styles.tokenSection}>
-          <Text style={styles.sectionTitle}>🔑 Expo Push Token</Text>
-          {expoPushToken ? (
-            <View style={styles.tokenContainer}>
-              <Text style={styles.tokenText} numberOfLines={3}>
-                {expoPushToken}
-              </Text>
-              <TouchableOpacity 
-                style={styles.copyButton}
-                onPress={copyTokenToClipboard}
-              >
-                <Text style={styles.copyButtonText}>📋 Copy</Text>
-              </TouchableOpacity>
-            </View>
-          ) : (
-            <View style={styles.noTokenContainer}>
-              <Text style={styles.noTokenText}>
-                {Device.isDevice 
-                  ? 'Requesting push token...' 
-                  : 'Push tokens only work on physical devices'
-                }
-              </Text>
-            </View>
-          )}
-        </View>
-
-        {/* Test Message Configuration */}
-        <View style={styles.configSection}>
-          <Text style={styles.sectionTitle}>📝 Test Message</Text>
+        <View style={styles.section}>
+          <Text style={styles.sectionTitle}>Custom Reminder</Text>
           
-          <View style={styles.inputContainer}>
-            <Text style={styles.inputLabel}>Title:</Text>
-            <TextInput
-              style={styles.textInput}
-              value={testTitle}
-              onChangeText={setTestTitle}
-              placeholder="Enter push notification title"
-            />
-          </View>
+          <Text style={styles.label}>What should I remind you about?</Text>
+          <TextInput
+            style={styles.input}
+            value={reminderText}
+            onChangeText={setReminderText}
+            placeholder="e.g., Call mom, Take medicine..."
+            multiline
+            numberOfLines={2}
+          />
           
-          <View style={styles.inputContainer}>
-            <Text style={styles.inputLabel}>Message:</Text>
-            <TextInput
-              style={[styles.textInput, styles.textArea]}
-              value={testMessage}
-              onChangeText={setTestMessage}
-              placeholder="Enter push notification message"
-              multiline
-              numberOfLines={3}
-            />
-          </View>
-        </View>
-
-        {/* Action Buttons */}
-        <View style={styles.buttonSection}>
-          <TouchableOpacity
-            style={[styles.button, styles.primaryButton, (!expoPushToken || isLoading) && styles.buttonDisabled]}
-            onPress={testPushNotification}
-            disabled={!expoPushToken || isLoading}
-          >
-            {isLoading ? (
-              <ActivityIndicator color="white" size="small" />
-            ) : (
-              <Text style={styles.buttonText}>🚀 Send Test Push</Text>
-            )}
-          </TouchableOpacity>
-
-          <TouchableOpacity
-            style={[styles.button, styles.secondaryButton]}
-            onPress={sendTestPushFromServer}
-          >
-            <Text style={styles.secondaryButtonText}>🖥️ Test from Server</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity
-            style={[styles.button, styles.infoButton]}
-            onPress={() => registerForPushNotificationsAsync()}
-          >
-            <Text style={styles.buttonText}>🔄 Refresh Token</Text>
-          </TouchableOpacity>
-        </View>
-
-        {/* Last Push Notification */}
-        {notification && (
-          <View style={styles.lastPushSection}>
-            <Text style={styles.sectionTitle}>📬 Last Push Notification</Text>
-            <View style={styles.pushCard}>
-              <Text style={styles.pushTitle}>
-                {notification.request.content.title}
-              </Text>
-              <Text style={styles.pushBody}>
-                {notification.request.content.body}
-              </Text>
-              <Text style={styles.pushTime}>
-                Received: {new Date(notification.date).toLocaleString()}
-              </Text>
-              {notification.request.content.data && (
-                <View style={styles.pushDataContainer}>
-                  <Text style={styles.pushDataTitle}>Data:</Text>
-                  <Text style={styles.pushDataText}>
-                    {JSON.stringify(notification.request.content.data, null, 2)}
-                  </Text>
-                </View>
-              )}
-            </View>
-          </View>
-        )}
-
-        {/* Server Integration Guide */}
-        <View style={styles.guideSection}>
-          <Text style={styles.sectionTitle}>🛠️ Server Integration</Text>
-          <View style={styles.guideContent}>
-            <Text style={styles.guideStep}>1. Copy your push token above</Text>
-            <Text style={styles.guideStep}>2. Send POST to: https://exp.host/--/api/v2/push/send</Text>
-            <Text style={styles.guideStep}>3. Include token and message in request body</Text>
-            <Text style={styles.guideStep}>4. Handle responses and delivery receipts</Text>
-          </View>
+          <Text style={styles.label}>In how many minutes?</Text>
+          <TextInput
+            style={styles.timeInput}
+            value={minutes}
+            onChangeText={setMinutes}
+            placeholder="5"
+            keyboardType="numeric"
+          />
           
-          <TouchableOpacity 
-            style={styles.guideButton}
-            onPress={() => Alert.alert(
-              'Sample Code',
-              \`fetch('https://exp.host/--/api/v2/push/send', {
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/json',
-  },
-  body: JSON.stringify({
-    to: 'YOUR_PUSH_TOKEN',
-    title: 'Hello!',
-    body: 'Your message here',
-    data: { custom: 'data' },
-  }),
-});\`,
-              [{ text: 'OK' }]
-            )}
+          <TouchableOpacity
+            style={[styles.button, styles.primaryButton, isLoading && styles.buttonDisabled]}
+            onPress={scheduleReminder}
+            disabled={isLoading}
           >
-            <Text style={styles.guideButtonText}>📄 View Sample Code</Text>
+            <Text style={styles.buttonText}>
+              {isLoading ? 'Setting...' : '⏰ Set Reminder'}
+            </Text>
           </TouchableOpacity>
         </View>
 
-        {/* Tips Section */}
-        <View style={styles.tipsSection}>
-          <Text style={styles.tipsTitle}>💡 Push Notification Tips</Text>
-          <Text style={styles.tipText}>• Test on physical device only</Text>
-          <Text style={styles.tipText}>• Push tokens can change between app updates</Text>
-          <Text style={styles.tipText}>• Rate limits apply to Expo's push service</Text>
-          <Text style={styles.tipText}>• Include meaningful data for app navigation</Text>
-          <Text style={styles.tipText}>• Handle notification permissions gracefully</Text>
+        <View style={styles.section}>
+          <Text style={styles.sectionTitle}>Quick Reminders</Text>
+          {quickReminders.map((reminder, index) => (
+            <TouchableOpacity
+              key={index}
+              style={styles.quickButton}
+              onPress={() => scheduleQuickReminder(reminder.text, reminder.minutes)}
+            >
+              <Text style={styles.quickButtonText}>{reminder.text}</Text>
+              <Text style={styles.quickButtonTime}>{reminder.minutes}min</Text>
+            </TouchableOpacity>
+          ))}
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -1081,21 +799,21 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#f5f5f5',
   },
-  content: {
-    padding: 20,
+  scrollView: {
+    flex: 1,
   },
   title: {
     fontSize: 28,
     fontWeight: 'bold',
     textAlign: 'center',
-    marginBottom: 20,
+    marginVertical: 20,
     color: '#333',
   },
-  tokenSection: {
+  section: {
     backgroundColor: 'white',
-    borderRadius: 12,
+    margin: 15,
     padding: 20,
-    marginBottom: 20,
+    borderRadius: 12,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
@@ -1103,71 +821,18 @@ const styles = StyleSheet.create({
     elevation: 3,
   },
   sectionTitle: {
-    fontSize: 18,
+    fontSize: 20,
     fontWeight: 'bold',
     color: '#333',
-    marginBottom: 15,
+    marginBottom: 16,
   },
-  tokenContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: '#f8f9fa',
-    padding: 15,
-    borderRadius: 8,
-    borderWidth: 1,
-    borderColor: '#e9ecef',
-  },
-  tokenText: {
-    flex: 1,
-    fontSize: 12,
-    fontFamily: 'monospace',
-    color: '#495057',
-    marginRight: 10,
-  },
-  copyButton: {
-    backgroundColor: '#007AFF',
-    paddingHorizontal: 12,
-    paddingVertical: 8,
-    borderRadius: 6,
-  },
-  copyButtonText: {
-    color: 'white',
-    fontSize: 12,
-    fontWeight: 'bold',
-  },
-  noTokenContainer: {
-    backgroundColor: '#fff3cd',
-    padding: 15,
-    borderRadius: 8,
-    borderWidth: 1,
-    borderColor: '#ffeaa7',
-  },
-  noTokenText: {
-    color: '#856404',
-    textAlign: 'center',
-    fontSize: 14,
-  },
-  configSection: {
-    backgroundColor: 'white',
-    borderRadius: 12,
-    padding: 20,
-    marginBottom: 20,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 3,
-  },
-  inputContainer: {
-    marginBottom: 15,
-  },
-  inputLabel: {
+  label: {
     fontSize: 16,
     fontWeight: '600',
     color: '#333',
     marginBottom: 8,
   },
-  textInput: {
+  input: {
     backgroundColor: '#f8f8f8',
     borderWidth: 1,
     borderColor: '#ddd',
@@ -1175,1057 +840,125 @@ const styles = StyleSheet.create({
     padding: 12,
     fontSize: 16,
     color: '#333',
-  },
-  textArea: {
-    height: 80,
+    marginBottom: 16,
     textAlignVertical: 'top',
   },
-  buttonSection: {
+  timeInput: {
+    backgroundColor: '#f8f8f8',
+    borderWidth: 1,
+    borderColor: '#ddd',
+    borderRadius: 8,
+    padding: 12,
+    fontSize: 16,
+    color: '#333',
     marginBottom: 20,
+    width: 100,
   },
   button: {
     paddingVertical: 15,
     paddingHorizontal: 20,
     borderRadius: 8,
     alignItems: 'center',
-    marginBottom: 10,
   },
   primaryButton: {
     backgroundColor: '#007AFF',
   },
-  secondaryButton: {
-    backgroundColor: 'transparent',
-    borderWidth: 1,
-    borderColor: '#007AFF',
-  },
-  infoButton: {
-    backgroundColor: '#17A2B8',
-  },
   buttonDisabled: {
-    backgroundColor: '#ccc',
+    opacity: 0.5,
   },
   buttonText: {
     color: 'white',
     fontSize: 16,
     fontWeight: 'bold',
   },
-  secondaryButtonText: {
-    color: '#007AFF',
-    fontSize: 16,
-    fontWeight: 'bold',
-  },
-  lastPushSection: {
-    backgroundColor: 'white',
-    borderRadius: 12,
-    padding: 20,
-    marginBottom: 20,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 3,
-  },
-  pushCard: {
-    backgroundColor: '#e8f4fd',
-    padding: 15,
+  quickButton: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    backgroundColor: '#f0f7ff',
+    padding: 16,
     borderRadius: 8,
+    marginBottom: 8,
     borderLeftWidth: 4,
     borderLeftColor: '#007AFF',
   },
-  pushTitle: {
+  quickButtonText: {
     fontSize: 16,
-    fontWeight: 'bold',
     color: '#333',
-    marginBottom: 5,
+    flex: 1,
   },
-  pushBody: {
+  quickButtonTime: {
     fontSize: 14,
-    color: '#666',
-    marginBottom: 8,
-  },
-  pushTime: {
-    fontSize: 12,
-    color: '#999',
-    fontStyle: 'italic',
-    marginBottom: 8,
-  },
-  pushDataContainer: {
-    backgroundColor: '#f8f9fa',
-    padding: 10,
-    borderRadius: 6,
-    borderWidth: 1,
-    borderColor: '#dee2e6',
-  },
-  pushDataTitle: {
-    fontSize: 12,
+    color: '#007AFF',
     fontWeight: 'bold',
-    color: '#495057',
-    marginBottom: 4,
-  },
-  pushDataText: {
-    fontSize: 11,
-    fontFamily: 'monospace',
-    color: '#6c757d',
-  },
-  guideSection: {
-    backgroundColor: 'white',
-    borderRadius: 12,
-    padding: 20,
-    marginBottom: 20,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 3,
-  },
-  guideContent: {
-    marginBottom: 15,
-  },
-  guideStep: {
-    fontSize: 14,
-    color: '#666',
-    marginBottom: 8,
-    paddingLeft: 15,
-    position: 'relative',
-  },
-  guideButton: {
-    backgroundColor: '#28a745',
-    paddingVertical: 12,
-    paddingHorizontal: 20,
-    borderRadius: 8,
-    alignItems: 'center',
-  },
-  guideButtonText: {
-    color: 'white',
-    fontSize: 14,
-    fontWeight: 'bold',
-  },
-  tipsSection: {
-    backgroundColor: 'white',
-    borderRadius: 12,
-    padding: 20,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 3,
-  },
-  tipsTitle: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: '#333',
-    marginBottom: 10,
-  },
-  tipText: {
-    fontSize: 14,
-    color: '#666',
-    marginBottom: 5,
-    lineHeight: 20,
   },
 });`}
-          language="jsx"
-          filename="PushNotificationSystem.jsx"
-          title="Complete Push Notification System"
-        />
-
-        <div className="bg-purple-50 dark:bg-purple-950 p-4 rounded-lg border border-purple-200 dark:border-purple-800 my-6">
-          <h4 className="text-purple-800 dark:text-purple-200 font-semibold mb-2 mt-0">
-            🚀 Push Notification Features
-          </h4>
-          <div className="text-purple-700 dark:text-purple-300 text-sm space-y-2">
-            <div><strong>Expo Push Token:</strong> Unique device identifier for sending push notifications</div>
-            <div><strong>Server Integration:</strong> Direct HTTP API for sending notifications from your backend</div>
-            <div><strong>Rich Data:</strong> Include custom data payloads for app navigation and context</div>
-            <div><strong>Interactive Testing:</strong> Send test notifications directly from the app</div>
-            <div><strong>Response Handling:</strong> Process user interactions and notification taps</div>
-          </div>
-        </div>
-
-        <h2>5. Example 3: Advanced Notification Manager</h2>
-        <p>
-          Let's create a comprehensive notification management system that handles both local and push notifications, 
-          provides user preferences, and includes analytics for notification engagement.
-        </p>
-
-        <CodeBlock
-          code={`import React, { useState, useEffect, useRef } from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  Alert,
-  SafeAreaView,
-  ScrollView,
-  Switch,
-  FlatList,
-} from 'react-native';
-import * as Notifications from 'expo-notifications';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-
-const NOTIFICATION_PREFERENCES_KEY = 'notification_preferences';
-const NOTIFICATION_HISTORY_KEY = 'notification_history';
-
-// Configure notification categories with actions
-Notifications.setNotificationCategoryAsync('reminder', [
-  {
-    identifier: 'snooze',
-    buttonTitle: 'Snooze 5min',
-    options: { opensAppToForeground: false },
-  },
-  {
-    identifier: 'complete',
-    buttonTitle: 'Mark Done',
-    options: { opensAppToForeground: true },
-  },
-]);
-
-Notifications.setNotificationHandler({
-  handleNotification: async (notification) => {
-    // Custom logic based on notification type
-    const notificationType = notification.request.content.data?.type;
-    
-    return {
-      shouldShowAlert: true,
-      shouldPlaySound: notificationType !== 'silent',
-      shouldSetBadge: true,
-    };
-  },
-});
-
-export default function AdvancedNotificationManager() {
-  const [preferences, setPreferences] = useState({
-    enableNotifications: true,
-    enableSounds: true,
-    enableReminders: true,
-    enablePromotions: false,
-    quietHoursEnabled: false,
-    quietHoursStart: '22:00',
-    quietHoursEnd: '08:00',
-  });
-  
-  const [notificationHistory, setNotificationHistory] = useState([]);
-  const [scheduledNotifications, setScheduledNotifications] = useState([]);
-  
-  const notificationListener = useRef();
-  const responseListener = useRef();
-
-  useEffect(() => {
-    loadPreferences();
-    loadNotificationHistory();
-    loadScheduledNotifications();
-
-    // Set up listeners
-    notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
-      addToHistory(notification, 'received');
-    });
-
-    responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
-      const { notification, actionIdentifier } = response;
-      
-      addToHistory(notification, 'interacted', { action: actionIdentifier });
-      
-      // Handle different actions
-      if (actionIdentifier === 'snooze') {
-        snoozeNotification(notification);
-      } else if (actionIdentifier === 'complete') {
-        markNotificationComplete(notification);
-      }
-    });
-
-    return () => {
-      Notifications.removeNotificationSubscription(notificationListener.current);
-      Notifications.removeNotificationSubscription(responseListener.current);
-    };
-  }, []);
-
-  const loadPreferences = async () => {
-    try {
-      const stored = await AsyncStorage.getItem(NOTIFICATION_PREFERENCES_KEY);
-      if (stored) {
-        setPreferences(JSON.parse(stored));
-      }
-    } catch (error) {
-      console.error('Failed to load preferences:', error);
-    }
-  };
-
-  const savePreferences = async (newPreferences) => {
-    try {
-      await AsyncStorage.setItem(NOTIFICATION_PREFERENCES_KEY, JSON.stringify(newPreferences));
-      setPreferences(newPreferences);
-    } catch (error) {
-      console.error('Failed to save preferences:', error);
-    }
-  };
-
-  const loadNotificationHistory = async () => {
-    try {
-      const stored = await AsyncStorage.getItem(NOTIFICATION_HISTORY_KEY);
-      if (stored) {
-        setNotificationHistory(JSON.parse(stored));
-      }
-    } catch (error) {
-      console.error('Failed to load history:', error);
-    }
-  };
-
-  const loadScheduledNotifications = async () => {
-    try {
-      const scheduled = await Notifications.getAllScheduledNotificationsAsync();
-      setScheduledNotifications(scheduled);
-    } catch (error) {
-      console.error('Failed to load scheduled notifications:', error);
-    }
-  };
-
-  const addToHistory = async (notification, type, metadata = {}) => {
-    const entry = {
-      id: Date.now().toString(),
-      type,
-      title: notification.request.content.title,
-      body: notification.request.content.body,
-      data: notification.request.content.data,
-      timestamp: new Date().toISOString(),
-      metadata,
-    };
-
-    const newHistory = [entry, ...notificationHistory].slice(0, 50); // Keep last 50
-    setNotificationHistory(newHistory);
-    
-    try {
-      await AsyncStorage.setItem(NOTIFICATION_HISTORY_KEY, JSON.stringify(newHistory));
-    } catch (error) {
-      console.error('Failed to save history:', error);
-    }
-  };
-
-  const scheduleReminderNotification = async (title, body, delayMinutes = 5) => {
-    if (!preferences.enableNotifications || !preferences.enableReminders) {
-      Alert.alert('Notifications Disabled', 'Please enable notifications and reminders in settings.');
-      return;
-    }
-
-    try {
-      const notificationId = await Notifications.scheduleNotificationAsync({
-        content: {
-          title,
-          body,
-          sound: preferences.enableSounds ? 'default' : false,
-          categoryIdentifier: 'reminder',
-          data: { 
-            type: 'reminder',
-            scheduledAt: new Date().toISOString(),
-            originalDelay: delayMinutes 
-          },
-        },
-        trigger: {
-          seconds: delayMinutes * 60,
-        },
-      });
-
-      Alert.alert(
-        'Reminder Scheduled',
-        \`Reminder will arrive in \${delayMinutes} minutes.\`,
-        [{ text: 'OK' }]
-      );
-      
-      loadScheduledNotifications(); // Refresh list
-    } catch (error) {
-      console.error('Failed to schedule reminder:', error);
-      Alert.alert('Error', 'Failed to schedule reminder.');
-    }
-  };
-
-  const snoozeNotification = async (notification) => {
-    const originalData = notification.request.content.data;
-    
-    await Notifications.scheduleNotificationAsync({
-      content: {
-        title: \`⏰ \${notification.request.content.title}\`,
-        body: notification.request.content.body,
-        sound: preferences.enableSounds ? 'default' : false,
-        data: { 
-          ...originalData,
-          snoozed: true,
-          snoozeCount: (originalData?.snoozeCount || 0) + 1 
-        },
-      },
-      trigger: {
-        seconds: 300, // 5 minutes
-      },
-    });
-
-    Alert.alert('Snoozed', 'Reminder snoozed for 5 minutes.');
-  };
-
-  const markNotificationComplete = (notification) => {
-    Alert.alert(
-      'Marked Complete',
-      \`"\${notification.request.content.title}" has been marked as complete.\`,
-      [{ text: 'OK' }]
-    );
-  };
-
-  const togglePreference = (key) => {
-    const newPreferences = { ...preferences, [key]: !preferences[key] };
-    savePreferences(newPreferences);
-  };
-
-  const clearHistory = async () => {
-    Alert.alert(
-      'Clear History',
-      'Are you sure you want to clear all notification history?',
-      [
-        { text: 'Cancel', style: 'cancel' },
-        {
-          text: 'Clear',
-          style: 'destructive',
-          onPress: async () => {
-            setNotificationHistory([]);
-            await AsyncStorage.removeItem(NOTIFICATION_HISTORY_KEY);
-          },
-        },
-      ]
-    );
-  };
-
-  const cancelAllScheduled = async () => {
-    Alert.alert(
-      'Cancel All Notifications',
-      'Are you sure you want to cancel all scheduled notifications?',
-      [
-        { text: 'Cancel', style: 'cancel' },
-        {
-          text: 'Cancel All',
-          style: 'destructive',
-          onPress: async () => {
-            await Notifications.cancelAllScheduledNotificationsAsync();
-            setScheduledNotifications([]);
-            Alert.alert('Success', 'All scheduled notifications canceled.');
-          },
-        },
-      ]
-    );
-  };
-
-  const getEngagementStats = () => {
-    const received = notificationHistory.filter(item => item.type === 'received').length;
-    const interacted = notificationHistory.filter(item => item.type === 'interacted').length;
-    const engagementRate = received > 0 ? ((interacted / received) * 100).toFixed(1) : 0;
-    
-    return { received, interacted, engagementRate };
-  };
-
-  const renderHistoryItem = ({ item }) => (
-    <View style={styles.historyItem}>
-      <View style={styles.historyHeader}>
-        <Text style={styles.historyTitle}>{item.title}</Text>
-        <Text style={styles.historyType}>
-          {item.type === 'received' ? '📥' : '👆'} {item.type}
-        </Text>
-      </View>
-      <Text style={styles.historyBody}>{item.body}</Text>
-      <Text style={styles.historyTime}>
-        {new Date(item.timestamp).toLocaleString()}
-      </Text>
-      {item.metadata?.action && (
-        <Text style={styles.historyAction}>
-          Action: {item.metadata.action}
-        </Text>
-      )}
-    </View>
-  );
-
-  const stats = getEngagementStats();
-
-  return (
-    <SafeAreaView style={styles.container}>
-      <ScrollView>
-        <View style={styles.header}>
-          <Text style={styles.title}>Notification Manager</Text>
-          <Text style={styles.subtitle}>
-            {scheduledNotifications.length} scheduled • {notificationHistory.length} in history
-          </Text>
-        </View>
-
-        {/* Engagement Stats */}
-        <View style={styles.statsSection}>
-          <Text style={styles.sectionTitle}>📊 Engagement Stats</Text>
-          <View style={styles.statsGrid}>
-            <View style={styles.statItem}>
-              <Text style={styles.statValue}>{stats.received}</Text>
-              <Text style={styles.statLabel}>Received</Text>
-            </View>
-            <View style={styles.statItem}>
-              <Text style={styles.statValue}>{stats.interacted}</Text>
-              <Text style={styles.statLabel}>Interacted</Text>
-            </View>
-            <View style={styles.statItem}>
-              <Text style={styles.statValue}>{stats.engagementRate}%</Text>
-              <Text style={styles.statLabel}>Engagement</Text>
-            </View>
-          </View>
-        </View>
-
-        {/* Preferences */}
-        <View style={styles.preferencesSection}>
-          <Text style={styles.sectionTitle}>⚙️ Notification Preferences</Text>
-          
-          <View style={styles.preferenceItem}>
-            <Text style={styles.preferenceLabel}>Enable Notifications</Text>
-            <Switch
-              value={preferences.enableNotifications}
-              onValueChange={() => togglePreference('enableNotifications')}
-            />
-          </View>
-          
-          <View style={styles.preferenceItem}>
-            <Text style={styles.preferenceLabel}>Enable Sounds</Text>
-            <Switch
-              value={preferences.enableSounds}
-              onValueChange={() => togglePreference('enableSounds')}
-              disabled={!preferences.enableNotifications}
-            />
-          </View>
-          
-          <View style={styles.preferenceItem}>
-            <Text style={styles.preferenceLabel}>Reminder Notifications</Text>
-            <Switch
-              value={preferences.enableReminders}
-              onValueChange={() => togglePreference('enableReminders')}
-              disabled={!preferences.enableNotifications}
-            />
-          </View>
-          
-          <View style={styles.preferenceItem}>
-            <Text style={styles.preferenceLabel}>Promotional Notifications</Text>
-            <Switch
-              value={preferences.enablePromotions}
-              onValueChange={() => togglePreference('enablePromotions')}
-              disabled={!preferences.enableNotifications}
-            />
-          </View>
-        </View>
-
-        {/* Quick Actions */}
-        <View style={styles.actionsSection}>
-          <Text style={styles.sectionTitle}>⚡ Quick Actions</Text>
-          
-          <TouchableOpacity
-            style={styles.actionButton}
-            onPress={() => scheduleReminderNotification('Test Reminder', 'This is a test reminder with actions', 0.1)}
-          >
-            <Text style={styles.actionButtonText}>🔔 Test Reminder (5s)</Text>
-          </TouchableOpacity>
-          
-          <TouchableOpacity
-            style={styles.actionButton}
-            onPress={() => scheduleReminderNotification('Daily Standup', 'Time for your daily team standup!', 1)}
-          >
-            <Text style={styles.actionButtonText}>📅 Schedule Meeting (1min)</Text>
-          </TouchableOpacity>
-          
-          <View style={styles.actionRow}>
-            <TouchableOpacity
-              style={[styles.actionButton, styles.secondaryButton]}
-              onPress={cancelAllScheduled}
-            >
-              <Text style={styles.secondaryButtonText}>❌ Cancel All</Text>
-            </TouchableOpacity>
-            
-            <TouchableOpacity
-              style={[styles.actionButton, styles.secondaryButton]}
-              onPress={clearHistory}
-            >
-              <Text style={styles.secondaryButtonText}>🗑️ Clear History</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-
-        {/* Notification History */}
-        <View style={styles.historySection}>
-          <Text style={styles.sectionTitle}>📝 Recent Activity</Text>
-          {notificationHistory.length === 0 ? (
-            <View style={styles.emptyState}>
-              <Text style={styles.emptyText}>No notification activity yet</Text>
-              <Text style={styles.emptySubtext}>
-                Send a test notification to see activity here
-              </Text>
-            </View>
-          ) : (
-            <FlatList
-              data={notificationHistory.slice(0, 10)} // Show recent 10
-              renderItem={renderHistoryItem}
-              keyExtractor={(item) => item.id}
-              style={styles.historyList}
-              scrollEnabled={false}
-            />
-          )}
-        </View>
-      </ScrollView>
-    </SafeAreaView>
-  );
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#f5f5f5',
-  },
-  header: {
-    padding: 20,
-    backgroundColor: 'white',
-    alignItems: 'center',
-    borderBottomWidth: 1,
-    borderBottomColor: '#e0e0e0',
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: '#333',
-  },
-  subtitle: {
-    fontSize: 14,
-    color: '#666',
-    marginTop: 4,
-  },
-  statsSection: {
-    backgroundColor: 'white',
-    margin: 15,
-    padding: 20,
-    borderRadius: 12,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 3,
-  },
-  sectionTitle: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: '#333',
-    marginBottom: 15,
-  },
-  statsGrid: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  statItem: {
-    alignItems: 'center',
-    flex: 1,
-  },
-  statValue: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: '#007AFF',
-  },
-  statLabel: {
-    fontSize: 12,
-    color: '#666',
-    marginTop: 4,
-  },
-  preferencesSection: {
-    backgroundColor: 'white',
-    margin: 15,
-    padding: 20,
-    borderRadius: 12,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 3,
-  },
-  preferenceItem: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingVertical: 12,
-    borderBottomWidth: 1,
-    borderBottomColor: '#f0f0f0',
-  },
-  preferenceLabel: {
-    fontSize: 16,
-    color: '#333',
-  },
-  actionsSection: {
-    backgroundColor: 'white',
-    margin: 15,
-    padding: 20,
-    borderRadius: 12,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 3,
-  },
-  actionButton: {
-    backgroundColor: '#007AFF',
-    paddingVertical: 12,
-    paddingHorizontal: 20,
-    borderRadius: 8,
-    alignItems: 'center',
-    marginBottom: 10,
-  },
-  secondaryButton: {
-    backgroundColor: 'transparent',
-    borderWidth: 1,
-    borderColor: '#007AFF',
-    flex: 1,
-    marginHorizontal: 5,
-  },
-  actionButtonText: {
-    color: 'white',
-    fontSize: 16,
-    fontWeight: 'bold',
-  },
-  secondaryButtonText: {
-    color: '#007AFF',
-    fontSize: 16,
-    fontWeight: 'bold',
-  },
-  actionRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  historySection: {
-    margin: 15,
-  },
-  emptyState: {
-    backgroundColor: 'white',
-    padding: 30,
-    borderRadius: 8,
-    alignItems: 'center',
-  },
-  emptyText: {
-    fontSize: 16,
-    fontWeight: '500',
-    color: '#666',
-  },
-  emptySubtext: {
-    fontSize: 14,
-    color: '#999',
-    marginTop: 5,
-    textAlign: 'center',
-  },
-  historyList: {
-    maxHeight: 400,
-  },
-  historyItem: {
-    backgroundColor: 'white',
-    padding: 15,
-    borderRadius: 8,
-    marginBottom: 8,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.1,
-    shadowRadius: 2,
-    elevation: 2,
-  },
-  historyHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 5,
-  },
-  historyTitle: {
-    fontSize: 14,
-    fontWeight: 'bold',
-    color: '#333',
-    flex: 1,
-  },
-  historyType: {
-    fontSize: 12,
-    color: '#666',
-    backgroundColor: '#f0f0f0',
-    paddingHorizontal: 8,
-    paddingVertical: 2,
-    borderRadius: 10,
-  },
-  historyBody: {
-    fontSize: 14,
-    color: '#666',
-    marginBottom: 5,
-  },
-  historyTime: {
-    fontSize: 12,
-    color: '#999',
-    marginBottom: 3,
-  },
-  historyAction: {
-    fontSize: 12,
-    color: '#007AFF',
-    fontWeight: '500',
-  },
-});`}
-          language="jsx"
-          filename="AdvancedNotificationManager.jsx"
-          title="Complete Notification Management System"
+          language="tsx"
+          filename="ReminderManager.tsx"
+          title="Simple Reminder App Component"
         />
 
         <div className="bg-blue-50 dark:bg-blue-950 p-4 rounded-lg border border-blue-200 dark:border-blue-800 my-6">
           <h4 className="text-blue-800 dark:text-blue-200 font-semibold mb-2 mt-0">
-            💼 Enterprise Features
+            🎯 Reminder Features
           </h4>
           <div className="text-blue-700 dark:text-blue-300 text-sm space-y-2">
-            <div><strong>User Preferences:</strong> Granular notification controls with persistent settings</div>
-            <div><strong>Interactive Actions:</strong> Custom notification buttons for snooze, complete, etc.</div>
-            <div><strong>Analytics Tracking:</strong> Engagement metrics and notification history</div>
-            <div><strong>Smart Scheduling:</strong> Context-aware notification timing and frequency</div>
-            <div><strong>Category Management:</strong> Organized notification types with different behaviors</div>
+            <div>• <strong>Custom reminders</strong> - Set your own reminder text and timing</div>
+            <div>• <strong>Quick presets</strong> - Common reminders with preset times</div>
+            <div>• <strong>Input validation</strong> - Check for valid reminder text and timing</div>
+            <div>• <strong>User feedback</strong> - Clear confirmation when reminders are set</div>
           </div>
         </div>
 
-        <h2>6. Hands-On Exercise: Personal Notification Assistant</h2>
+        <h2>8. Practice Exercise</h2>
         <p>
-          Now it's your turn! Create a personal notification assistant app that combines local scheduling, 
-          push notifications, and smart management features to help users stay organized and productive.
+          Now it's your turn! Build a notification feature using what you've learned.
         </p>
 
-        <div className="bg-orange-50 dark:bg-orange-950 p-6 rounded-lg border border-orange-200 dark:border-orange-800 my-6">
+        <div className="bg-orange-50 dark:bg-orange-950 p-6 rounded-lg border border-orange-200 dark:border-orange-800 mb-6">
           <h4 className="text-orange-800 dark:text-orange-200 font-semibold mb-3 mt-0">
-            🎯 Exercise: Smart Reminder System
+            🎯 Build a Study Timer
           </h4>
-          <div className="text-orange-700 dark:text-orange-300 space-y-3">
-            <div>
-              <strong>Core Requirements:</strong>
-              <ul className="list-disc list-inside mt-2 space-y-1 text-sm">
-                <li>Create custom reminders with titles, notes, and timing</li>
-                <li>Support multiple reminder types (tasks, meetings, medications, etc.)</li>
-                <li>Location-based reminders that trigger near specific places</li>
-                <li>Smart scheduling with snooze and reschedule options</li>
-                <li>Push notification integration for remote reminders</li>
-                <li>Analytics dashboard showing reminder completion rates</li>
-              </ul>
-            </div>
-            
-            <div>
-              <strong>Bonus Features:</strong>
-              <ul className="list-disc list-inside mt-2 space-y-1 text-sm">
-                <li>Voice notes for reminders using expo-av</li>
-                <li>Photo attachments for visual reminders</li>
-                <li>Recurring reminder patterns (daily, weekly, monthly)</li>
-                <li>Smart suggestions based on usage patterns</li>
-                <li>Integration with calendar events</li>
-                <li>Shared reminders with family or team members</li>
-              </ul>
+          <div className="text-orange-700 dark:text-orange-300 space-y-2">
+            <div><strong>Goal:</strong> Create a simple study timer that sends break reminders</div>
+            <div className="text-sm space-y-1 mt-2">
+              <div>• Use NotificationSender to create a basic timer interface</div>
+              <div>• Add buttons for common study intervals (25min, 45min, 60min)</div>
+              <div>• Send encouraging break reminder notifications</div>
+              <div>• Show a countdown until the next notification</div>
+              <div>• Handle permissions and errors properly</div>
             </div>
           </div>
         </div>
 
-        <CodeBlock
-          code={`// Starter template for your reminder assistant app
-import React, { useState, useEffect } from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  SafeAreaView,
-  FlatList,
-} from 'react-native';
-import * as Notifications from 'expo-notifications';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+        <h2>9. Session Summary</h2>
 
-const REMINDERS_KEY = 'user_reminders';
-
-export default function SmartReminderSystem() {
-  const [reminders, setReminders] = useState([]);
-  const [categories, setCategories] = useState(['Personal', 'Work', 'Health', 'Shopping']);
-
-  useEffect(() => {
-    loadReminders();
-    setupNotificationListeners();
-  }, []);
-
-  const loadReminders = async () => {
-    try {
-      // TODO: Load reminders from AsyncStorage
-    } catch (error) {
-      console.error('Failed to load reminders:', error);
-    }
-  };
-
-  const setupNotificationListeners = () => {
-    // TODO: Set up notification received and response listeners
-  };
-
-  const createReminder = async (reminderData) => {
-    try {
-      // TODO: Create reminder with notification scheduling
-    } catch (error) {
-      console.error('Failed to create reminder:', error);
-    }
-  };
-
-  const scheduleReminderNotification = async (reminder) => {
-    try {
-      // TODO: Schedule notification based on reminder settings
-    } catch (error) {
-      console.error('Failed to schedule notification:', error);
-    }
-  };
-
-  const renderReminderItem = ({ item }) => {
-    // TODO: Render reminder with actions (complete, snooze, edit)
-    return (
-      <View style={styles.reminderItem}>
-        <Text style={styles.reminderTitle}>{item.title}</Text>
-        <Text style={styles.reminderTime}>
-          {new Date(item.scheduledTime).toLocaleString()}
-        </Text>
-      </View>
-    );
-  };
-
-  return (
-    <SafeAreaView style={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.title}>Smart Reminders</Text>
-        {/* TODO: Add create reminder button */}
-      </View>
-
-      <FlatList
-        data={reminders}
-        renderItem={renderReminderItem}
-        keyExtractor={(item) => item.id}
-        // TODO: Add empty state and categorization
-      />
-    </SafeAreaView>
-  );
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#f5f5f5',
-  },
-  header: {
-    padding: 20,
-    backgroundColor: 'white',
-    alignItems: 'center',
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: '#333',
-  },
-  reminderItem: {
-    backgroundColor: 'white',
-    padding: 15,
-    marginHorizontal: 15,
-    marginBottom: 10,
-    borderRadius: 8,
-  },
-  reminderTitle: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: '#333',
-  },
-  reminderTime: {
-    fontSize: 14,
-    color: '#666',
-  },
-  // Add your custom styles here
-});`}
-          language="jsx"
-          filename="SmartReminderExercise.jsx"
-          title="Exercise Starter Template"
-        />
-
-        <h2>7. Best Practices & Guidelines</h2>
-
-        <div className="grid md:grid-cols-2 gap-4 my-6">
-          <div className="p-4 bg-blue-50 dark:bg-blue-900 rounded-lg border">
-            <h4 className="font-semibold mb-3 mt-0">📱 User Experience</h4>
-            <div className="text-sm space-y-2">
-              <div>• Request permissions with clear value proposition</div>
-              <div>• Provide granular notification preferences</div>
-              <div>• Use meaningful titles and actionable content</div>
-              <div>• Respect user's quiet hours and preferences</div>
-              <div>• Allow easy opt-out and customization</div>
-            </div>
-          </div>
-          
-          <div className="p-4 bg-green-50 dark:bg-green-900 rounded-lg border">
-            <h4 className="font-semibold mb-3 mt-0">🔒 Privacy & Security</h4>
-            <div className="text-sm space-y-2">
-              <div>• Store push tokens securely on your server</div>
-              <div>• Don't include sensitive data in notifications</div>
-              <div>• Use HTTPS for all notification API calls</div>
-              <div>• Implement proper rate limiting</div>
-              <div>• Provide clear privacy policy</div>
-            </div>
-          </div>
-        </div>
-
-        <div className="bg-gray-50 dark:bg-gray-900 p-6 rounded-lg border my-6">
-          <h4 className="font-semibold mb-3 mt-0">📱 Platform-Specific Guidelines</h4>
-          <div className="space-y-4">
-            <div>
-              <strong className="text-blue-600">iOS Guidelines:</strong>
-              <div className="text-sm mt-1 space-y-1">
-                <div>• Follow Apple's Human Interface Guidelines for notifications</div>
-                <div>• Use notification categories for interactive actions</div>
-                <div>• Respect iOS notification grouping and threading</div>
-                <div>• Handle notification permissions gracefully</div>
-              </div>
-            </div>
-            
-            <div>
-              <strong className="text-green-600">Android Guidelines:</strong>
-              <div className="text-sm mt-1 space-y-1">
-                <div>• Use notification channels for categorization</div>
-                <div>• Support Android's notification importance levels</div>
-                <div>• Handle background app limitations properly</div>
-                <div>• Use appropriate notification icons and colors</div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <h2>8. Key Takeaways</h2>
-        <div className="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-950 dark:to-indigo-950 p-6 rounded-lg border border-blue-200 dark:border-blue-800 my-6">
-          <ul className="space-y-2 mb-0 text-blue-800 dark:text-blue-200">
-            <li className="flex items-start gap-2">
-              <span className="text-blue-500 mt-1">•</span>
-              <span><strong>expo-notifications</strong> provides unified local and push notification capabilities</span>
-            </li>
-            <li className="flex items-start gap-2">
-              <span className="text-blue-500 mt-1">•</span>
-              <span><strong>Permission management</strong> is critical for notification delivery and user trust</span>
-            </li>
-            <li className="flex items-start gap-2">
-              <span className="text-blue-500 mt-1">•</span>
-              <span><strong>Push tokens</strong> enable server-to-device communication for real-time updates</span>
-            </li>
-            <li className="flex items-start gap-2">
-              <span className="text-blue-500 mt-1">•</span>
-              <span><strong>Interactive notifications</strong> improve engagement through actionable content</span>
-            </li>
-            <li className="flex items-start gap-2">
-              <span className="text-blue-500 mt-1">•</span>
-              <span><strong>User preferences</strong> and analytics enable personalized notification experiences</span>
-            </li>
+        <div className="bg-blue-50 dark:bg-blue-950 p-6 rounded-lg border border-blue-200 dark:border-blue-800">
+          <h4 className="text-blue-800 dark:text-blue-200 font-semibold mb-3 mt-0">
+            📚 What You Learned:
+          </h4>
+          <ul className="text-blue-700 dark:text-blue-300 text-sm space-y-1 mb-0">
+            <li><strong>expo-notifications</strong> - Simple notification system for React Native</li>
+            <li><strong>Permission patterns</strong> - How to request and handle notification permissions</li>
+            <li><strong>Scheduling</strong> - Send notifications immediately or schedule for later</li>
+            <li><strong>Event handling</strong> - Listen for notification events and user interactions</li>
+            <li><strong>User experience</strong> - Build helpful, respectful notification features</li>
           </ul>
         </div>
-
-        <div className="bg-green-50 dark:bg-green-950 p-6 rounded-lg border border-green-200 dark:border-green-800">
+        
+        <div className="bg-green-50 dark:bg-green-950 p-6 rounded-lg border border-green-200 dark:border-green-800 mt-6">
           <h4 className="text-green-800 dark:text-green-200 font-semibold mb-3 mt-0">
             🚀 Next Steps
           </h4>
           <div className="text-green-700 dark:text-green-300 space-y-2">
             <div>
-              <strong>Advanced features:</strong> Rich media notifications, custom sounds, and notification extensions
+              <strong>Bonus Session:</strong> Device storage and user preferences (AsyncStorage)
             </div>
             <div>
-              <strong>Server integration:</strong> Build robust backend systems for push notification delivery
+              <strong>Challenge:</strong> Combine images, location, and notifications in one app
             </div>
             <div>
-              <strong>Analytics:</strong> Implement comprehensive notification tracking and optimization
-            </div>
-            <div>
-              <strong>Personalization:</strong> Machine learning for optimal notification timing and content
+              <strong>Advanced topics:</strong> Push notifications from servers, rich media notifications
             </div>
           </div>
         </div>

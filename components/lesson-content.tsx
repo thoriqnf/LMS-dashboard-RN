@@ -38,6 +38,9 @@ import { Day4ChallengeContent } from "./lessons/day-4/challenge";
 import { Day5Session1Content } from "./lessons/day-5/session-1";
 import { Day5Session2Content } from "./lessons/day-5/session-2";
 import { Day5Session3Content } from "./lessons/day-5/session-3";
+import { Day5Session4Content } from "./lessons/day-5/session-4";
+import { Day5Session5Content } from "./lessons/day-5/session-5";
+import { Day5ChallengeContent } from "./lessons/day-5/challenge";
 
 interface LessonContentProps {
   activeSession: { day: number; session: number };
@@ -155,7 +158,9 @@ export function LessonContent({
     // Day 5 sessions
     if (day === 5 && session === 1) return <Day5Session1Content />;
     if (day === 5 && session === 2) return <Day5Session2Content />;
-    if (day === 5 && session === 3) return <Day5Session3Content />;
+    if (day === 5 && session === 3) return <Day5Session5Content />;
+    if (day === 5 && session === 4) return <Day5Session4Content />;
+    if (day === 5 && session === 5) return <Day5Session5Content />;
 
     // For sessions not yet implemented, show placeholder
     return (
@@ -307,6 +312,47 @@ export function LessonContent({
       return (
         <div>
           <Day4ChallengeContent />
+
+          {/* Finish Content Button */}
+          {isClient && (
+            <div className="mt-8 flex justify-center">
+              {isCompleted ? (
+                <div className="flex items-center gap-2 text-green-600">
+                  <CheckCircle className="h-4 w-4 sm:h-5 sm:w-5" />
+                  <span className="font-medium text-sm sm:text-base">
+                    Challenge Completed!
+                  </span>
+                </div>
+              ) : (
+                <Button
+                  onClick={handleFinishContent}
+                  size="lg"
+                  className="px-6 sm:px-8 text-sm sm:text-base"
+                >
+                  Complete Challenge
+                </Button>
+              )}
+            </div>
+          )}
+
+          {/* Password Dialog */}
+          <PasswordDialog
+            isOpen={showPasswordDialog}
+            onClose={() => setShowPasswordDialog(false)}
+            onSubmit={handlePasswordSubmit}
+            loading={loading}
+            error={error}
+            sessionInfo={activeSession}
+          />
+        </div>
+      );
+    }
+
+    // Day 5 has a custom comprehensive challenge component
+    if (activeSession.day === 5) {
+      return (
+        <div>
+          <Day5ChallengeContent />
 
           {/* Finish Content Button */}
           {isClient && (

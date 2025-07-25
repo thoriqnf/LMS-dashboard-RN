@@ -8,7 +8,7 @@ export function Day5Session1Content() {
       <div className="prose prose-slate dark:prose-invert max-w-none">
         <div className="mb-8">
           <h1 className="text-3xl font-bold mb-4">
-            Media Picker - Session 1
+            Camera & Image Basics - Session 1
           </h1>
 
           <div className="bg-blue-50 dark:bg-blue-950 p-6 rounded-lg border border-blue-200 dark:border-blue-800 mb-8">
@@ -17,70 +17,68 @@ export function Day5Session1Content() {
             </h3>
             <ul className="text-blue-700 dark:text-blue-300 space-y-2 mb-0">
               <li>
-                <strong>expo-image-picker Setup</strong> - Install and configure image picker
+                <strong>Image Picker Setup</strong> - Install expo-image-picker and basic configuration
               </li>
               <li>
-                <strong>Camera & Gallery Access</strong> - Handle permissions and image selection
+                <strong>Simple Image Selection</strong> - Choose between camera and gallery with permissions
               </li>
               <li>
-                <strong>Image Preview</strong> - Display and manage selected images
-              </li>
-              <li>
-                <strong>Essential Patterns</strong> - Simple, reliable image handling
+                <strong>Image Display</strong> - Show selected images with basic management
               </li>
             </ul>
           </div>
         </div>
 
-        <h2>1. Why Image Picker Matters</h2>
+        <h2>1. Why Learn Image Handling?</h2>
         <p>
-          Most apps need image functionality—profile photos, uploads, sharing. 
-          Let's build simple, reliable image pickers with proper permissions.
+          Almost every mobile app needs image functionality—profile photos, social posts, document uploads. 
+          Today we'll build simple, practical image pickers that work reliably on both iOS and Android.
         </p>
 
-        <h2>2. Setting Up expo-image-picker</h2>
+        <h2>2. Setting Up Image Picker</h2>
         <p>
-          First, install expo-image-picker for camera and gallery access.
+          Install expo-image-picker, which provides simple access to camera and photo gallery on both platforms.
         </p>
 
         <CodeBlock
-          code={`# Install expo-image-picker
+          code={`# Install the image picker library
 npx expo install expo-image-picker`}
           language="bash"
           filename="terminal"
-          title="Installation"
+          title="Installation Command"
         />
 
         <div className="bg-yellow-50 dark:bg-yellow-950 p-4 rounded-lg border border-yellow-200 dark:border-yellow-800 my-6">
           <h4 className="text-yellow-800 dark:text-yellow-200 font-semibold mb-2 mt-0">
-            📱 Permissions Setup
+            📱 Development vs Production
           </h4>
           <p className="text-yellow-700 dark:text-yellow-300 text-sm mb-2">
-            For production builds, add to app.json:
+            For development, permissions are handled automatically. For production builds, you'd add configuration to app.config.js:
           </p>
           <CodeBlock
-            code={`{
-  "expo": {
-    "plugins": [
+            code={`// app.config.js - Only needed for production builds
+export default {
+  expo: {
+    plugins: [
       [
         "expo-image-picker",
         {
-          "photosPermission": "Access photos to upload images",
-          "cameraPermission": "Access camera to take photos"
+          photosPermission: "Allow photos for profile pictures",
+          cameraPermission: "Take photos for your profile"
         }
       ]
     ]
   }
-}`}
-            language="json"
-            filename="app.json"
-            title="Permission Configuration"
+};`}
+            language="javascript"
+            filename="app.config.js"
+            title="Production Configuration (Optional)"
           />
         </div>
 
-        <h2>3. Basic Image Picker</h2>
+        <h2>3. Example 1: Basic Image Picker</h2>
         <p>
-          Let's create a simple image picker with camera and gallery options.
+          Let's start with a simple image picker that lets users choose between camera and gallery.
         </p>
 
         <CodeBlock
@@ -92,156 +90,325 @@ import {
   Image,
   Alert,
   SafeAreaView,
+  StyleSheet,
 } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 
-export default function BasicImagePicker() {
-  const [selectedImage, setSelectedImage] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
+// Define the shape of our image data
+interface ImageAsset {
+  uri: string;
+  width: number;
+  height: number;
+}
 
-  const pickImageFromCamera = async () => {
+export default function BasicImagePicker(): JSX.Element {
+  const [selectedImage, setSelectedImage] = useState<ImageAsset | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  const selectImage = async (useCamera: boolean): Promise<void> => {
     try {
       setIsLoading(true);
       
-      const cameraPermission = await ImagePicker.requestCameraPermissionsAsync();
-      if (!cameraPermission.granted) {
-        Alert.alert('Permission Required', 'Camera access needed.');
+      // Request appropriate permission
+      const permission = useCamera 
+        ? await ImagePicker.requestCameraPermissionsAsync()
+        : await ImagePicker.requestMediaLibraryPermissionsAsync();
+      
+      if (!permission.granted) {
+        Alert.alert('Permission needed', 'Please allow access to continue');
         return;
       }
 
-      const result = await ImagePicker.launchCameraAsync({
-        mediaTypes: ImagePicker.MediaTypeOptions.Images,
-        allowsEditing: true,
-        aspect: [1, 1],
-        quality: 0.8,
-      });
+      // Launch the appropriate picker
+      const result = useCamera
+        ? await ImagePicker.launchCameraAsync({
+            allowsEditing: true,
+            aspect: [1, 1],
+            quality: 0.8,
+          })
+        : await ImagePicker.launchImageLibraryAsync({
+            allowsEditing: true,
+            aspect: [1, 1],
+            quality: 0.8,
+          });
 
       if (!result.canceled && result.assets[0]) {
         setSelectedImage(result.assets[0]);
       }
     } catch (error) {
-      Alert.alert('Error', 'Failed to take photo.');
+      Alert.alert('Error', 'Something went wrong. Please try again.');
     } finally {
       setIsLoading(false);
     }
   };
 
-  const pickImageFromGallery = async () => {
-    try {
-      setIsLoading(true);
-      
-      const libraryPermission = await ImagePicker.requestMediaLibraryPermissionsAsync();
-      if (!libraryPermission.granted) {
-        Alert.alert('Permission Required', 'Gallery access needed.');
-        return;
-      }
-
-      const result = await ImagePicker.launchImageLibraryAsync({
-        mediaTypes: ImagePicker.MediaTypeOptions.Images,
-        allowsEditing: true,
-        aspect: [1, 1],
-        quality: 0.8,
-      });
-
-      if (!result.canceled && result.assets[0]) {
-        setSelectedImage(result.assets[0]);
-      }
-    } catch (error) {
-      Alert.alert('Error', 'Failed to select image.');
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const showImagePicker = () => {
+  const showOptions = (): void => {
     Alert.alert(
-      'Select Image',
-      'Choose image source',
+      'Select Photo',
+      'Choose how to select your photo',
       [
-        { text: 'Camera', onPress: pickImageFromCamera },
-        { text: 'Gallery', onPress: pickImageFromGallery },
+        { text: 'Camera', onPress: () => selectImage(true) },
+        { text: 'Gallery', onPress: () => selectImage(false) },
         { text: 'Cancel', style: 'cancel' },
       ]
     );
   };
 
   return (
-    <SafeAreaView style={{ flex: 1, padding: 20, alignItems: 'center' }}>
-      <Text style={{ fontSize: 24, fontWeight: 'bold', marginBottom: 30 }}>
-        Profile Photo
-      </Text>
+    <SafeAreaView style={styles.container}>
+      <Text style={styles.title}>Profile Photo</Text>
       
-      <View style={{ marginBottom: 30 }}>
+      <View style={styles.imageContainer}>
         {selectedImage ? (
-          <Image 
-            source={{ uri: selectedImage.uri }} 
-            style={{ width: 200, height: 200, borderRadius: 100 }} 
-          />
+          <Image source={{ uri: selectedImage.uri }} style={styles.image} />
         ) : (
-          <View style={{ 
-            width: 200, 
-            height: 200, 
-            borderRadius: 100, 
-            backgroundColor: '#e0e0e0',
-            justifyContent: 'center',
-            alignItems: 'center'
-          }}>
-            <Text style={{ fontSize: 40 }}>📷</Text>
-            <Text style={{ color: '#666' }}>No image</Text>
+          <View style={styles.placeholder}>
+            <Text style={styles.placeholderIcon}>📷</Text>
+            <Text style={styles.placeholderText}>No photo selected</Text>
           </View>
         )}
       </View>
 
       <TouchableOpacity
-        style={{ 
-          backgroundColor: '#007AFF', 
-          padding: 15, 
-          borderRadius: 25,
-          opacity: isLoading ? 0.5 : 1
-        }}
-        onPress={showImagePicker}
+        style={[styles.button, isLoading && styles.buttonDisabled]}
+        onPress={showOptions}
         disabled={isLoading}
       >
-        <Text style={{ color: 'white', fontSize: 18, fontWeight: 'bold' }}>
-          {isLoading ? 'Loading...' : 'Select Image'}
+        <Text style={styles.buttonText}>
+          {isLoading ? 'Loading...' : 'Choose Photo'}
         </Text>
       </TouchableOpacity>
-
-      {selectedImage && (
-        <View style={{ 
-          backgroundColor: 'white', 
-          padding: 15, 
-          borderRadius: 10, 
-          marginTop: 20,
-          width: '100%'
-        }}>
-          <Text style={{ fontWeight: 'bold', marginBottom: 5 }}>Image Info:</Text>
-          <Text>Size: {selectedImage.width} x {selectedImage.height}</Text>
-        </View>
-      )}
     </SafeAreaView>
   );
-}`}
-          language="jsx"
-          filename="BasicImagePicker.jsx"
-          title="Simple Image Picker"
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 20,
+    alignItems: 'center',
+    backgroundColor: '#f5f5f5',
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 30,
+    color: '#333',
+  },
+  imageContainer: {
+    marginBottom: 30,
+  },
+  image: {
+    width: 200,
+    height: 200,
+    borderRadius: 100,
+  },
+  placeholder: {
+    width: 200,
+    height: 200,
+    borderRadius: 100,
+    backgroundColor: '#e0e0e0',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  placeholderIcon: {
+    fontSize: 40,
+    marginBottom: 10,
+  },
+  placeholderText: {
+    color: '#666',
+    fontSize: 16,
+  },
+  button: {
+    backgroundColor: '#007AFF',
+    paddingHorizontal: 30,
+    paddingVertical: 15,
+    borderRadius: 25,
+  },
+  buttonDisabled: {
+    opacity: 0.5,
+  },
+  buttonText: {
+    color: 'white',
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
+});`}
+          language="tsx"
+          filename="BasicImagePicker.tsx"
+          title="Simple Image Picker Component"
         />
 
         <div className="bg-green-50 dark:bg-green-950 p-4 rounded-lg border border-green-200 dark:border-green-800 my-6">
           <h4 className="text-green-800 dark:text-green-200 font-semibold mb-2 mt-0">
-            🔧 Key Features
+            🔧 Key Learning Points
           </h4>
           <div className="text-green-700 dark:text-green-300 text-sm space-y-1">
-            <div>• Permission handling for camera and gallery</div>
-            <div>• Image cropping with aspect ratio control</div>
-            <div>• Quality setting for file size management</div>
-            <div>• Error handling with user-friendly alerts</div>
+            <div>• <strong>TypeScript interfaces</strong> help us define image data structure</div>
+            <div>• <strong>Permission handling</strong> is required before accessing camera/gallery</div>
+            <div>• <strong>Async/await</strong> pattern for handling image picker operations</div>
+            <div>• <strong>Error handling</strong> with try/catch and user-friendly messages</div>
           </div>
         </div>
 
-        <h2>4. Multiple Image Selection</h2>
+        <h2>4. Example 2: Image Display Component</h2>
         <p>
-          Now let's create a simple gallery that supports multiple image selection.
+          Let's create a reusable component for displaying images with basic management features.
+        </p>
+
+        <CodeBlock
+          code={`import React from 'react';
+import {
+  View,
+  Text,
+  Image,
+  TouchableOpacity,
+  Alert,
+  StyleSheet,
+} from 'react-native';
+
+interface ImageAsset {
+  uri: string;
+  width: number;
+  height: number;
+}
+
+interface ImageDisplayProps {
+  image: ImageAsset | null;
+  onRemove: () => void;
+  onReplace: () => void;
+}
+
+export default function ImageDisplay({ image, onRemove, onReplace }: ImageDisplayProps): JSX.Element {
+  const handleRemove = (): void => {
+    Alert.alert(
+      'Remove Image',
+      'Are you sure you want to remove this image?',
+      [
+        { text: 'Cancel', style: 'cancel' },
+        { text: 'Remove', style: 'destructive', onPress: onRemove },
+      ]
+    );
+  };
+
+  if (!image) {
+    return (
+      <View style={styles.container}>
+        <View style={styles.placeholder}>
+          <Text style={styles.placeholderIcon}>🖼️</Text>
+          <Text style={styles.placeholderText}>No image selected</Text>
+        </View>
+      </View>
+    );
+  }
+
+  return (
+    <View style={styles.container}>
+      <View style={styles.imageContainer}>
+        <Image source={{ uri: image.uri }} style={styles.image} />
+        
+        {/* Action buttons overlay */}
+        <View style={styles.actionButtons}>
+          <TouchableOpacity style={styles.actionButton} onPress={onReplace}>
+            <Text style={styles.actionButtonText}>📷</Text>
+          </TouchableOpacity>
+          
+          <TouchableOpacity style={styles.removeButton} onPress={handleRemove}>
+            <Text style={styles.actionButtonText}>✕</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+      
+      {/* Image info */}
+      <View style={styles.infoContainer}>
+        <Text style={styles.infoText}>
+          Size: {image.width} × {image.height}
+        </Text>
+      </View>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    alignItems: 'center',
+  },
+  imageContainer: {
+    position: 'relative',
+    marginBottom: 15,
+  },
+  image: {
+    width: 250,
+    height: 250,
+    borderRadius: 12,
+  },
+  placeholder: {
+    width: 250,
+    height: 250,
+    borderRadius: 12,
+    backgroundColor: '#f0f0f0',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderWidth: 2,
+    borderColor: '#ddd',
+    borderStyle: 'dashed',
+  },
+  placeholderIcon: {
+    fontSize: 48,
+    marginBottom: 10,
+  },
+  placeholderText: {
+    color: '#666',
+    fontSize: 16,
+  },
+  actionButtons: {
+    position: 'absolute',
+    top: 10,
+    right: 10,
+    flexDirection: 'row',
+    gap: 8,
+  },
+  actionButton: {
+    backgroundColor: 'rgba(0, 122, 255, 0.9)',
+    borderRadius: 20,
+    width: 36,
+    height: 36,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  removeButton: {
+    backgroundColor: 'rgba(255, 59, 48, 0.9)',
+    borderRadius: 20,
+    width: 36,
+    height: 36,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  actionButtonText: {
+    color: 'white',
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  infoContainer: {
+    backgroundColor: '#f8f8f8',
+    paddingHorizontal: 16,
+    paddingVertical: 8,
+    borderRadius: 8,
+  },
+  infoText: {
+    color: '#666',
+    fontSize: 14,
+    fontFamily: 'monospace',
+  },
+});`}
+          language="tsx"
+          filename="ImageDisplay.tsx"
+          title="Reusable Image Display Component"
+        />
+
+        <h2>5. Example 3: Simple Gallery</h2>
+        <p>
+          Now let's build a simple gallery that can hold multiple photos with basic management.
         </p>
 
         <CodeBlock
@@ -250,164 +417,228 @@ import {
   View,
   Text,
   TouchableOpacity,
-  Image,
+  FlatList,
   Alert,
   SafeAreaView,
-  FlatList,
+  StyleSheet,
 } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
+import ImageDisplay from './ImageDisplay';
 
-export default function MultipleImagePicker() {
-  const [images, setImages] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
+interface ImageAsset {
+  uri: string;
+  width: number;
+  height: number;
+}
 
-  const addImage = (newImage) => {
-    setImages(prev => [...prev, {
-      id: Date.now().toString(),
-      ...newImage,
-    }]);
-  };
+interface GalleryImage extends ImageAsset {
+  id: string;
+}
 
-  const removeImage = (imageId) => {
-    setImages(prev => prev.filter(img => img.id !== imageId));
-  };
+export default function SimpleGallery(): JSX.Element {
+  const [images, setImages] = useState<GalleryImage[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  const pickMultipleImages = async () => {
+  const addImage = async (): Promise<void> => {
     try {
       setIsLoading(true);
       
       const permission = await ImagePicker.requestMediaLibraryPermissionsAsync();
       if (!permission.granted) {
-        Alert.alert('Permission Required', 'Gallery access needed.');
+        Alert.alert('Permission needed', 'Please allow gallery access');
         return;
       }
 
       const result = await ImagePicker.launchImageLibraryAsync({
-        mediaTypes: ImagePicker.MediaTypeOptions.Images,
-        allowsMultipleSelection: true,
-        selectionLimit: 5,
-        quality: 0.7,
+        allowsEditing: true,
+        aspect: [1, 1],
+        quality: 0.8,
       });
 
-      if (!result.canceled && result.assets) {
-        result.assets.forEach(asset => addImage(asset));
+      if (!result.canceled && result.assets[0]) {
+        const newImage: GalleryImage = {
+          id: Date.now().toString(),
+          ...result.assets[0],
+        };
+        setImages(prev => [...prev, newImage]);
       }
     } catch (error) {
-      Alert.alert('Error', 'Failed to select images.');
+      Alert.alert('Error', 'Failed to select image');
     } finally {
       setIsLoading(false);
     }
   };
 
-  const renderImageItem = ({ item }) => (
-    <View style={{ 
-      width: '48%', 
-      aspectRatio: 1, 
-      marginBottom: 10, 
-      borderRadius: 8,
-      overflow: 'hidden'
-    }}>
-      <Image source={{ uri: item.uri }} style={{ width: '100%', height: '100%' }} />
-      <TouchableOpacity
-        style={{
-          position: 'absolute',
-          top: 5,
-          right: 5,
-          backgroundColor: 'rgba(255, 0, 0, 0.8)',
-          borderRadius: 15,
-          width: 30,
-          height: 30,
-          justifyContent: 'center',
-          alignItems: 'center'
-        }}
-        onPress={() => removeImage(item.id)}
-      >
-        <Text style={{ color: 'white', fontSize: 16, fontWeight: 'bold' }}>×</Text>
-      </TouchableOpacity>
+  const removeImage = (imageId: string): void => {
+    setImages(prev => prev.filter(img => img.id !== imageId));
+  };
+
+  const renderImageItem = ({ item }: { item: GalleryImage }) => (
+    <View style={styles.imageItem}>
+      <ImageDisplay
+        image={item}
+        onRemove={() => removeImage(item.id)}
+        onReplace={addImage}
+      />
     </View>
   );
 
   return (
-    <SafeAreaView style={{ flex: 1, padding: 20 }}>
-      <Text style={{ fontSize: 24, fontWeight: 'bold', textAlign: 'center', marginBottom: 20 }}>
-        Photo Gallery
-      </Text>
-      
-      <Text style={{ textAlign: 'center', marginBottom: 20, color: '#666' }}>
-        {images.length} photos selected
-      </Text>
+    <SafeAreaView style={styles.container}>
+      <View style={styles.header}>
+        <Text style={styles.title}>My Gallery</Text>
+        <Text style={styles.subtitle}>{images.length} photos</Text>
+      </View>
 
       <TouchableOpacity
-        style={{
-          backgroundColor: '#007AFF',
-          padding: 15,
-          borderRadius: 8,
-          alignItems: 'center',
-          marginBottom: 20,
-          opacity: isLoading ? 0.5 : 1
-        }}
-        onPress={pickMultipleImages}
+        style={[styles.addButton, isLoading && styles.addButtonDisabled]}
+        onPress={addImage}
         disabled={isLoading}
       >
-        <Text style={{ color: 'white', fontSize: 16, fontWeight: 'bold' }}>
-          {isLoading ? 'Loading...' : 'Add Photos'}
+        <Text style={styles.addButtonText}>
+          {isLoading ? 'Adding...' : '+ Add Photo'}
         </Text>
       </TouchableOpacity>
 
-      {images.length > 0 ? (
+      {images.length === 0 ? (
+        <View style={styles.emptyState}>
+          <Text style={styles.emptyIcon}>📸</Text>
+          <Text style={styles.emptyText}>No photos yet</Text>
+          <Text style={styles.emptySubtext}>Tap "Add Photo" to get started</Text>
+        </View>
+      ) : (
         <FlatList
           data={images}
           renderItem={renderImageItem}
           keyExtractor={(item) => item.id}
-          numColumns={2}
-          columnWrapperStyle={{ justifyContent: 'space-between' }}
+          style={styles.list}
+          showsVerticalScrollIndicator={false}
         />
-      ) : (
-        <View style={{ alignItems: 'center', padding: 40 }}>
-          <Text style={{ fontSize: 40, marginBottom: 15 }}>📸</Text>
-          <Text style={{ fontSize: 18, color: '#666' }}>No photos yet</Text>
-          <Text style={{ color: '#999', marginTop: 5 }}>Tap "Add Photos" to start</Text>
-        </View>
       )}
     </SafeAreaView>
   );
-}`}
-          language="jsx"
-          filename="MultipleImagePicker.jsx"
-          title="Multiple Image Selection"
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#f5f5f5',
+  },
+  header: {
+    padding: 20,
+    alignItems: 'center',
+  },
+  title: {
+    fontSize: 28,
+    fontWeight: 'bold',
+    color: '#333',
+  },
+  subtitle: {
+    fontSize: 16,
+    color: '#666',
+    marginTop: 4,
+  },
+  addButton: {
+    backgroundColor: '#007AFF',
+    marginHorizontal: 20,
+    paddingVertical: 15,
+    borderRadius: 12,
+    alignItems: 'center',
+    marginBottom: 20,
+  },
+  addButtonDisabled: {
+    opacity: 0.5,
+  },
+  addButtonText: {
+    color: 'white',
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
+  list: {
+    flex: 1,
+  },
+  imageItem: {
+    padding: 20,
+    alignItems: 'center',
+  },
+  emptyState: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 40,
+  },
+  emptyIcon: {
+    fontSize: 64,
+    marginBottom: 20,
+  },
+  emptyText: {
+    fontSize: 20,
+    fontWeight: '600',
+    color: '#666',
+    marginBottom: 8,
+  },
+  emptySubtext: {
+    fontSize: 16,
+    color: '#999',
+    textAlign: 'center',
+  },
+});`}
+          language="tsx"
+          filename="SimpleGallery.tsx"
+          title="Simple Photo Gallery Component"
         />
 
-        <h2>5. Essential Practice</h2>
+        <h2>6. Practice Exercise</h2>
         <p>
-          Try building your own image picker using the patterns above. 
-          Focus on permissions, error handling, and simple UX.
+          Now it's your turn! Combine the patterns you've learned to build your own image picker.
         </p>
 
         <div className="bg-orange-50 dark:bg-orange-950 p-6 rounded-lg border border-orange-200 dark:border-orange-800 mb-6">
           <h4 className="text-orange-800 dark:text-orange-200 font-semibold mb-3 mt-0">
-            🎯 Quick Practice:
+            🎯 Build a Profile Manager
           </h4>
-          <ul className="text-orange-700 dark:text-orange-300 text-sm space-y-1 mb-0">
-            <li>• Create a simple profile photo picker</li>
-            <li>• Add camera and gallery options</li>
-            <li>• Handle permissions properly</li>
-            <li>• Display selected image with remove option</li>
-          </ul>
+          <div className="text-orange-700 dark:text-orange-300 space-y-2">
+            <div><strong>Goal:</strong> Create a simple profile photo manager for a user account</div>
+            <div className="text-sm space-y-1 mt-2">
+              <div>• Use BasicImagePicker to select a profile photo</div>
+              <div>• Use ImageDisplay to show the current profile photo</div>
+              <div>• Add a "Remove Photo" button that resets to placeholder</div>
+              <div>• Show image dimensions when a photo is selected</div>
+              <div>• Handle loading states and permissions properly</div>
+            </div>
+          </div>
         </div>
 
-        <h2>6. Session Summary</h2>
+        <h2>7. Session Summary</h2>
 
         <div className="bg-blue-50 dark:bg-blue-950 p-6 rounded-lg border border-blue-200 dark:border-blue-800">
           <h4 className="text-blue-800 dark:text-blue-200 font-semibold mb-3 mt-0">
-            📚 Image Picker Essentials:
+            📚 What You Learned:
           </h4>
           <ul className="text-blue-700 dark:text-blue-300 text-sm space-y-1 mb-0">
-            <li><strong>expo-image-picker</strong> - Cross-platform image selection</li>
-            <li><strong>Permissions</strong> - Camera and gallery access handling</li>
-            <li><strong>Image cropping</strong> - Built-in editing with aspect ratios</li>
-            <li><strong>Quality control</strong> - Balance file size and image quality</li>
-            <li><strong>Multiple selection</strong> - Gallery-style image picking</li>
+            <li><strong>expo-image-picker</strong> - Cross-platform image selection made simple</li>
+            <li><strong>TypeScript interfaces</strong> - Define data structures for type safety</li>
+            <li><strong>Permission handling</strong> - Request camera and gallery access properly</li>
+            <li><strong>Reusable components</strong> - Build components that can be used anywhere</li>
+            <li><strong>Error handling</strong> - Graceful error handling with try/catch and alerts</li>
           </ul>
+        </div>
+        
+        <div className="bg-green-50 dark:bg-green-950 p-6 rounded-lg border border-green-200 dark:border-green-800 mt-6">
+          <h4 className="text-green-800 dark:text-green-200 font-semibold mb-3 mt-0">
+            🚀 Next Steps
+          </h4>
+          <div className="text-green-700 dark:text-green-300 space-y-2">
+            <div>
+              <strong>Session 2:</strong> Location services and getting user coordinates
+            </div>
+            <div>
+              <strong>Session 3:</strong> Simple notifications and user alerts
+            </div>
+            <div>
+              <strong>Challenge:</strong> Build a complete app combining all device features
+            </div>
+          </div>
         </div>
       </div>
     </>

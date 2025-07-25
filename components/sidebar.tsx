@@ -91,28 +91,14 @@ const courseStructure = [
   },
   {
     day: 5,
-    title: "Mobile Features",
+    title: "Device Features & Integration",
     icon: Award,
-    sessions: ["Media Picker", "Location & Maps", "Notifications"],
-  },
-  {
-    day: 6,
-    title: "Next.js Fundamentals",
-    icon: GraduationCap,
     sessions: [
-      "Next.js Introduction & Setup",
-      "App Router & Routing",
-      "Server Components & Data Fetching",
-    ],
-  },
-  {
-    day: 7,
-    title: "Next.js API Routes & Serverless Functions",
-    icon: Code,
-    sessions: [
-      "API Route Handlers Fundamentals",
-      "CRUD Operations & Database Integration",
-      "Advanced API Features & Best Practices",
+      "Camera & Image Basics",
+      "Location Essentials",
+      "Simple Notifications",
+      "tes",
+      "firebase",
     ],
   },
 ];

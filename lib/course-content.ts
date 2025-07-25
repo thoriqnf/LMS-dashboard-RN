@@ -246,4 +246,152 @@ const DataDrivenApp = () => {
 // See full details in the lesson content`,
     },
   },
+  4: {
+    title: "Authentication & User Management",
+    description: "Master user authentication, secure login systems, JWT tokens, and session management with json-server-auth",
+    sessions: [
+      {
+        title: "Auth UI & Setup",
+        description: "Install json-server-auth, build professional login/signup forms with validation",
+        content: null,
+      },
+      {
+        title: "Authentication Context",
+        description: "React Context for global auth state, JWT token management, and session persistence",
+        content: null,
+      },
+      {
+        title: "Protected Routes & Navigation",
+        description: "Route protection, authenticated navigation, and secure user experience patterns",
+        content: null,
+      },
+      {
+        title: "Advanced Auth Features",
+        description: "Password reset, profile management, token refresh, and production auth patterns",
+        content: null,
+      },
+    ],
+    challenge: {
+      title: "Build Your Personal App with Authentication",
+      description: "Create a personalized app that showcases authentication mastery through a project meaningful to you",
+      tasks: [
+        "Choose your personal app concept that requires user accounts",
+        "Implement secure user registration and login system",
+        "Build authenticated features that store user-specific data",
+        "Design a smooth user experience with proper session management",
+        "Add personal touches that make the app uniquely yours",
+        "Apply professional authentication patterns throughout",
+      ],
+      codeTemplate: ``,
+    },
+  },
+  5: {
+    title: "Device Features & Integration",
+    description: "Master mobile device features including camera, location, notifications, and data storage with practical examples",
+    sessions: [
+      {
+        title: "Camera & Image Basics",
+        description: "Simple image picker functionality for camera and gallery access with TypeScript",
+        content: null,
+      },
+      {
+        title: "Location Essentials",
+        description: "Basic location services for getting user coordinates and device positioning",
+        content: null,
+      },
+      {
+        title: "Simple Notifications",
+        description: "Local notification system for reminders and user alerts",
+        content: null,
+      },
+      {
+        title: "Device Storage & Preferences",
+        description: "AsyncStorage for user preferences and local data persistence",
+        content: null,
+      },
+      {
+        title: "Firebase Backend & Cloud Storage",
+        description: "Set up Firebase project, implement cloud storage for photos, and add real-time database functionality",
+        content: null,
+      },
+    ],
+    challenge: {
+      title: "Complete Device Features App",
+      description: "Build a comprehensive app that combines camera, location, notifications, and storage features",
+      tasks: [
+        "Step 1: Photo diary that captures images with location data",
+        "Step 2: Settings screen with notification preferences stored locally",
+        "Step 3: Location-based reminders that trigger notifications",
+        "Step 4: Export functionality to save user data and preferences",
+        "Bonus: Add photo sharing and backup to demonstrate complete integration",
+        "Apply professional mobile UX patterns throughout the app",
+      ],
+      codeTemplate: `// Day 5 Challenge: Complete Device Features App
+// Combine camera, location, notifications, and storage
+
+import React, { useState, useEffect } from 'react';
+import { View, Text, SafeAreaView, StyleSheet } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import * as ImagePicker from 'expo-image-picker';
+import * as Location from 'expo-location';
+import * as Notifications from 'expo-notifications';
+
+// TODO: Build comprehensive device features app
+// Features to include:
+// - Photo diary with camera/gallery access
+// - Location-tagged photos and entries
+// - Smart notification reminders
+// - User settings with AsyncStorage
+// - Export/backup functionality
+// - Professional mobile UX patterns
+
+interface DiaryEntry {
+  id: string;
+  text: string;
+  imageUri?: string;
+  location?: {
+    latitude: number;
+    longitude: number;
+  };
+  timestamp: number;
+}
+
+interface UserSettings {
+  notificationsEnabled: boolean;
+  reminderTime: string;
+  locationTracking: boolean;
+  autoBackup: boolean;
+}
+
+const DeviceFeaturesApp = () => {
+  const [entries, setEntries] = useState<DiaryEntry[]>([]);
+  const [settings, setSettings] = useState<UserSettings | null>(null);
+  
+  // Your implementation here
+  // Start with basic structure, then integrate each device feature
+  
+  return (
+    <SafeAreaView style={styles.container}>
+      <View style={styles.content}>
+        {/* Your complete device features app implementation */}
+      </View>
+    </SafeAreaView>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#f5f5f5',
+  },
+  content: {
+    flex: 1,
+    padding: 20,
+  },
+});
+
+// Challenge includes step-by-step instructions and examples
+// See full details in the lesson content`,
+    },
+  },
 }

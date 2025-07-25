@@ -27,9 +27,9 @@ export function isValidSession(day: number, session: number): boolean {
     return (session >= 1 && session <= 4) || session === 5;
   }
 
-  // Day 5: 3 sessions only (no challenge)
+  // Day 5: 4 sessions + 1 challenge (session 5)
   if (day === 5) {
-    return session >= 1 && session <= 3;
+    return (session >= 1 && session <= 4) || session === 5;
   }
 
   // Days 6-7: 4 sessions + 1 challenge (session 5)
@@ -161,7 +161,7 @@ export function getSessionTitle(day: number, session: number): string {
     2: "React Hooks & State",
     3: "Data Management & APIs",
     4: "Authentication & Advanced UI",
-    5: "Mobile Features",
+    5: "Device Features & Integration",
     6: "Next.js Fundamentals",
     7: "Next.js API Routes & Serverless Functions",
   };
@@ -196,9 +196,11 @@ export function getSessionTitle(day: number, session: number): string {
       5: "Routing Challenge",
     },
     5: {
-      1: "Media Picker",
-      2: "Location & Maps",
-      3: "Notifications",
+      1: "Camera & Image Basics",
+      2: "Location Essentials",
+      3: "Simple Notifications",
+      4: "Device Storage & Preferences",
+      5: "Complete Device Features App",
     },
     6: {
       1: "Next.js Introduction & Setup",
@@ -228,19 +230,12 @@ export function getAllValidRoutes(): string[] {
   const routes: string[] = ["/"];
 
   for (let day = 1; day <= 7; day++) {
-    // Day 5 has only 3 sessions, no challenge
-    if (day === 5) {
-      for (let session = 1; session <= 3; session++) {
-        routes.push(`/day${day}/session-${session}`);
-      }
-    } else {
-      // Other days have 4 sessions + 1 challenge
-      routes.push(`/day${day}/challenge`);
-      
-      const maxSession = 4;
-      for (let session = 1; session <= maxSession; session++) {
-        routes.push(`/day${day}/session-${session}`);
-      }
+    // All days have 4 sessions + 1 challenge
+    routes.push(`/day${day}/challenge`);
+    
+    const maxSession = 4;
+    for (let session = 1; session <= maxSession; session++) {
+      routes.push(`/day${day}/session-${session}`);
     }
   }
 
